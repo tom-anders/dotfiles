@@ -7,7 +7,7 @@ export ZSH=/home/tom/.oh-my-zsh
 
 ZSH_THEME="refined"
 
-plugins=(git zsh-syntax-highlighting vi-mode history-substring-search)
+plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract)
 
 source $ZSH/oh-my-zsh.sh
 
