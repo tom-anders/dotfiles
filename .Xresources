@@ -1,0 +1,7 @@
+URxvt*scrollBar:        false
+URxvt.font: xft:Hack-Regular:size=17
+URxvt.letterSpace: 0
+URxvt.internalBorder: 7
+
+URxvt.transparent:   true
+URxvt.shading:       20
