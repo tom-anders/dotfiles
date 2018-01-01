@@ -21,3 +21,5 @@ alias paul='cd /home/tom/Documents/PaulFiles && paul -u tap'
 
 # Autojump
 [[ -s /home/tom/.autojump/etc/profile.d/autojump.sh ]] && source /home/tom/.autojump/etc/profile.d/autojump.sh
+
+fortune linuxcookie sherlock chucknorris paradoxum matrix houseofcards starwars education humorists linux science sports portal2 medicine literature wisdom ascii-art computers breakingbad archlinux news | cowsay
