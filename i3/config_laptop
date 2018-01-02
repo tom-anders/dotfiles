@@ -101,6 +101,7 @@ for_window [class="^.*"] border pixel 0
 set_from_resource $fg i3wm.color7 #f0f0f0
 set_from_resource $bg i3wm.color2 #f0f0f0
 
+#TODO should use the ones from my config on my desktop, looks better when tabbed! Also rememver to use pywal on desktop!
 # Basic color configuration using the Base16 variables for windows and borders.
 # Property Name         Border  BG      Text    Indicator Child Border
 client.focused          $bg     $bg     $fg     $bg     $bg
