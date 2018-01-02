@@ -24,7 +24,7 @@ syntax on
 
 "Colorscheme depending on computer (default: dracula)
 let hostname = substitute(system('hostname'), '\n', '', '')
-if hostname == "tom-arch-linux"
+if hostname == "arch-laptop"
     color wal
 elseif hostname == "Amaa.uni-paderborn.de"
     color base16-solarflare
