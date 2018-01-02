@@ -26,7 +26,7 @@ syntax on
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "tom-arch-linux"
     color wal
-elseif hostamem == "Amaa.uni-paderborn.de"
+elseif hostname == "Amaa.uni-paderborn.de"
     color base16-solarflare
 else
     color = dracula
