@@ -5,3 +5,11 @@ if [ $(hostname) = 'arch-laptop' ]; then
     alias vim='nvim'
     alias paul='cd /home/tom/Documents/PaulFiles && paul -u tap'
 fi
+
+cs() {
+    cd $1 && ls 
+}
+
+ca() {
+    cd $1 && lsa
+}
