@@ -86,6 +86,18 @@ onoremap aö a}
 onoremap aÄ a]
 onoremap aÖ a[
 
+onoremap tä t}
+onoremap tö t}
+onoremap tÄ t]
+onoremap tÖ t[
+onoremap fä f}
+onoremap fö f}
+onoremap fÄ f]
+onoremap fÖ f[
+onoremap fü f\
+onoremap tü t\
+
+
 "source gnuplot syntax file
 so ~/.vim/syntax/gnuplot.vim
 
