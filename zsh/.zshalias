@@ -15,4 +15,4 @@ ca() {
 }
 
 alias update='sudo pacman -Syu'
-alias accio='sudo pacman -Sy'
+alias accio='sudo pacman -S'
