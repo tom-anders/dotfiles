@@ -13,3 +13,5 @@ cs() {
 ca() {
     cd $1 && lsa
 }
+
+alias accio='sudo pacman -Syu'
