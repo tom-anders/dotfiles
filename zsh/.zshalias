@@ -4,6 +4,12 @@ alias open='xdg-open'
 if [ $(hostname) = 'arch-laptop' ]; then
     alias vim='nvim'
     alias paul='cd /home/tom/Documents/PaulFiles && paul -u tap'
+    alias update='sudo pacman -Syu'
+    alias accio='sudo pacman -S'
+fi
+
+if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
+    alias j="z"
 fi
 
 cs() {
@@ -14,5 +20,5 @@ ca() {
     cd $1 && lsa
 }
 
-alias update='sudo pacman -Syu'
-alias accio='sudo pacman -S'
+alias mv="mv -i"
+

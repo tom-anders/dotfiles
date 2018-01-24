@@ -23,9 +23,17 @@ if [ $(hostname) = 'arch-laptop' ]; then
     alias presentationOff='xrandr --output HDMI-1 --off'
 fi
 
+if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
+    export ZSH=/upb/users/t/tap/profiles/unix/imt/.oh-my-zsh
+    ~/Scripts/configKeyboard.sh 
+fi
+
 ZSH_THEME="refined"
 
-plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract archlinux)
+plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract archlinux z)
+
+setopt HIST_FIND_NO_DUPS
+HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE='true'
 
 source $ZSH/oh-my-zsh.sh
 
