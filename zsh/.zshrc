@@ -1,4 +1,4 @@
-export DOTFILES=$HOME/.dotfiles/zsh
+export DOTFILES=$HOME/.dotfiles/
 
 if [ $(hostname) = 'arch-laptop' ]; then
 
@@ -25,7 +25,8 @@ fi
 
 if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
     export ZSH=/upb/users/t/tap/profiles/unix/imt/.oh-my-zsh
-    ~/Scripts/configKeyboard.sh 
+    $DOTFILES/scripts/configKeyboard.sh 
+    unsetopt correct #disable annoying autocorrect
 fi
 
 ZSH_THEME="refined"
@@ -37,5 +38,5 @@ HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE='true'
 
 source $ZSH/oh-my-zsh.sh
 
-source $DOTFILES/.zshalias
+source $DOTFILES/zsh/.zshalias
 
