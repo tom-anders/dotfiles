@@ -11,6 +11,12 @@ fi
 if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
     alias j="z"
 fi
+if [[ $(hostname) = fe1 ]]; then #Double braces for * to work
+    alias j="z"
+fi
+if [[ $(hostname) = fe-402-1.local ]]; then #Double braces for * to work
+    alias j="z"
+fi
 
 cs() {
     cd $1 && ls 
