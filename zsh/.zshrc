@@ -29,6 +29,13 @@ if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
     unsetopt correct #disable annoying autocorrect
 fi
 
+if [[ $(hostname) = fe1 ]]; then #Double braces for * to work
+    export ZSH=/upb/departments/pc2/users/t/tap/.oh-my-zsh
+fi
+if [[ $(hostname) = fe-402-1.local ]]; then #Double braces for * to work
+    export ZSH=/upb/departments/pc2/users/t/tap/.oh-my-zsh
+fi
+
 ZSH_THEME="refined"
 
 plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract archlinux z)
