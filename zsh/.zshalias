@@ -20,5 +20,9 @@ ca() {
     cd $1 && lsa
 }
 
+tldr() {
+    wget -qO- cheat.sh/$1
+}
+
 alias mv="mv -i"
 
