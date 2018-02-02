@@ -1,6 +1,8 @@
 alias latexmk='latexmk -pdf -pvc'
 alias open='xdg-open'
 
+alias lst='lsa -t'
+
 if [ $(hostname) = 'arch-laptop' ]; then
     alias vim='nvim'
     alias paul='cd /home/tom/Documents/PaulFiles && paul -u tap'
