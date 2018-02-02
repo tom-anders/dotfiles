@@ -29,6 +29,15 @@ if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
     unsetopt correct #disable annoying autocorrect
 fi
 
+if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]]; then #Double braces for * to work
+    export TERM="xterm-256color"
+    export ZSH=/upb/departments/pc2/users/t/tap/.oh-my-zsh
+    export PATH=/upb/departments/pc2/users/t/tap/bin:$PATH
+    export LD_LIBRARY_PATH=/upb/departments/pc2/scratch/tap/gcc-7.2.0/lib:$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=/upb/departments/pc2/scratch/tap/gcc-7.2.0/lib64:$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=/upb/departments/pc2/scratch/tap/boost_1_65_1/stage/lib:$LD_LIBRARY_PATH
+fi
+
 ZSH_THEME="refined"
 
 plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract archlinux z)
