@@ -40,7 +40,7 @@ fi
 
 ZSH_THEME="refined"
 
-plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract archlinux z)
+plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract archlinux z zsh-autosuggestions)
 
 setopt HIST_FIND_NO_DUPS
 HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE='true'
