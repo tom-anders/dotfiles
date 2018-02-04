@@ -14,7 +14,7 @@ if [ $(hostname) = 'arch-laptop' ]; then
     eval $(thefuck --alias)
 
     # Import colorscheme from 'wal'
-    (cat /home/tom/.cache/wal/sequences &)
+    # (cat /home/tom/.cache/wal/sequences &)
 
     # Autojump
     [[ -s /home/tom/.autojump/etc/profile.d/autojump.sh ]] && source /home/tom/.autojump/etc/profile.d/autojump.sh

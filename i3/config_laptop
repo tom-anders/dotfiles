@@ -14,6 +14,7 @@ bindsym $mod+Shift+q kill
 
 # Start rofi
 bindsym $mod+d exec rofi -show run
+bindsym $mod+Tab exec rofi -show window
 
 # Changing focus
 bindsym $mod+Left focus left
@@ -80,6 +81,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 bindsym $mod+c exec --no-startup-id google-chrome-stable
+bindsym $mod+r exec --no-startup-id urxvt -e ranger
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -91,6 +93,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # Cycle wallpapers and apply new colorscheme.
 bindsym $mod+shift+w exec "wal -i $HOME/Pictures/Wallpapers -o $HOME/.config/polybar/launch.sh"
+bindsym $mod+shift+t exec "wal -i $HOME/Pictures/Wallpapers -o $HOME/.config/polybar/launch.sh"
 #restart polybar
 bindsym $mod+shift+p exec "$HOME/.config/polybar/launch.sh"
 
