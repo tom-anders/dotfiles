@@ -17,6 +17,8 @@ if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]] then
     alias vrc="vim ~/.vimrc"
     alias zrc="vim ~/.zshrc"
     alias irc="vim ~/.config/i3/config"
+    
+    alias fuck='sudo $(fc -ln -1)'
 
     #Needs sox installed
     alias guitar='for n in E2 A2 D3 G3 B3 E4;do play -n synth 4 pluck $n repeat 2;done'
