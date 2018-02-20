@@ -11,10 +11,8 @@ if [ $(hostname) = 'arch-laptop' ]; then
     # Path to your oh-my-zsh installation.
     export ZSH=/home/tom/.oh-my-zsh
 
-    eval $(thefuck --alias)
-
     # Import colorscheme from 'wal'
-    (cat /home/tom/.cache/wal/sequences &)
+    # (cat /home/tom/.cache/wal/sequences &)
 
     # Autojump
     [[ -s /home/tom/.autojump/etc/profile.d/autojump.sh ]] && source /home/tom/.autojump/etc/profile.d/autojump.sh
@@ -22,6 +20,22 @@ if [ $(hostname) = 'arch-laptop' ]; then
 
     alias presentation='xrandr --output eDP-1 --mode 1920x1080 --output HDMI-1 --right-of eDP-1 --mode 1920x1080 && ~/.config/polybar/launch.sh'
     alias presentationOff='xrandr --output HDMI-1 --off'
+fi
+
+if [[ $(hostname) = 'tom-linux' ]]; then
+
+    fortune | cowsay
+    
+    export PATH=/home/tom/.cargo/bin:/home/tom/.local/bin:/opt/clion-2017.2.2/bin:/home/tom/Downloads/i3-vim-focus/i3-vim-focus/target/release:$PATH
+
+    # Path to your oh-my-zsh installation.
+    export ZSH=/home/tom/.oh-my-zsh
+
+    (cat /home/tom/.cache/wal/sequences)
+    #
+    #for autojump
+    [[ -s /home/tom/.autojump/etc/profile.d/autojump.sh ]] && source /home/tom/.autojump/etc/profile.d/autojump.sh
+    autoload -U compinit && compinit -u
 fi
 
 if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work

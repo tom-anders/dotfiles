@@ -3,11 +3,29 @@ alias open='xdg-open'
 
 alias lst='lsa -t'
 
-if [ $(hostname) = 'arch-laptop' ]; then
+#List recently changed files
+alias lh='ls -lh --color=always -t | head'
+
+if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]] then
     alias vim='nvim'
     alias paul='cd /home/tom/Documents/PaulFiles && paul -u tap'
     alias update='sudo pacman -Syu'
     alias accio='sudo pacman -S'
+
+    alias ssm="ssh -t tap@antares.upb.de ssh tap@amaa.uni-paderborn.de"
+    alias ssc="ssh -t -X tap@antares.upb.de ssh -X tap@cmspool06"
+    alias vrc="vim ~/.vimrc"
+    alias zrc="vim ~/.zshrc"
+    alias irc="vim ~/.config/i3/config"
+    
+    alias fuck='sudo $(fc -ln -1)'
+
+    #Needs sox installed
+    alias guitar='for n in E2 A2 D3 G3 B3 E4;do play -n synth 4 pluck $n repeat 2;done'
+
+    if [[ $(hostname) = 'tom-linux' ]]; then
+        alias univpn='~/Documents/scripts/uni_vpn.sh'
+    fi
 fi
 
 if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
@@ -26,6 +44,11 @@ cs() {
 
 ca() {
     cd $1 && lsa
+}
+
+#Pipe into less
+pl() {
+    "$1" | less
 }
 
 tldr() {
