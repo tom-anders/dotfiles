@@ -51,3 +51,13 @@ tldr() {
 
 alias mv="mv -i"
 
+#Aliases when we don't have oh-my-zsh
+if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostname) = fe2 ]]; then #Double braces for * to work
+    alias lsa="ls -al"
+    alias gst="git status"
+    alias gl="git pull"
+    alias gp="git push"
+    alias gcam="git commit -am"
+    alias ..="cd .."
+    alias ...="cd ..."
+fi

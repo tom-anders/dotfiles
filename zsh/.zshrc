@@ -54,8 +54,13 @@ if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostnam
 fi
 
 if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostname) = fe2 ]]; then #Double braces for * to work
-    plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract)
+    #Vim mode
+    bindkey -v    
+    bindkey "^[[A" history-search-backward
+    bindkey "^[[B" history-search-forward
 else 
+    source $ZSH/oh-my-zsh.sh
+
     ZSH_THEME="refined"
 
     plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract archlinux z zsh-autosuggestions)
@@ -63,8 +68,6 @@ fi
 
 setopt HIST_FIND_NO_DUPS
 HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE='true'
-
-source $ZSH/oh-my-zsh.sh
 
 source $DOTFILES/zsh/.zshalias
 
