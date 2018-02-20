@@ -29,13 +29,7 @@ if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]] then
 fi
 
 if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
-    alias j="/upb/departments/pc2/scratch/tap/autojump/build/bin/autojump"
-fi
-if [[ $(hostname) = fe1 ]]; then #Double braces for * to work
-    alias j="/upb/departments/pc2/scratch/tap/autojump/build/bin/autojump"
-fi
-if [[ $(hostname) = fe-402-1.local ]]; then #Double braces for * to work
-    alias j="/upb/departments/pc2/scratch/tap/autojump/build/bin/autojump"
+    alias j="z"
 fi
 
 cs() {
