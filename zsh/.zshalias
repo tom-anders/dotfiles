@@ -60,4 +60,8 @@ if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostnam
     alias gcam="git commit -am"
     alias ..="cd .."
     alias ...="cd ..."
+
+    alias w="cd $PC2WORK"
+
+    alias ranger=" /upb/departments/pc2/scratch/tap/ranger/ranger.py"
 fi
