@@ -59,11 +59,9 @@ if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostnam
     bindkey "^[[A" history-search-backward
     bindkey "^[[B" history-search-forward
 else 
+    plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract archlinux z zsh-autosuggestions)
     ZSH_THEME="refined"
     source $ZSH/oh-my-zsh.sh
-
-
-    plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract archlinux z zsh-autosuggestions)
 fi
 
 setopt HIST_FIND_NO_DUPS
