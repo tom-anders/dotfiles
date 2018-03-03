@@ -34,8 +34,11 @@ if [[ $(hostname) = 'tom-linux' ]]; then
     (cat /home/tom/.cache/wal/sequences)
     #
     #for autojump
-    [[ -s /home/tom/.autojump/etc/profile.d/autojump.sh ]] && source /home/tom/.autojump/etc/profile.d/autojump.sh
-    autoload -U compinit && compinit -u
+    # [[ -s /home/tom/.autojump/etc/profile.d/autojump.sh ]] && source /home/tom/.autojump/etc/profile.d/autojump.sh
+    # autoload -U compinit && compinit -u
+
+    #fasd init
+    eval "$(fasd --init auto)"
 fi
 
 if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
