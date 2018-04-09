@@ -37,8 +37,11 @@ if [[ $(hostname) = 'tom-linux' ]]; then
     (cat /home/tom/.cache/wal/sequences)
     #
     #for autojump
-    [[ -s /home/tom/.autojump/etc/profile.d/autojump.sh ]] && source /home/tom/.autojump/etc/profile.d/autojump.sh
-    autoload -U compinit && compinit -u
+    # [[ -s /home/tom/.autojump/etc/profile.d/autojump.sh ]] && source /home/tom/.autojump/etc/profile.d/autojump.sh
+    # autoload -U compinit && compinit -u
+
+    #fasd init
+    eval "$(fasd --init auto)"
 fi
 
 if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
@@ -57,17 +60,18 @@ if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostnam
 fi
 
 if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostname) = fe2 ]]; then #Double braces for * to work
-    plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract)
+    #Vim mode
+    bindkey -v    
+    bindkey "^[[A" history-search-backward
+    bindkey "^[[B" history-search-forward
 else 
-    ZSH_THEME="refined"
-
     plugins=(git zsh-syntax-highlighting vi-mode history-substring-search extract archlinux z zsh-autosuggestions)
+    ZSH_THEME="refined"
+    source $ZSH/oh-my-zsh.sh
 fi
 
 setopt HIST_FIND_NO_DUPS
 HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE='true'
-
-source $ZSH/oh-my-zsh.sh
 
 source $DOTFILES/zsh/.zshalias
 
