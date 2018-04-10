@@ -14,6 +14,7 @@ Plug 'dylanaraps/wal'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
+Plug 'ervandew/supertab'
 
 call plug#end()
 
