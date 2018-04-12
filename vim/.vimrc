@@ -14,6 +14,7 @@ Plug 'dylanaraps/wal'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
+Plug 'ervandew/supertab'
 
 call plug#end()
 
@@ -223,6 +224,7 @@ if hostname == "arch-laptop"
     au VimEnter * call IMAP('#pa', "\\qty(<++>)<++>", 'tex')
     au VimEnter * call IMAP('#pb', "\\qty[<++>]<++>", 'tex')
     au VimEnter * call IMAP('#v', "\\vec{<++>}<++>", 'tex')
+    au VimEnter * call IMAP('#V', "\\vec{<++>}(<++>)<++>", 'tex')
     au VimEnter * call IMAP('#s', "\\sum_{<++>}<++>", 'tex')
     au VimEnter * call IMAP('#w', "\\sqrt{<++>}<++>", 'tex')
     au VimEnter * call IMAP('#d', "$<++>$ <++>", 'tex')
