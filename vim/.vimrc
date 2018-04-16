@@ -212,6 +212,7 @@ if hostname == "arch-laptop"
     au VimEnter * call IMAP('#f', '\frac{<++>}{<++>}<++>', 'tex')
     au VimEnter * call IMAP('#i', "\\item ", 'tex')
     au VimEnter * call IMAP('#I', "\\begin{itemize}\<cr>\\item<++>\<cr>\\end{itemize}\<cr><++>", 'tex')
+    au VimEnter * call IMAP('#H', "\\begin{hang}{<++>}\<cr><++>\<cr>\\end{hang}\<cr><++>", 'tex')
     au VimEnter * call IMAP('#q', "\\qq{<++>}<++>", 'tex')
     au VimEnter * call IMAP('#P', "\\dv{<++>}{<++>}<++>", 'tex')
     au VimEnter * call IMAP('#pd', "\\pdv{<++>}{<++>}<++>", 'tex')
