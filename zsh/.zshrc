@@ -31,6 +31,8 @@ if [[ $(hostname) = 'tom-linux' ]]; then
     fortune | cowsay
     
     export PATH=/home/tom/.cargo/bin:/home/tom/.local/bin:/opt/clion-2017.2.2/bin:/home/tom/Downloads/i3-vim-focus/i3-vim-focus/target/release:$PATH
+    export LD_LIBRARY_PATH=/home/tom/adolc_base/lib64:$LD_LIBRARY_PATH
+    export LIBRARY_PATH=/home/tom/adolc_base/lib64:$LIBRARY_PATH
 
     # Path to your oh-my-zsh installation.
     export ZSH=/home/tom/.oh-my-zsh
