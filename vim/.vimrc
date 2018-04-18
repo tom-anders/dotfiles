@@ -98,6 +98,8 @@ onoremap fÖ f[
 onoremap fü f\
 onoremap tü t\
 
+autocmd FileType tex nnoremap j gj
+autocmd FileType tex nnoremap k gk
 
 "source gnuplot syntax file
 so ~/.vim/syntax/gnuplot.vim
