@@ -124,12 +124,12 @@ if hostname == "arch-laptop"
     imap <F16> <Plug>IMAP_JumpForward
     noremap <F16> /<++><Cr>c4l
 
-    au VimEnter * call IMAP('ue', 'ü', 'tex')
-    au VimEnter * call IMAP('ae', 'ä', 'tex')
-    au VimEnter * call IMAP('oe', 'ö', 'tex')
-    au VimEnter * call IMAP('Ue', 'Ü', 'tex')
-    au VimEnter * call IMAP('Ae', 'Ä', 'tex')
-    au VimEnter * call IMAP('Oe', 'Ö', 'tex')
+    " au VimEnter * call IMAP('ue', 'ü', 'tex')
+    " au VimEnter * call IMAP('ae', 'ä', 'tex')
+    " au VimEnter * call IMAP('oe', 'ö', 'tex')
+    " au VimEnter * call IMAP('Ue', 'Ü', 'tex')
+    " au VimEnter * call IMAP('Ae', 'Ä', 'tex')
+    " au VimEnter * call IMAP('Oe', 'Ö', 'tex')
 
     "Make Latex math a text object
     xnoremap i$ :<C-u>normal! T$vt$<CR>
