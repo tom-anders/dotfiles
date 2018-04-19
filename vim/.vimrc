@@ -244,6 +244,7 @@ if hostname == "arch-laptop"
     au VimEnter * call IMAP('#b', "\\bra{<++>}<++>", 'tex')
     au VimEnter * call IMAP('#k', "\\ket{<++>}<++>", 'tex')
     au VimEnter * call IMAP('#K', "\\commutator{<++>}{<++>}<++>", 'tex')
+    au VimEnter * call IMAP('#m', "\\mem{<++>}{<++>}{<++>}<++>", 'tex')
     au VimEnter * call IMAP('#h', "\\hat{<++>}<++>", 'tex')
     au VimEnter * call IMAP(',c', "\\cite{<++>}<++>", 'tex')
     au VimEnter * call IMAP(',C', "\\cite[vgl.][<++>]{<++>}<++>", 'tex')
