@@ -77,6 +77,9 @@ imap Ä ]
 nnoremap ä }
 nnoremap ö {
 
+imap #F <Esc>diWi\frac{}{}<Esc>F{F{pf}f}i
+
+
 "makes ci[ ci{ etc work again
 onoremap iä i}<Esc>a
 onoremap iö i}<Esc>a
