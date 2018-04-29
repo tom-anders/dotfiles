@@ -6,8 +6,8 @@ if [ $(hostname) = 'arch-laptop' ]; then
 
     # If you come from bash you might have to change your $PATH.
     export PATH=$HOME/.local/bin:/opt/intel/bin:$PATH
-    export LD_LIBRARY_PATH=/home/tom/adolc_base/lib64:$LD_LIBRARY_PATH
-    export LIBRARY_PATH=/home/tom/adolc_base/lib64:$LIBRARY_PATH
+    export LD_LIBRARY_PATH=/home/tom/adolc_base/lib64:/usr/local/lib:$LD_LIBRARY_PATH
+    export LIBRARY_PATH=/home/tom/adolc_base/lib64:/usr/local/lib:$LIBRARY_PATH
     source $HOME/.cargo/env
 
     # Path to your oh-my-zsh installation.
