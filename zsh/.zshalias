@@ -20,6 +20,10 @@ if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]] then
     
     alias fuck='sudo $(fc -ln -1)'
 
+    #When leaving ranger, keep the terminal in the current directory
+    alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"' 
+
+
     #Needs sox installed
     alias guitar='for n in E2 A2 D3 G3 B3 E4;do play -n synth 4 pluck $n repeat 2;done'
 
