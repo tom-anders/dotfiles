@@ -168,6 +168,50 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
                 \ },
                 \}
 
+    au VimEnter * call IMAP('#SI', '\SI{<++>}{<`0`>}<`0`>', 'tex')
+    au VimEnter * call IMAP('#f', '\frac{<++>}{<`0`>}<`0`>', 'tex')
+    au VimEnter * call IMAP('#i', "\\item ", 'tex')
+    au VimEnter * call IMAP('#I', "\\begin{itemize}\<cr>\\item<++>\<cr>\\end{itemize}\<cr><`0`>", 'tex')
+    au VimEnter * call IMAP('#Hb', "\\begin{hangbf}{<++>}\<cr><++>\<cr>\\end{hangbf}\<cr><`0`>", 'tex')
+    au VimEnter * call IMAP('#Hi', "\\begin{hangit}{<++>}\<cr><`0`>\<cr>\\end{hangit}\<cr><`0`>", 'tex')
+    au VimEnter * call IMAP('#Hh', "\\begin{hang}\<cr><++>\<cr>\\end{hang}\<cr><`0`>", 'tex')
+    au VimEnter * call IMAP('#q', "\\qq{<++>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#P', "\\dv{<++>}{<`0`>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#pd', "\\pdv{<++>}{<`0`>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#l', "\\limes{<++>}{<`0`>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#t', "\\text{<++>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#R', "\\Rightarrow", 'tex')
+    au VimEnter * call IMAP('#r', "\\rightarrow", 'tex')
+    au VimEnter * call IMAP('#E', "\\Leftrightarrow", 'tex')
+    au VimEnter * call IMAP('#e', "\\ev{<++>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#pa', "\\qty(<++>)<`0`>", 'tex')
+    au VimEnter * call IMAP('#pb', "\\qty[<++>]<`0`>", 'tex')
+    au VimEnter * call IMAP('#v', "\\vec{<++>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#V', "\\vec{<++>}(<`0`>)<`0`>", 'tex')
+    au VimEnter * call IMAP('#s', "\\sum_{<++>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#w', "\\sqrt{<++>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#d', "$<++>$ <`0`>", 'tex')
+    au VimEnter * call IMAP('#D', "$<++>$<`0`>", 'tex')
+    au VimEnter * call IMAP('#u', "\\underbrace{<++>}_{\\mathclap{\\substack{\\text{<`0`>}}}}<`0`>", 'tex')
+    au VimEnter * call IMAP('#U', "\\underbrace{<++>}_{\\mathclap{<`0`>}}<`0`>", 'tex')
+    au VimEnter * call IMAP('#O', "\\overbrace{<++>}^{\\mathclap{<`0`>}}<`0`>", 'tex')
+    au VimEnter * call IMAP('#o', "\\overbrace{<++>}^{\\mathclap{\\substack{\\text{<`0`>}}}}<`0`>", 'tex')
+    au VimEnter * call IMAP('#pb', "\\qty[<++>]<`0`>", 'tex')
+    au VimEnter * call IMAP(',i', "\\int_{<++>}^{<`0`>}<`0`>\\dd{<`0`>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#c', "\\adj{<++>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#b', "\\bra{<++>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#k', "\\ket{<++>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#K', "\\commutator{<++>}{<`0`>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#m', "\\mem{<++>}{<`0`>}{<`0`>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#h', "\\hat{<++>}<`0`>", 'tex')
+
+    au VimEnter * call IMAP('__', "_{<++>}<`0`>", 'tex')
+    au VimEnter * call IMAP('^^', "^{<++>}<`0`>", 'tex')
+    au VimEnter * call IMAP('<=', "\\leq ", 'tex')
+    au VimEnter * call IMAP('>=', "\\geq ", 'tex')
+    au VimEnter * call IMAP('!=', "\\geq ", 'tex')
+
+
     let g:vimtex_matchparen_enabled=0 "better performance
     autocmd FileType tex set lazyredraw "Better scrolling performance in latex,
     let g:vimtex_compiler_progname='~/.local/bin/nvr' "make vimtex work with nvim
