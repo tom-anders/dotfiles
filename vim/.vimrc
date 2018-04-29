@@ -25,7 +25,7 @@ syntax on
 
 "Colorscheme depending on computer (default: dracula)
 let hostname = substitute(system('hostname'), '\n', '', '')
-if hostname == "arch-laptop"
+if hostname == "arch-laptop" || hostname == "tom-linux"
     color wal
 elseif hostname == "Amaa.uni-paderborn.de"
     color base16-solarflare
@@ -110,7 +110,7 @@ so ~/.vim/syntax/gnuplot.vim
 "yank to system clipboard (hopefully)
 set clipboard=unnamedplus 
 
-if hostname == "arch-laptop"
+if hostname == "arch-laptop" || hostname == "tom-linux"
 
     "Insert environment
     imap <F8> \begin{}<cr><cr>\end{}<Esc>ki<tab><Esc>cse
