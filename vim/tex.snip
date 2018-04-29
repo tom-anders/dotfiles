@@ -7,12 +7,12 @@ alias   documentclass
 snippet mathexpression
 alias   d
 abbr	$ expression $
-	$${1:#:expression}$ ${2}
+	$ ${1:#:expression}$ ${2}
     
 snippet mathexpressionNoSpace
 alias   d
 abbr	$ expression $
-	$${1:#:expression}$${2}
+	$ ${1:#:expression}$${2}
 
 # ========== ENVIRONMENT ==========
 
@@ -449,11 +449,11 @@ alias n
     ${1} &= ${0}
 
 snippet vectorPara
-alias v
+alias vv
     \vec{${1:TARGET}}(${2}) ${0}
 
 snippet vector 
-alias vv
+alias v
     \vec{${1:TARGET}} ${0}
 
 snippet eval
