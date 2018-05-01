@@ -81,7 +81,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 bindsym $mod+c exec --no-startup-id google-chrome-stable
-bindsym $mod+r exec --no-startup-id urxvt -e ranger
+bindsym $mod+Shift+Return exec --no-startup-id urxvt -e 'ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -92,8 +92,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 
 # Cycle wallpapers and apply new colorscheme.
-bindsym $mod+shift+w exec "wal -i $HOME/Pictures/Wallpapers -o $HOME/.config/polybar/launch.sh"
-bindsym $mod+shift+t exec "wal -i $HOME/Pictures/Wallpapers -o $HOME/.config/polybar/launch.sh"
+bindsym $mod+shift+w exec "wal --iterative -i $HOME/Pictures/Wallpapers -o $HOME/.config/polybar/launch.sh"
 #restart polybar
 bindsym $mod+shift+p exec "$HOME/.config/polybar/launch.sh"
 
@@ -105,8 +104,6 @@ set_from_resource $fg i3wm.color7 #f0f0f0
 set_from_resource $bg i3wm.color5 #f0f0f0
 set_from_resource $accent i3wm.color0 #f0f0f0
 
-#TODO should use the ones from my config on my desktop, looks better when tabbed! Also rememver to use pywal on desktop!
-# Basic color configuration using the Base16 variables for windows and borders.
 # Property Name         Border  BG      Text    Indicator Child Border
 client.focused          $bg     $bg     $fg     $bg     $bg
 client.focused_inactive $bg     $bg     $fg     $bg     $bg

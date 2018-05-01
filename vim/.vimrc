@@ -22,8 +22,12 @@ Plug 'ervandew/supertab' "for now disabled in favor of neocomplete
 
 call plug#end()
 
+let hostname = substitute(system('hostname'), '\n', '', '')
+
 "Use deoplete
-let g:deoplete#enable_at_startup = 1
+if hostname == "tom-linux"
+    let g:deoplete#enable_at_startup = 1
+endif
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 "neosnippet shortcuts
@@ -36,8 +40,18 @@ set number
 set relativenumber
 syntax on
 
+"increment/decrement
+noremap + <C-a>
+noremap - <C-x>
+
+"traverse jump list
+nnoremap <tab> <C-o>
+nnoremap <s-tab> <C-i>
+
+"indent file
+nnoremap g= gg=G``
+
 "Colorscheme depending on computer (default: dracula)
-let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "arch-laptop" || hostname == "tom-linux"
     color wal
 elseif hostname == "Amaa.uni-paderborn.de"
@@ -130,10 +144,10 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
     let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 
     "Referencing with autocompletion
-    inoremap ,rf \autoref{fig:<C-X><C-O>
-    inoremap ,re \autoref{eq:<C-X><C-O>
-    inoremap ,rk \autoref{kap:<C-X><C-O>
-    inoremap ,c \cite{<C-X><C-O>}
+    inoremap ,rf \autoref{fig:}<Esc>i<C-X><C-O>
+    inoremap ,re \autoref{eq:}<Esc>i<C-X><C-O>
+    inoremap ,rk \autoref{kap:}<Esc>i<C-X><C-O>
+    inoremap ,c \cite{}<Esc>i<C-X><C-O>
 
     "Folding
     let g:Tex_FoldedMisc='preamble'
@@ -177,7 +191,7 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
     au VimEnter * call IMAP('#Hh', "\\begin{hang}\<cr><++>\<cr>\\end{hang}\<cr><`0`>", 'tex')
     au VimEnter * call IMAP('#q', "\\qq{<++>}<`0`>", 'tex')
     au VimEnter * call IMAP('#P', "\\dv{<++>}{<`0`>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#pd', "\\pdv{<++>}{<`0`>}<`0`>", 'tex')
+    au VimEnter * call IMAP('#pd', "\\pdv[<++>]{<`0`>}{<`0`>}<`0`>", 'tex')
     au VimEnter * call IMAP('#l', "\\limes{<++>}{<`0`>}<`0`>", 'tex')
     au VimEnter * call IMAP('#t', "\\text{<++>}<`0`>", 'tex')
     au VimEnter * call IMAP('#R', "\\Rightarrow", 'tex')
