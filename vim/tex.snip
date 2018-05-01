@@ -367,7 +367,36 @@ snippet subsceptibility
 alias sus
     \chi^{(${1:#:order})}(\o_${2}, \o_${3}, \o_${4}) ${0}
 
+snippet nonlinearValue
+alias nl
+    ${1}^{(${2:#:order})}${0}
+
+snippet vecNonLin
+alias vnl
+    \vec{${1:TARGET}}^{($(2:#:order))}${0}
+
+snippet VecNonLin
+alias Vnl
+    \vec{${1:TARGET}}^{($(2:#:order))}(${3:#:argument}) ${0}
+
 # ========== MATH ==========
+snippet dv
+    \dv[${1}]{${2:TARGET}}{${3}} ${0}
+
+snippet pd
+    \pdv[${1}]{${2:TARGET}}{${3}} ${0}
+
+snippet vpd
+    \pdv[${1}]{\vec{${2:TARGET}}}{${3}} ${0}
+
+snippet mathcal
+alias mc
+    \mathcal{${0:TARGET}}${0}
+
+snippet mathbf
+alias mb
+    \mathbf{${0:TARGET}}${0}
+
 snippet underbraceSimple
 alias uu
     \underbrace{${0:TARGET}}_{\mathclap{${0}}} ${0}
@@ -397,6 +426,7 @@ alias k
     \ket{${1:TARGET}} ${0}
 
 snippet dyad
+alias dy
     \dyad{${1:TARGET}}{${2}} ${0}
 
 snippet commutator
@@ -406,6 +436,10 @@ alias K com
 snippet expectationvalue
 alias ev
     \ev{${1:TARGET}}{${2:#:state}} ${0}
+
+snippet braket
+alias bk
+    \braket{${1:TARGET}}{${2:#:ket}} ${0}
 
 snippet hat
 alias h
@@ -439,9 +473,13 @@ snippet limes
 alias  lim 
 	\limes{${1:TARGET}}{${2:\\infinity}}${0}
 
+snippet quadText
+alias qq
+    \qq{${1}} ${0}
+
 snippet quad
 alias q
-    \qq{${1}} ${0}
+    \quad 
 
 snippet newAlignLine
 alias n
@@ -654,6 +692,9 @@ snippet node
 alias   \node
 	\node[${1}](${2:name}) ${3};${0}
 
+snippet calc
+    ($${1:TARGET}$)
+
 # ========== BibLaTeX ==========
 snippet addbibresource
 alias   \addbibresource
@@ -687,6 +728,16 @@ alias   \usepackage
 snippet ref
 alias   \ref
 	\ref{${1}}${0}
+
+snippet labelEq
+alias le
+	\label{eq:${1}}${0}
+snippet labelKap
+alias lk
+	\label{kap:${1}}${0}
+snippet labelFig
+alias lf
+	\label{fig:${1}}${0}
 
 snippet label 
 alias   \label la
