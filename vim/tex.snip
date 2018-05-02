@@ -14,6 +14,14 @@ alias   d
 abbr	$ expression $
 	$ ${1:#:expression}$${2}
 
+snippet underbrace
+alias und
+    \underbrace{${1:TARGET}}_{\mathclap{${2}}} ${0}
+
+snippet Underbrace
+alias Und
+    \underbrace{${1:TARGET}}_{\mathclap{\substack{\text{${2}}}}} ${0}
+
 # ========== ENVIRONMENT ==========
 
 snippet begin
@@ -499,8 +507,11 @@ snippet eval
 
 snippet \frac
 alias   frac f
-    \frac{${1:1}}{${2}} ${0}
-	
+    \frac{${1:1}}{${0}} ${0}
+
+snippet function
+alias ff
+    ${1}(${0}) ${0}
 
 snippet parantheses 
 alias p

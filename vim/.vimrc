@@ -221,10 +221,6 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
 
     au VimEnter * call IMAP('__', "_{<++>}<`0`>", 'tex')
     au VimEnter * call IMAP('^^', "^{<++>}<`0`>", 'tex')
-    au VimEnter * call IMAP('<=', "\\leq ", 'tex')
-    au VimEnter * call IMAP('>=', "\\geq ", 'tex')
-    au VimEnter * call IMAP('!=', "\\geq ", 'tex')
-
 
     let g:vimtex_matchparen_enabled=0 "better performance
     autocmd FileType tex set lazyredraw "Better scrolling performance in latex,
@@ -259,8 +255,8 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
 
     inoremap <silent><expr> __ neosnippet#anonymous('_{${0}}${0}')
     inoremap <silent><expr> ^^ neosnippet#anonymous('^{${0}}${0}')
-    autocmd FileType tex inoremap <= \leq
-    autocmd FileType tex inoremap >= \geq
-    autocmd FileType tex inoremap != \neq
+    autocmd FileType tex inoremap <= \leq 
+    autocmd FileType tex inoremap >= \geq 
+    autocmd FileType tex inoremap != \neq 
 
 endif
