@@ -19,6 +19,7 @@ Plug 'zchee/deoplete-jedi' "Python completion
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'ervandew/supertab' "for now disabled in favor of neocomplete
+Plug 'wellle/targets.vim'
 
 call plug#end()
 
