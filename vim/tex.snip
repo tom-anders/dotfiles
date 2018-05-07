@@ -44,7 +44,7 @@ alias   \begin{quotation} \quotation
 	\end{quotation}
 
 snippet description
-alias   \begin{description} \description desc
+alias   desc des
 	\begin{description}
 		\item[${1}] ${0}
 	\end{description}
@@ -559,7 +559,7 @@ alias pb
 
 snippet integral
 alias int 
-    \int_{${1}}^{${2}} {${3:TARGET}} \dd{${4}} ${0}
+    \int_{${1}}^{${2}} ${3:TARGET} \dd{${0}} ${0}
 
 snippet sum
 alias s
