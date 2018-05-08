@@ -20,10 +20,16 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'ervandew/supertab' "for now disabled in favor of neocomplete
 Plug 'wellle/targets.vim'
+Plug 'lazywei/vim-matlab'
+
+let hostname = substitute(system('hostname'), '\n', '', '')
+if hostname == "cmspool06"
+    Plug 'dracula/vim'
+    Plug 'wincent/terminus'
+endif
 
 call plug#end()
 
-let hostname = substitute(system('hostname'), '\n', '', '')
 
 "Use deoplete
 if hostname == "tom-linux"
@@ -51,6 +57,16 @@ nnoremap <s-tab> <C-i>
 
 "indent file
 nnoremap g= gg=G``
+
+"Make sure gnuplot syntax works
+source ~/.vim/syntax/gnuplot.vim
+au BufNewFile,BufRead *.plt set filetype=gnuplot
+
+"Matlab comments
+autocmd FileType matlab setlocal commentstring=%\ %s
+"Gnuplot comments
+autocmd FileType gnuplot setlocal commentstring=#\ %s
+
 
 "Colorscheme depending on computer (default: dracula)
 if hostname == "arch-laptop" || hostname == "tom-linux"
