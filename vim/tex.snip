@@ -441,14 +441,6 @@ snippet overset
 alias ov os
     \overset{${0:TARGET:!}}{${0:=}}
 
-snippet overbraceSimple
-alias uu
-    \overbrace{${0:TARGET}}^{\mathclap{${0}}} ${0}
-
-snippet overbraceText
-alias u
-    \overbrace{${0:TARGET}}^{\mathclap{\substack{\text{${0}}}}} ${0}
-
 snippet adjoint
 alias c
     \adj{${1:TARGET}} ${0}
@@ -528,7 +520,7 @@ alias nn
 
 snippet nabla
 alias n
-    \nabla ${0}
+    \nabla${0}
 
 snippet vectorPara
 alias vv
