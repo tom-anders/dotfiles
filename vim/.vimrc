@@ -21,6 +21,7 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'ervandew/supertab' "for now disabled in favor of neocomplete
 Plug 'wellle/targets.vim'
 Plug 'lazywei/vim-matlab'
+Plug 'justinmk/vim-sneak'
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "cmspool06"
@@ -41,6 +42,12 @@ let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 imap <F16>     <Plug>(neosnippet_expand_or_jump)
 smap <F16>     <Plug>(neosnippet_expand_or_jump)
 xmap <F16>     <Plug>(neosnippet_expand_target)
+
+"Move vertically with f and t using the sneak plugin
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
 
 "Appeareance
 set number
