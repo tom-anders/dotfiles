@@ -74,7 +74,7 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
 elseif hostname == "Amaa.uni-paderborn.de"
     color base16-solarflare
 else
-    color = dracula
+    color dracula
 endif
 set hidden
 set backspace=indent,eol,start

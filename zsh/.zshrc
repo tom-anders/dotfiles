@@ -53,6 +53,7 @@ if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
     export ZSH=/upb/users/t/tap/profiles/unix/imt/.oh-my-zsh
     $DOTFILES/scripts/configKeyboard.sh 
     unsetopt correct #disable annoying autocorrect
+    eval "$(fasd --init auto)"
 fi
 
 if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostname) = fe2 ]]; then #Double braces for * to work
