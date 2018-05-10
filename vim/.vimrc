@@ -107,6 +107,9 @@ nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
 noremap H 0
 noremap L g_
 
+let mapleader = 'ü'
+let maplocalleader = 'ü'
+
 "for vim-airline
 set laststatus=2
 set noshowmode
