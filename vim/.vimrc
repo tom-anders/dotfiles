@@ -16,12 +16,12 @@ Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi' "Python completion
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
 Plug 'ervandew/supertab' "for now disabled in favor of neocomplete
 Plug 'wellle/targets.vim'
 Plug 'lazywei/vim-matlab'
 Plug 'justinmk/vim-sneak'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "cmspool06"
@@ -31,17 +31,15 @@ endif
 
 call plug#end()
 
+let g:UltiSnipsExpandTrigger="<F16>"
+let g:UltiSnipsJumpForwardTrigger="<F16>"
+let g:UltiSnipsJumpBackwardTrigger="<c-y>"
 
 "Use deoplete
 if hostname == "tom-linux"
     let g:deoplete#enable_at_startup = 1
 endif
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-
-"neosnippet shortcuts
-imap <F16>     <Plug>(neosnippet_expand_or_jump)
-smap <F16>     <Plug>(neosnippet_expand_or_jump)
-xmap <F16>     <Plug>(neosnippet_expand_target)
 
 "Move vertically with f and t using the sneak plugin
 map f <Plug>Sneak_f
@@ -209,45 +207,6 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
                 \ },
                 \}
 
-    au VimEnter * call IMAP('#SI', '\SI{<++>}{<`0`>}<`0`>', 'tex')
-    au VimEnter * call IMAP('#f', '\frac{<++>}{<`0`>}<`0`>', 'tex')
-    au VimEnter * call IMAP('#i', "\\item ", 'tex')
-    au VimEnter * call IMAP('#I', "\\begin{itemize}\<cr>\\item<++>\<cr>\\end{itemize}\<cr><`0`>", 'tex')
-    au VimEnter * call IMAP('#Hb', "\\begin{hangbf}{<++>}\<cr><++>\<cr>\\end{hangbf}\<cr><`0`>", 'tex')
-    au VimEnter * call IMAP('#Hi', "\\begin{hangit}{<++>}\<cr><`0`>\<cr>\\end{hangit}\<cr><`0`>", 'tex')
-    au VimEnter * call IMAP('#Hh', "\\begin{hang}\<cr><++>\<cr>\\end{hang}\<cr><`0`>", 'tex')
-    au VimEnter * call IMAP('#q', "\\qq{<++>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#P', "\\dv{<++>}{<`0`>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#pd', "\\pdv[<++>]{<`0`>}{<`0`>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#l', "\\limes{<++>}{<`0`>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#t', "\\text{<++>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#R', "\\Rightarrow", 'tex')
-    au VimEnter * call IMAP('#r', "\\rightarrow", 'tex')
-    au VimEnter * call IMAP('#E', "\\Leftrightarrow", 'tex')
-    au VimEnter * call IMAP('#e', "\\ev{<++>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#pa', "\\qty(<++>)<`0`>", 'tex')
-    au VimEnter * call IMAP('#pb', "\\qty[<++>]<`0`>", 'tex')
-    au VimEnter * call IMAP('#v', "\\vec{<++>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#V', "\\vec{<++>}(<`0`>)<`0`>", 'tex')
-    au VimEnter * call IMAP('#s', "\\sum_{<++>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#w', "\\sqrt{<++>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#d', "$<++>$ <`0`>", 'tex')
-    au VimEnter * call IMAP('#D', "$<++>$<`0`>", 'tex')
-    au VimEnter * call IMAP('#u', "\\underbrace{<++>}_{\\mathclap{\\substack{\\text{<`0`>}}}}<`0`>", 'tex')
-    au VimEnter * call IMAP('#U', "\\underbrace{<++>}_{\\mathclap{<`0`>}}<`0`>", 'tex')
-    au VimEnter * call IMAP('#O', "\\overbrace{<++>}^{\\mathclap{<`0`>}}<`0`>", 'tex')
-    au VimEnter * call IMAP('#o', "\\overbrace{<++>}^{\\mathclap{\\substack{\\text{<`0`>}}}}<`0`>", 'tex')
-    au VimEnter * call IMAP('#pb', "\\qty[<++>]<`0`>", 'tex')
-    au VimEnter * call IMAP(',i', "\\int_{<++>}^{<`0`>}<`0`>\\dd{<`0`>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#c', "\\adj{<++>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#b', "\\bra{<++>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#k', "\\ket{<++>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#K', "\\commutator{<++>}{<`0`>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#m', "\\mem{<++>}{<`0`>}{<`0`>}<`0`>", 'tex')
-    au VimEnter * call IMAP('#h', "\\hat{<++>}<`0`>", 'tex')
-
-    au VimEnter * call IMAP('__', "_{<++>}<`0`>", 'tex')
-    au VimEnter * call IMAP('^^', "^{<++>}<`0`>", 'tex')
 
     let g:vimtex_matchparen_enabled=0 "better performance
     autocmd FileType tex set lazyredraw "Better scrolling performance in latex,
@@ -279,11 +238,5 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
 
     "Macros
     let g:Tex_Leader='´'
-
-    inoremap <silent><expr> __ neosnippet#anonymous('_{${0}}${0}')
-    inoremap <silent><expr> ^^ neosnippet#anonymous('^{${0}}${0}')
-    autocmd FileType tex inoremap <= \leq 
-    autocmd FileType tex inoremap >= \geq 
-    autocmd FileType tex inoremap != \neq 
 
 endif
