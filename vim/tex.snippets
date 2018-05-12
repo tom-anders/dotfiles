@@ -44,6 +44,14 @@ def add_row(snip):
 
 endglobal
 
+pre_expand "create_table(snip)"
+snippet "gentbl(\d+)x(\d+)" "Generate table of *width* by *height*" r  
+endsnippet
+
+pre_expand "add_row(snip)"
+snippet "tr(\d+)" "Add table row of dimension ..." r
+endsnippet
+
 snippet "beg(in)?" "begin{} / end{}" br
 \begin{${1:something}}
 	${0:${VISUAL}}
@@ -60,14 +68,6 @@ snippet tab "tabular / array environment" b
 \begin{${1:t}${1/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}{${2:c}}
 $0${2/(?<=.)(c|l|r)|./(?1: & )/g}
 \end{$1${1/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}
-endsnippet
-
-pre_expand "create_table(snip)"
-snippet "gentbl(\d+)x(\d+)" "Generate table of *width* by *height*" r  
-endsnippet
-
-pre_expand "add_row(snip)"
-snippet "tr(\d+)" "Add table row of dimension ..." r
 endsnippet
 
 snippet table "Table environment" b
