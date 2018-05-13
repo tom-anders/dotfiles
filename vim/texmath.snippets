@@ -87,7 +87,7 @@ endsnippet
 
 ################## Exponential Function ################
 
-snippet e "exponential function" w
+snippet e "exponential function" W
 e^{$1} $0
 endsnippet
 
@@ -95,33 +95,33 @@ snippet ei "comlex exponential function" w
 e^{$1i $2} $0
 endsnippet
 
-snippet epi "complex exponential function with braces" w
-e^{i\qty($1) $2} $0
+snippet eip "complex exponential function with braces" w
+e^{i\qty( $1) $2} $0
 endsnippet
 
 snippet ep "exponential function with braces" w
-e^{\qty($1) $2} $0
+e^{\qty( $1) $2} $0
 endsnippet
 
 snippet ^p "exponent with braces" iA
-^{\qty($1) $2} $0
+^{\qty( $1) $2} $0
 endsnippet
 
 ############### Over- and Underbrace ####################
 
-snippet u "underbrace with math" w
+snippet u "underbrace with math" W
 \underbrace{${1:${VISUAL}}}_{\mathclap{$2}} $0
 endsnippet
 
-snippet U "underbrace with text and substack"
+snippet U "underbrace with text and substack" W
 \underbrace{${1:${VISUAL}}}_{\mathclap{\substack{\text{${2}}}}} ${0}
 endsnippet
 
-snippet o "overbrace with math" w
+snippet o "overbrace with math" W
 \overbrace{${1:${VISUAL}}}^{\mathclap{$2}} $0
 endsnippet
 
-snippet O "overbrace with text and substack"
+snippet O "overbrace with text and substack" W
 \overbrace{${1:${VISUAL}}}^{\mathclap{\substack{\text{${2}}}}} ${0}
 endsnippet
 
@@ -217,20 +217,20 @@ endsnippet
 
 ################# Quantum mechanics #####################
 
-snippet c "adjoinz" w
+snippet c "adjoinz" W
 \adj{${1:${VISUAL}}} ${0}
 endsnippet
 
-snippet b "bra" w
+snippet b "bra" W
 \bra{${1:${VISUAL}}} ${0}
 endsnippet
 
-snippet k "ket" w
+snippet k "ket" W
 \ket{${1:${VISUAL}}} ${0}
 endsnippet
 
 snippet dy "dyad product" w
-\dyad{${1:${VISUAL}}}{${2}} ${0}
+\dyad{${1:${VISUAL}}}{${2:${1/(\w+)\.\w+/$1/}}} ${0}
 endsnippet
 
 snippet co "commutator" w
@@ -239,7 +239,7 @@ endsnippet
 
 #Just hit space bar to skip the state
 snippet ev "expectation value in state" w
-\ev{${1:${VISUAL}}}${2:\{state\}} ${0}
+\ev{${1:${VISUAL}}}${2:state} ${0}
 endsnippet
 
 snippet es "expectation value singe (w/o state)" w
@@ -250,7 +250,7 @@ snippet bk "bra ket" w
 \braket{${1:${VISUAL}}}{${2:ket}} ${0}
 endsnippet
 
-snippet h "hat" w
+snippet h "hat" W
 \hat{${1:${VISUAL}}} ${0}
 endsnippet
 
@@ -272,22 +272,22 @@ snippet rr "big right arrow" w
 \Rightarrow ${0}
 endsnippet 
 
-snippet r "small right arrow" w
+snippet r "small right arrow" W
 \rightarrow ${0}
 endsnippet 
 
 ############### (), [] and {} ########################
 
-snippet p "()" w
-\qty(${1:${VISUAL}}) ${0}
+snippet p "()" W
+\qty( ${1:${VISUAL}}) ${0}
 endsnippet
 
-snippet pb "[]" w
-\qty$[1:${VISUAL}] ${0}
+snippet pb "[]" W
+\qty$[ 1:${VISUAL}] ${0}
 endsnippet
 
-snippet pc "{}" w
-\qty{${1:${VISUAL}}} ${0}
+snippet pc "{}" W
+\qty{ ${1:${VISUAL}}} ${0}
 endsnippet
 
 ############### General math operators ###############
@@ -300,11 +300,11 @@ snippet int "integral" w
 \int_{$1}^{$2} ${3:${VISUAL}} \dd{$4} $0
 endsnippet
 
-snippet s "sum w/o superscript" w
+snippet s "sum w/o superscript" W
 \sum_{$1} ${2:${VISUAL}} $0
 endsnippet
 
-snippet s "sum w/ superscript" w
+snippet ss "sum w/ superscript" w
 \sum_{$1}^{$2} ${3:${VISUAL}} $0
 endsnippet
 
@@ -316,11 +316,11 @@ snippet qq "quad with text" w
 \qq{${1}} ${0}
 endsnippet
 
-snippet q "quad" w
+snippet q "quad" W
 \quad 
 endsnippet
 
-snippet n "nabla" w
+snippet n "nabla" W
 \nabla 
 endsnippet
 
@@ -332,7 +332,7 @@ snippet v "vector" w
 \vec{${1:${VISUAL}}} $0
 endsnippet
 
-snippet a "abs" w
+snippet a "abs" W
 \abs{${1:${VISUAL}}} $0
 endsnippet
 
@@ -348,7 +348,7 @@ snippet cc "complex conjugate" w
 \text{c.c.}
 endsnippet
 
-snippet t "text" w
+snippet t "text" W
 \text{${1:${VISUAL}}} $0
 endsnippet
 
@@ -364,20 +364,20 @@ snippet os "overset" w
 \overset{${1:!}}{${2:=}} $0
 endsnippet
 
-snippet f "Fraction" w
+snippet f "Fraction" W
 \frac{${1:${VISUAL:1}}}{${2:denom}} $0
 endsnippet
 
-snippet w "square root (wurzel)"
+snippet w "square root (wurzel)" W
 \sqrt{${1:${VISUAL}}} ${0}
 endsnippet
 
-snippet d "Text Math" w
-$$1$ $0
+snippet d "Text Math" W
+$ $1$ $0
 endsnippet
 
 snippet D "Text Math w/o space" w
-$$1$$0
+$ $1$$0
 endsnippet
 
 snippet mat "Smart Matrix"
