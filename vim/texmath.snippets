@@ -239,7 +239,7 @@ endsnippet
 
 #Just hit space bar to skip the state
 snippet ev "expectation value in state" w
-\ev{${1:${VISUAL}}}${2:state} ${0}
+\ev{${1:${VISUAL}}}{${2:\psi}} ${0}
 endsnippet
 
 snippet es "expectation value singe (w/o state)" w
@@ -336,8 +336,12 @@ snippet v "vector" w
 \vec{${1:${VISUAL}}} $0
 endsnippet
 
-snippet vv "vector with ()" W
+snippet vv "vector with ()" w
 \vec{${1:${VISUAL}}}( $2) $0
+endsnippet
+
+snippet vvs "vector with ' and ()" w
+\vec{${1:${VISUAL}}}'( $2) $0
 endsnippet
 
 snippet a "abs" W
