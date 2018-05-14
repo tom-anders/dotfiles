@@ -283,7 +283,7 @@ snippet p "()" W
 endsnippet
 
 snippet pb "[]" W
-\qty$[ 1:${VISUAL}] ${0}
+\qty[ ${1:${VISUAL}}] ${0}
 endsnippet
 
 snippet pc "{}" W
@@ -328,8 +328,16 @@ snippet eval "evaluate" w
 \eval{${1:${VISUAL}}}_{$2} $0
 endsnippet
 
+snippet vs "vector w/ '" w
+\vec{${1:${VISUAL}}}' $0
+endsnippet
+
 snippet v "vector" w
 \vec{${1:${VISUAL}}} $0
+endsnippet
+
+snippet vv "vector with ()" W
+\vec{${1:${VISUAL}}}( $2) $0
 endsnippet
 
 snippet a "abs" W
@@ -338,10 +346,6 @@ endsnippet
 
 snippet aa "abs squared" w
 \abs{${1:${VISUAL}}}^2 $0
-endsnippet
-
-snippet vv "vector with ()" w
-\vec{${1:${VISUAL}}}($2) $0
 endsnippet
 
 snippet cc "complex conjugate" w
@@ -365,11 +369,19 @@ snippet os "overset" w
 endsnippet
 
 snippet f "Fraction" W
-\frac{${1:${VISUAL:1}}}{${2:denom}} $0
+\frac{${1:${VISUAL:1}}}{${2:2}} $0
+endsnippet
+
+snippet fw "Fraction w/ sqrt" W
+\frac{1}{\sqrt{${2:2}}} $0
 endsnippet
 
 snippet w "square root (wurzel)" W
 \sqrt{${1:${VISUAL}}} ${0}
+endsnippet
+
+snippet wf "sqrt w/ fraction" W
+\sqrt{\frac{${1:1}}{$2}} $0
 endsnippet
 
 snippet d "Text Math" W
