@@ -407,6 +407,10 @@ snippet d "Text Math" W
 $ $1$ $0
 endsnippet
 
+snippet dd "Text Math" w
+$ $1$ $0
+endsnippet
+
 snippet D "Text Math w/o space" w
 $ $1$$0
 endsnippet
@@ -418,7 +422,7 @@ snippet mat "Smart Matrix"
 endsnippet
 
 snippet tt "text in math" i
-\text{$1}$0
+\text{${1:${VISUAL}}}$0
 endsnippet
 
 # vim:ft=snippets:
