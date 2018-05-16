@@ -92,7 +92,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 
 # Cycle wallpapers and apply new colorscheme.
-bindsym $mod+shift+w exec "wal --iterative -i $HOME/Pictures/Wallpapers -o $HOME/.config/polybar/launch.sh"
+bindsym $mod+shift+w exec "wal --iterative -i $HOME/Pictures/Wallpapers -o $HOME/.config/polybar/launch.sh --backend=wal"
 #restart polybar
 bindsym $mod+shift+p exec "$HOME/.config/polybar/launch.sh"
 
