@@ -201,11 +201,11 @@ snippet c "adjoinz" W
 endsnippet
 
 snippet br "bra" W
-\bra{${1:${VISUAL}}} ${0}
+\bra{${1:${VISUAL:\\psi}}} ${0}
 endsnippet
 
 snippet ke "ket" W
-\ket{${1:${VISUAL}}} ${0}
+\ket{${1:${VISUAL:\\psi}}} ${0}
 endsnippet
 
 snippet dy "dyad product" w
@@ -227,6 +227,14 @@ endsnippet
 
 snippet bk "bra ket" w
 \braket{${1:${VISUAL}}}{${2:ket}} ${0}
+endsnippet
+
+snippet ksp "super position with ket" w
+\qty( \ket{$1} + \ket{$2} ) $0
+endsnippet
+
+snippet bsp "super position with bras (conjugated)" w
+\qty( \bra{$1} + \bra{$2} ) $0
 endsnippet
 
 snippet h "hat" W
