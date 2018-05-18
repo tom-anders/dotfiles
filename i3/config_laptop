@@ -81,7 +81,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 bindsym $mod+c exec --no-startup-id google-chrome-stable
-bindsym $mod+Shift+Return exec --no-startup-id urxvt -e 'ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+bindsym $mod+Shift+Return exec --no-startup-id urxvt -e 'ranger'
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

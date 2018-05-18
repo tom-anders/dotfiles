@@ -230,11 +230,11 @@ snippet bk "bra ket" w
 endsnippet
 
 snippet ksp "super position with ket" w
-\qty( \ket{$1} + \ket{$2} ) $0
+\qty( \ket{$1} ${2:+} \ket{$3} ) $0
 endsnippet
 
 snippet bsp "super position with bras (conjugated)" w
-\qty( \bra{$1} + \bra{$2} ) $0
+\qty( \bra{$1} ${2:+} \bra{$3} ) $0
 endsnippet
 
 snippet h "hat" W
@@ -437,7 +437,7 @@ snippet ut "text in subscript" i
 _\text{${1:${VISUAL}}}$0
 endsnippet
 
-snippet ht "text in superscript" i
+snippet htt "text in superscript" i
 ^\text{${1:${VISUAL}}}$0
 endsnippet
 
