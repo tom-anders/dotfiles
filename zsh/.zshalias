@@ -8,6 +8,7 @@ alias irc="vim ~/.config/i3/config"
 
 #List recently changed files
 alias lh='ls -lh --color=always -t | head'
+alias ls='ls --color=tty --group-directories-first'
 
 if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]] then
     alias vim='nvim'
@@ -43,9 +44,15 @@ alias sd='fasd -sid'     # interactive directory selection
 alias sf='fasd -sif'     # interactive file selection
 alias z='fasd_cd -d'     # cd, same functionality as j in autojump
 alias j='z'
-alias zz='fasd_cd -d -i' # cd with interactive selection
 alias v='f -e nvim' # quick opening files with vim
 alias o='a -e xdg-open' # quick opening files with xdg-open
+
+# fasd & fzf change directory
+unalias zz
+zz() {
+    local file
+    file="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${file}" || return 1
+}
 
 if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
     alias j="z"
