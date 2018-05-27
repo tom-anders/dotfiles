@@ -219,4 +219,49 @@ snippet Node "single node"
 \node[$1] at ($2) ($3) {$4}; $0
 endsnippet
 
+snippet ue "ü" i
+ü
+endsnippet
+
+snippet oe "ö" i
+ö
+endsnippet
+
+snippet ae "ä" i
+ä
+endsnippet
+
+snippet Ue "Ü" i
+Ü
+endsnippet
+
+snippet Oe "Ö" i
+Ö
+endsnippet
+
+snippet Ae "Ä" i
+Ä
+endsnippet
+
+###################### Beamer ##############################
+
+snippet frame "frame" b
+\begin{frame}{${1:frametitle}}
+	${2:${VISUAL}}
+\end{frame}
+endsnippet
+
+snippet cls "columns" b
+\begin{columns}[T, onlytextwidth]
+  \column{${1:0.5}\textwidth}
+    $0
+\end{columns}
+endsnippet
+	
+snippet col "column" b
+  \column{${1:0.5}\textwidth}
+    $0
+endsnippet
+	
+
 # vim:ft=snippets:
