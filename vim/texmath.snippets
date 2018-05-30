@@ -17,6 +17,19 @@ snippet al "align without numbers" b
 \end{align*}
 endsnippet
 
+snippet eq "equation without numbers" b
+\begin{equation*}
+	$1 = $0
+\end{equation*}
+endsnippet
+
+snippet Eq "equation with numbers" b
+\begin{equation}
+	$1 = $2 \label{eq:$3}
+\end{equation}
+$0
+endsnippet
+
 snippet Ga "gather with numbers" b
 \begin{gather}
 	$1 &= $0
@@ -247,7 +260,7 @@ endsnippet
 
 ################# Arrows #########################
 
-snippet eq "equivalence" w
+snippet eqq "equivalence" w
 \Leftrightarrow ${0}
 endsnippet 
 
