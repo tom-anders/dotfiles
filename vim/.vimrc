@@ -151,8 +151,9 @@ onoremap fÖ f[
 onoremap fü f\
 onoremap tü t\
 
-autocmd FileType tex nnoremap j gj
-autocmd FileType tex nnoremap k gk
+"map j to gj except when there is a count!
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
 
 "source gnuplot syntax file
 so ~/.vim/syntax/gnuplot.vim
