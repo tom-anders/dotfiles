@@ -203,6 +203,12 @@ snippet tikz "tikz env" b
 \end{tikzpicture}
 endsnippet
 
+snippet tikzr "tikz env with remember and overlay" b
+\begin{tikzpicture}[overlay, remember picture]
+	$0
+\end{tikzpicture}
+endsnippet
+
 snippet calc "calculate coordinate"
 ($(${1:${VISUAL}})$)
 endsnippet
