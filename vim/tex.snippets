@@ -142,10 +142,8 @@ snippet ssub "Subsubsection" b
 $0
 endsnippet
 
-snippet par "Paragraph" b
-\paragraph{${1:paragraph name}}%
-\label{par:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
-
+snippet pg "Paragraph" b
+\paragraph*{${1:paragraph name}}%
 $0
 endsnippet
 
