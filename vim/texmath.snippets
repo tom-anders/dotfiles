@@ -167,7 +167,7 @@ endsnippet
 
 ################### Derivatives ########################
 
-snippet dv
+snippet dv "derivative" w
 \dv{$2}{$3} $0
 endsnippet
 
@@ -244,6 +244,10 @@ endsnippet
 
 snippet bk "bra ket" w
 \braket{${1:${VISUAL}}}{${2:ket}} ${0}
+endsnippet
+
+snippet mel "matrix element" w
+\mel{${1:bra}}{${2:${VISUAL}}}{${3:ket}} ${0}
 endsnippet
 
 snippet ksp "super position with ket" w
@@ -406,10 +410,6 @@ endsnippet
 
 snippet cc "complex conjugate" w
 \text{c.c.}
-endsnippet
-
-snippet t "text" W
-\text{${1:${VISUAL}}} $0
 endsnippet
 
 snippet  lim "limes" w
