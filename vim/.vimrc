@@ -22,6 +22,7 @@ Plug 'lazywei/vim-matlab'
 Plug 'justinmk/vim-sneak'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'tommcdo/vim-exchange'
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "cmspool06"
