@@ -385,7 +385,11 @@ snippet na "nabla" W
 endsnippet
 
 snippet rot "rot" W
-\nabla \cross 
+\nabla \cross \vec{$1} $0
+endsnippet
+
+snippet div "div" W
+\nabla \vec{$1} $0
 endsnippet
 
 snippet lap "laplace" W
