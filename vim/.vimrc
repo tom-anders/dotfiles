@@ -152,6 +152,13 @@ onoremap fÖ f[
 onoremap fü f\
 onoremap tü t\
 
+"On a German keyboard @ is altgr+q, so when executing a macro with @ i may
+"accidentally press only q and thus overwrite the macro, so simply swap @ and
+"q in normal mode:
+
+nnoremap @ q
+nnoremap q @
+
 "map j to gj except when there is a count!
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
