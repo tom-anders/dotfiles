@@ -73,6 +73,8 @@ tldr() {
     wget -qO- cheat.sh/$1
 }
 
+alias cat="bat --theme=1337" #Cat clone with syntax highlighting
+
 alias mv="mv -i"
 
 #Aliases when we don't have oh-my-zsh
