@@ -74,6 +74,7 @@ tldr() {
 }
 
 alias cat="bat --theme=1337" #Cat clone with syntax highlighting
+alias find="fd" #Alternative to find
 
 alias mv="mv -i"
 
