@@ -23,6 +23,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tommcdo/vim-exchange'
+Plug 'scrooloose/nerdtree'
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "cmspool06"
@@ -101,6 +102,10 @@ map y <Plug>(highlightedyank)
 "vim-comfortable-motion
 nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
 nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
+
+"NERDTree
+map <C-n> :NERDTreeToggle<CR>
+let NERDTreeMapOpenInTab='<ENTER>'
 
 "Remap H and L
 noremap H 0
