@@ -75,6 +75,7 @@ tldr() {
 
 alias cat="bat --theme=1337" #Cat clone with syntax highlighting
 alias find="fd" #Alternative to find
+alias gnuplot="rlwrap -c gnuplot"
 
 alias mv="mv -i"
 
