@@ -1,4 +1,4 @@
-alias latexmk='latexmk -pdf -pvc'
+alias latexmk='latexmk -pdf -pvc -outdir=out'
 alias open='mimeopen'
 
 alias lst='lsa -t'
