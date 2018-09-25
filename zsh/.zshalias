@@ -1,4 +1,5 @@
-alias latexmk='latexmk -pdf -pvc'
+alias latexmk='latexmk -pdf -pvc -outdir=out'
+alias luamk='latexmk -pdf -pvc -outdir=out -lualatex -shell-escape'
 alias open='mimeopen'
 
 alias lst='lsa -t'
@@ -72,6 +73,10 @@ pl() {
 tldr() {
     wget -qO- cheat.sh/$1
 }
+
+alias cat="bat --theme=1337" #Cat clone with syntax highlighting
+alias find="fd" #Alternative to find
+alias gnuplot="rlwrap -c gnuplot"
 
 alias mv="mv -i"
 

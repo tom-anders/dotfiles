@@ -23,6 +23,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tommcdo/vim-exchange'
+Plug 'scrooloose/nerdtree'
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "cmspool06"
@@ -102,6 +103,10 @@ map y <Plug>(highlightedyank)
 nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
 nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
 
+"NERDTree
+map <C-n> :NERDTreeToggle<CR>
+let NERDTreeMapOpenInTab='<ENTER>'
+
 "Remap H and L
 noremap H 0
 noremap L g_
@@ -151,6 +156,13 @@ onoremap fÄ f]
 onoremap fÖ f[
 onoremap fü f\
 onoremap tü t\
+
+"On a German keyboard @ is altgr+q, so when executing a macro with @ i may
+"accidentally press only q and thus overwrite the macro, so simply swap @ and
+"q in normal mode:
+
+nnoremap @ q
+nnoremap q @
 
 "map j to gj except when there is a count!
 nnoremap <expr> j v:count ? 'j' : 'gj'
