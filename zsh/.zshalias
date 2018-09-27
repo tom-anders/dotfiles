@@ -1,5 +1,5 @@
-alias latexmk='latexmk -pdf -pvc -outdir=out'
-alias luamk='latexmk -pdf -pvc -outdir=out -lualatex -shell-escape'
+alias latexmk='latexmk -pdf -pvc'
+alias luamk='latexmk -pdf -pvc -lualatex -shell-escape'
 alias open='mimeopen'
 
 alias lst='lsa -t'
