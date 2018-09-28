@@ -212,10 +212,8 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
 
     "Disable some warnings
     let g:vimtex_quickfix_latexlog = {
-                \ 'overfull' : 0,
-                \ 'underfull' : 0,
-                \ 'hyperref' : 0,
                 \ 'Draft' : 0,
+                \ 'Font' : 0,
                 \ 'packages' : {
                 \   'default' : 0,
                 \ },
