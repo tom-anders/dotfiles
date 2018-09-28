@@ -224,7 +224,11 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
 
     let g:vimtex_matchparen_enabled=0 "better performance
     autocmd FileType tex set lazyredraw "Better scrolling performance in latex,
-    let g:vimtex_compiler_progname='~/.local/bin/nvr' "make vimtex work with nvim
+    if hostname == "arch-laptop" 
+        let g:vimtex_compiler_progname='~/.local/bin/nvr' "make vimtex work with nvim
+    else 
+        let g:vimtex_compiler_progname='/usr/bin/nvr' "make vimtex work with nvim
+    endif
 
     "TeX Settings
     autocmd FileType tex set encoding=utf-8
@@ -247,6 +251,7 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
                 \   '-synctex=1',
                 \   '-interaction=nonstopmode',
                 \   '-shell-escape',
+                \   '-lualatex',
                 \ ],
                 \}
 
