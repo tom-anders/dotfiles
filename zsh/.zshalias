@@ -1,4 +1,5 @@
 alias latexmk='latexmk -pdf -pvc'
+alias luamk='latexmk -pdf -pvc -lualatex -shell-escape'
 alias open='mimeopen'
 
 alias lst='lsa -t'
@@ -33,6 +34,10 @@ if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]] then
     alias univpn='~/Documents/scripts/uni_vpn.sh'
 
     alias cat="bat --theme=1337" #Cat clone with syntax highlighting
+    alias find="fd" #Alternative to find
+
+    alias gnuplot="rlwrap -c gnuplot"
+
     alias find="fd" #Alternative to find
 
     unalias zz
@@ -71,7 +76,6 @@ pl() {
 tldr() {
     wget -qO- cheat.sh/$1
 }
-
 
 alias mv="mv -i"
 

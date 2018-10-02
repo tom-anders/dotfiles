@@ -17,10 +17,6 @@ if [ $(hostname) = 'arch-laptop' ]; then
     # Import colorscheme from 'wal'
     # (cat /home/tom/.cache/wal/sequences &)
 
-    # Autojump
-    [[ -s /home/tom/.autojump/etc/profile.d/autojump.sh ]] && source /home/tom/.autojump/etc/profile.d/autojump.sh
-    autoload -U compinit && compinit -u
-
     alias presentation='xrandr --output eDP-1 --mode 1920x1080 --output HDMI-1 --right-of eDP-1 --mode 1920x1080 && ~/.config/polybar/launch.sh'
     alias presentationOff='xrandr --output HDMI-1 --off'
 

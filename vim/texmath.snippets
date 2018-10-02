@@ -5,38 +5,38 @@ priority -50
 ##############
 
 ################## Environments ################
-snippet Al "align with numbers" b
+snippet al "align with numbers" b
 \begin{align}
 	$1 &= $0 
 \end{align}
 endsnippet
 
-snippet al "align without numbers" b
+snippet Al "align without numbers" b
 \begin{align*}
 	$1 &= $0
 \end{align*}
 endsnippet
 
-snippet eq "equation without numbers" b
+snippet Eq "equation without numbers" b
 \begin{equation*}
 	$1 = $0
 \end{equation*}
 endsnippet
 
-snippet Eq "equation with numbers" b
+snippet eq "equation with numbers" b
 \begin{equation}
 	$1 = $2 \label{eq:$3}
 \end{equation}
 $0
 endsnippet
 
-snippet Ga "gather with numbers" b
+snippet ga "gather with numbers" b
 \begin{gather}
 	$1 = $0
 \end{gather}
 endsnippet
 
-snippet ga "gather without numbers" b
+snippet Ga "gather without numbers" b
 \begin{gather*}
 	$1 = $0
 \end{gather*}
@@ -217,8 +217,12 @@ endsnippet
 
 ################# Quantum mechanics #####################
 
-snippet c "adjoinz" W
-\adj{${1:${VISUAL}}} ${0}
+snippet c "adjoint" W
+\adj{${1:${VISUAL}}}${0}
+endsnippet
+
+snippet cu "adjoint with subscript" w
+\adj{${1:${VISUAL}}}_{$2}${0}
 endsnippet
 
 snippet br "bra" W
