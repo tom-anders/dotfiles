@@ -18,7 +18,7 @@ if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]] then
 
     alias ssm="ssh -t tap@antares.upb.de ssh tap@amaa.uni-paderborn.de"
     alias ssc="ssh -t -X tap@antares.upb.de ssh -X tap@cmspool06"
-    
+
     alias fuck='sudo $(fc -ln -1)'
 
     #When leaving ranger, keep the terminal in the current directory
@@ -32,7 +32,17 @@ if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]] then
 
     alias univpn='~/Documents/scripts/uni_vpn.sh'
 
+    alias cat="bat --theme=1337" #Cat clone with syntax highlighting
+    alias find="fd" #Alternative to find
+
+    unalias zz
 fi
+
+# fasd & fzf change directory
+zz() {
+    local file
+    file="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${file}" || return 1
+}
 
 alias a='fasd -a'        # any
 alias s='fasd -si'       # show / search / select
@@ -44,17 +54,6 @@ alias z='fasd_cd -d'     # cd, same functionality as j in autojump
 alias j='z'
 alias v='f -e nvim' # quick opening files with vim
 alias o='a -e xdg-open' # quick opening files with xdg-open
-
-# fasd & fzf change directory
-unalias zz
-zz() {
-    local file
-    file="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${file}" || return 1
-}
-
-if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work
-    alias j="z"
-fi
 
 cs() {
     cd $1 && ls 
@@ -73,12 +72,9 @@ tldr() {
     wget -qO- cheat.sh/$1
 }
 
-alias cat="bat --theme=1337" #Cat clone with syntax highlighting
-alias find="fd" #Alternative to find
 
 alias mv="mv -i"
 
-#Aliases when we don't have oh-my-zsh
 if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostname) = fe2 ]]; then #Double braces for * to work
     alias lsa="ls -al"
     alias gst="git status"
@@ -88,7 +84,7 @@ if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostnam
     alias ..="cd .."
     alias ...="cd ..."
 
-    alias w="cd $PC2WORK"
+    alias w="cd /upb/scratch/departments/pc2/groups/HPC-PRF-HDPADI/tap"
 
     alias ranger=" /upb/departments/pc2/scratch/tap/ranger/ranger.py"
 fi
