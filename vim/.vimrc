@@ -219,10 +219,8 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
 
     "Disable some warnings
     let g:vimtex_quickfix_latexlog = {
-                \ 'overfull' : 0,
-                \ 'underfull' : 0,
-                \ 'hyperref' : 0,
                 \ 'Draft' : 0,
+                \ 'Font' : 0,
                 \ 'packages' : {
                 \   'default' : 0,
                 \ },
@@ -231,7 +229,11 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
 
     let g:vimtex_matchparen_enabled=0 "better performance
     autocmd FileType tex set lazyredraw "Better scrolling performance in latex,
-    let g:vimtex_compiler_progname='~/.local/bin/nvr' "make vimtex work with nvim
+    if hostname == "arch-laptop" 
+        let g:vimtex_compiler_progname='~/.local/bin/nvr' "make vimtex work with nvim
+    else 
+        let g:vimtex_compiler_progname='/usr/bin/nvr' "make vimtex work with nvim
+    endif
 
     "TeX Settings
     autocmd FileType tex set encoding=utf-8
@@ -254,6 +256,7 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
                 \   '-synctex=1',
                 \   '-interaction=nonstopmode',
                 \   '-shell-escape',
+                \   '-lualatex',
                 \ ],
                 \}
 
