@@ -16,7 +16,6 @@ Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi' "Python completion
-Plug 'ervandew/supertab' "for now disabled in favor of neocomplete
 Plug 'wellle/targets.vim'
 Plug 'lazywei/vim-matlab'
 Plug 'justinmk/vim-sneak'
@@ -30,11 +29,19 @@ if hostname == "cmspool06"
     Plug 'dracula/vim'
     Plug 'wincent/terminus'
 endif
+if hostname != "Amaa.uni-paderborn.de" 
+    Plug 'ervandew/supertab' 
+endif
 
 call plug#end()
 
-let g:UltiSnipsExpandTrigger="<F16>"
-let g:UltiSnipsJumpForwardTrigger="<F16>"
+if hostname == "Amaa.uni-paderborn.de"
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+else 
+    let g:UltiSnipsExpandTrigger="<F16>"
+    let g:UltiSnipsJumpForwardTrigger="<F16>"
+endif
 let g:UltiSnipsJumpBackwardTrigger="<c-y>"
 
 "Use deoplete
@@ -78,10 +85,6 @@ autocmd FileType gnuplot setlocal commentstring=#\ %s
 "Colorscheme depending on computer (default: dracula)
 if hostname == "arch-laptop" || hostname == "tom-linux"
     color wal
-elseif hostname == "Amaa.uni-paderborn.de"
-    color base16-solarflare
-else
-    color dracula
 endif
 set hidden
 set backspace=indent,eol,start
@@ -174,13 +177,15 @@ so ~/.vim/syntax/gnuplot.vim
 "yank to system clipboard (hopefully)
 set clipboard=unnamedplus 
 
-if hostname == "arch-laptop" || hostname == "tom-linux"
+if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni-paderborn.de"
 
     "Setup deoplete to use vimtex completion
-    if !exists('g:deoplete#omni#input_patterns')
-        let g:deoplete#omni#input_patterns = {}
+    if hostname == "tom-linux"
+        if !exists('g:deoplete#omni#input_patterns')
+            let g:deoplete#omni#input_patterns = {}
+        endif
+        let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
     endif
-    let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 
     "Referencing with autocompletion
     inoremap ,rf \autoref{fig:}<Esc>i<C-X><C-O>
@@ -203,7 +208,9 @@ if hostname == "arch-laptop" || hostname == "tom-linux"
     highlight LineNr ctermbg=none
 
     "vimtex
-    let g:vimtex_view_general_viewer = 'okular'
+    if hostname != "Amaa.uni-paderborn.de"
+        let g:vimtex_view_general_viewer = 'okular'
+    endif
     let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
     let g:vimtex_view_general_options_latexmk = '--unique'
     let g:vimtex_fold_enabled=1
