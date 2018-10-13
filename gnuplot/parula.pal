@@ -1,0 +1,31 @@
+# Colormap similar to Matlab parula, see:
+# http://www.mathworks.de/products/matlab/matlab-graphics/#new_look_for_matlab_graphics
+
+# New default Matlab line colors, introduced together with parula (2014b)
+set style line 1 lt 1 lc rgb '#0072bd' # blue
+set linetype 1 lc rgb '#0072bd' 
+set style line 2 lt 1 lc rgb '#d95319' # orange
+set linetype 2 lc rgb '#d95319' 
+set style line 3 lt 1 lc rgb '#edb120' # yellow
+set linetype 3 lc rgb '#edb120' 
+set style line 4 lt 1 lc rgb '#7e2f8e' # purple
+set linetype 4 lc rgb '#7e2f8e' 
+set style line 5 lt 1 lc rgb '#77ac30' # green
+set linetype 5 lc rgb '#77ac30' 
+set style line 6 lt 1 lc rgb '#4dbeee' # light-blue
+set linetype 6 lc rgb '#4dbeee' 
+set style line 7 lt 1 lc rgb '#a2142f' # red
+set linetype 7 lc rgb '#a2142f' 
+
+# palette
+set palette defined (\
+0 '#352a87',\
+1 '#0363e1',\
+2 '#1485d4',\
+3 '#06a7c6',\
+4 '#38b99e',\
+5 '#92bf73',\
+6 '#d9ba56',\
+7 '#fcce2e',\
+8 '#f9fb0e')
+
