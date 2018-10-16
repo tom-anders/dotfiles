@@ -91,4 +91,6 @@ if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostnam
     alias w="cd /upb/scratch/departments/pc2/groups/HPC-PRF-HDPADI/tap"
 
     alias ranger=" /upb/departments/pc2/scratch/tap/ranger/ranger.py"
+
+    alias mine="ccsinfo -s --mine --fmt=\"%35N %7P %w %5v%D %60u\" | less"
 fi
