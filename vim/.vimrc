@@ -219,8 +219,10 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
 
     "Disable some warnings
     let g:vimtex_quickfix_latexlog = {
+                \ 'overfull' : 0,
+                \ 'underfull' : 0,
                 \ 'Draft' : 0,
-                \ 'Font' : 0,
+                \ 'font' : 0,
                 \ 'packages' : {
                 \   'default' : 0,
                 \ },
