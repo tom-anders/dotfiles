@@ -22,7 +22,12 @@ Plug 'justinmk/vim-sneak'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tommcdo/vim-exchange'
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
+Plug 'rafaqz/ranger.vim'
+
+let mapleader = 'ü'
+let maplocalleader = 'ü'
+
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "cmspool06"
@@ -43,6 +48,18 @@ else
     let g:UltiSnipsJumpForwardTrigger="<F16>"
 endif
 let g:UltiSnipsJumpBackwardTrigger="<c-y>"
+
+" For ranger.vim
+let g:ranger_terminal = 'urxvt -e'
+map <leader>rr :RangerEdit<cr>
+map <leader>rv :RangerVSplit<cr>
+map <leader>rs :RangerSplit<cr>
+map <leader>rt :RangerTab<cr>
+map <leader>ri :RangerInsert<cr>
+map <leader>ra :RangerAppend<cr>
+map <leader>rc :set operatorfunc=RangerChangeOperator<cr>g@
+map <leader>rd :RangerCD<cr>
+map <leader>rld :RangerLCD<cr>
 
 "Use deoplete
 if hostname == "tom-linux"
@@ -113,9 +130,6 @@ let NERDTreeMapOpenInTab='<ENTER>'
 "Remap H and L
 noremap H 0
 noremap L g_
-
-let mapleader = 'ü'
-let maplocalleader = 'ü'
 
 "for vim-airline
 set laststatus=2
