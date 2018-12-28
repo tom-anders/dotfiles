@@ -25,8 +25,13 @@ Plug 'tommcdo/vim-exchange'
 " Plug 'scrooloose/nerdtree'
 Plug 'rafaqz/ranger.vim'
 
-let mapleader = 'ü'
-let maplocalleader = 'ü'
+let mapleader = ' '
+let maplocalleader = ' '
+
+"Mappings for switiching buffers
+map <leader>bn :bn<cr>
+map <leader>bv :bp<cr>
+map <leader>bd :bd<cr>
 
 
 let hostname = substitute(system('hostname'), '\n', '', '')
