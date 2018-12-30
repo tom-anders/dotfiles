@@ -5,7 +5,6 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
-Plug 'yuttie/comfortable-motion.vim'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
@@ -123,10 +122,6 @@ set smartcase
 
 "for vim-highlightedyank
 map y <Plug>(highlightedyank)
-
-"vim-comfortable-motion
-nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
-nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
 
 "NERDTree
 map <C-n> :NERDTreeToggle<CR>
