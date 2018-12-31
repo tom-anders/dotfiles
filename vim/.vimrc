@@ -21,8 +21,9 @@ Plug 'justinmk/vim-sneak'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tommcdo/vim-exchange'
-" Plug 'scrooloose/nerdtree'
 Plug 'rafaqz/ranger.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf.vim'
 
 let mapleader = ' '
 let maplocalleader = ' '
@@ -32,6 +33,17 @@ map <leader>bn :bn<cr>
 map <leader>bv :bp<cr>
 map <leader>bd :bd<cr>
 
+"Mappings for fzf.vim
+map <leader>ff :GFiles<cr> 
+map <leader>fg :Files<cr>
+map <leader>fb :Buffers<cr>
+map <leader>fm :Marks<cr>
+map <leader>fl :Lines<cr>
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "cmspool06"
@@ -122,10 +134,6 @@ set smartcase
 
 "for vim-highlightedyank
 map y <Plug>(highlightedyank)
-
-"NERDTree
-map <C-n> :NERDTreeToggle<CR>
-let NERDTreeMapOpenInTab='<ENTER>'
 
 "Remap H and L
 noremap H 0
