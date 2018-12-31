@@ -13,4 +13,8 @@ end
 
 source $DOTFILES/fish/.fishalias
 
-fish_vi_key_bindings
+#fish_vi_key_bindings
+set -U fish_key_bindings fish_vi_key_bindings
+function fish_mode_prompt ; end
+
+#Theme: omf install shellder
