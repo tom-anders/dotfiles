@@ -1,0 +1,119 @@
+alias latexmk='latexmk -pdf -pvc'
+alias luamk='latexmk -pdf -pvc -lualatex -shell-escape'
+alias open='mimeopen'
+
+alias lst='lsa -t'
+alias vrc="vim ~/.vimrc"
+alias zrc="vim ~/.zshrc"
+alias frc="vim ~/.config/fish/config.fish"
+alias irc="vim ~/.config/i3/config"
+
+#List recently changed files
+alias lh='ls -lh --color=always -t | head'
+alias ls='ls --color=tty --group-directories-first'
+
+alias lsa="ls -al"
+alias gst="git status"
+alias gl="git pull"
+alias gp="git push"
+alias gcam="git commit -am"
+alias gcm="git checkout master"
+alias ..="cd .."
+alias ...="cd ..."
+
+if [ (hostname) = "arch-laptop" ]; or [ (hostname) = "tom-linux" ]; 
+    alias vim='nvim'
+    alias paul='cd /home/tom/Documents/PaulFiles and paul -u tap'
+    alias update='sudo pacman -Syu'
+    alias accio='sudo pacman -S'
+
+    alias ssm="ssh -t tap@antares.upb.de ssh tap@amaa.uni-paderborn.de"
+    alias ssc="ssh -t -X tap@antares.upb.de ssh -X tap@cmspool06"
+
+    #alias fuck='sudo (fc -ln -1)' #fc not working in fish
+
+    #When leaving ranger, keep the terminal in the current directory
+    alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"' 
+    alias r='ranger'
+
+    alias diff='colordiff'
+
+    #Needs sox installed
+    alias guitar='for n in E2 A2 D3 G3 B3 E4; play -n synth 4 pluck $n repeat 2; end'
+
+    alias univpn='~/Documents/scripts/uni_vpn.sh'
+
+    alias cat="bat --theme=1337" #Cat clone with syntax highlighting
+    alias find="fd" #Alternative to find
+
+    alias gnuplot="rlwrap -c gnuplot"
+
+    alias find="fd" #Alternative to find
+
+    #unalias zz
+end
+
+# fasd & fzf change directory
+function zz
+    fasd -fl | fzf --no-sort --tac > /tmp/fzf; and v (cat /tmp/fzf)
+end
+
+# https://github.com/oh-my-fish/plugin-fasd/blob/master/functions/fasd_cd.fish
+# fasd_cd is implemented as a bash function, so here's the fish version:
+#function fasd_cd -d 'Function to execute built-in cd'
+  # if no $argv, identical with `fasd`
+  #if test (count $argv) -le 1
+    #command fasd "$argv"
+  #else
+    #command fasd -e 'printf %s' $argv | read -l ret
+    #test -z "$ret";
+      #and return
+    #test -d "$ret";
+      #and cd "$ret";
+      #or printf "%s\n" $ret
+  #end
+#end
+
+alias a='fasd -a'        # any
+alias s='fasd -si'       # show / search / select
+alias d='fasd -d'        # directory
+alias f='fasd -f'        # file
+alias sd='fasd -sid'     # interactive directory selection
+alias sf='fasd -sif'     # interactive file selection
+alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+alias j='z'
+alias v='f -e nvim' # quick opening files with vim
+alias o='a -e xdg-open' # quick opening files with xdg-open
+
+function cs 
+    cd $argv[1]; and ls 
+end
+
+function ca
+    cd $argv[1]; and lsa
+end
+
+#Pipe into less
+function pl
+    eval "$argv[1]" | less
+end
+
+function tldr 
+    wget -qO- cheat.sh/$argv[1]
+end
+
+alias mv="mv -i"
+
+if [ (hostname) = "fe1" ]; or [ (hostname) = "fe-402-1.local" ]; or [ (hostname) = "fe2" ]
+    alias lsa="ls -al"
+    alias gst="git status"
+    alias gl="git pull"
+    alias gp="git push"
+    alias gcam="git commit -am"
+    alias ..="cd .."
+    alias ...="cd ..."
+
+    alias w="cd /upb/scratch/departments/pc2/groups/HPC-PRF-HDPADI/tap"
+
+    alias ranger=" /upb/departments/pc2/scratch/tap/ranger/ranger.py"
+end

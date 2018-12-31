@@ -5,7 +5,6 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
-Plug 'yuttie/comfortable-motion.vim'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
@@ -14,26 +13,69 @@ Plug 'dylanaraps/wal'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi' "Python completion
 Plug 'wellle/targets.vim'
 Plug 'lazywei/vim-matlab'
 Plug 'justinmk/vim-sneak'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tommcdo/vim-exchange'
-Plug 'scrooloose/nerdtree'
+Plug 'rafaqz/ranger.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf.vim'
+Plug 'ludovicchabant/vim-gutentags'
 
-let hostname = substitute(system('hostname'), '\n', '', '')
+"ncm2 config
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-pyclang'
+let g:ncm2_pyclang#library_path = '/usr/lib'
+Plug 'ncm2/ncm2-ultisnips'
+"Parameter mit ultisnips vervollstaendigen
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or((pumvisible() ? "\<c-y>" : "\<CR>"), 'n')
+autocmd filetype tex inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+set completeopt=noinsert,menuone
+
+let hostname=hostname()
 if hostname == "cmspool06"
     Plug 'dracula/vim'
     Plug 'wincent/terminus'
 endif
 if hostname != "Amaa.uni-paderborn.de" 
-    Plug 'ervandew/supertab' 
+    " Plug 'ervandew/supertab' 
 endif
 
 call plug#end()
+
+let mapleader = ' '
+let maplocalleader = ' '
+
+map <leader><leader> za
+map <leader>a za
+
+"Mappings for switiching buffers
+map <leader>bn :bn<cr>
+map <leader>bv :bp<cr>
+map <leader>bd :bd<cr>
+
+"Mappings for fzf.vim
+map <leader>ff :GFiles<cr> 
+map <leader>fg :Files<cr>
+map <leader>fb :Buffers<cr>
+map <leader>fm :Marks<cr>
+map <leader>fl :Lines<cr>
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+"Go to definition using tags
+xmap gd <C-]>
+nmap gd <C-]>
 
 if hostname == "Amaa.uni-paderborn.de"
     let g:UltiSnipsExpandTrigger="<tab>"
@@ -44,11 +86,17 @@ else
 endif
 let g:UltiSnipsJumpBackwardTrigger="<c-y>"
 
-"Use deoplete
-if hostname == "tom-linux"
-    let g:deoplete#enable_at_startup = 1
-endif
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+" For ranger.vim
+let g:ranger_terminal = 'urxvt -e'
+map <leader>rr :RangerEdit<cr>
+map <leader>rv :RangerVSplit<cr>
+map <leader>rs :RangerSplit<cr>
+map <leader>rt :RangerTab<cr>
+map <leader>ri :RangerInsert<cr>
+map <leader>ra :RangerAppend<cr>
+map <leader>rc :set operatorfunc=RangerChangeOperator<cr>g@
+map <leader>rd :RangerCD<cr>
+map <leader>rld :RangerLCD<cr>
 
 "Move vertically with f and t using the sneak plugin
 map f <Plug>Sneak_f
@@ -102,20 +150,9 @@ set smartcase
 "for vim-highlightedyank
 map y <Plug>(highlightedyank)
 
-"vim-comfortable-motion
-nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
-nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
-
-"NERDTree
-map <C-n> :NERDTreeToggle<CR>
-let NERDTreeMapOpenInTab='<ENTER>'
-
 "Remap H and L
 noremap H 0
 noremap L g_
-
-let mapleader = 'ü'
-let maplocalleader = 'ü'
 
 "for vim-airline
 set laststatus=2
@@ -178,6 +215,7 @@ so ~/.vim/syntax/gnuplot.vim
 set clipboard=unnamedplus 
 
 if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni-paderborn.de"
+    set shell=/usr/bin/zsh
 
     "Setup deoplete to use vimtex completion
     if hostname == "tom-linux"
@@ -219,8 +257,10 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
 
     "Disable some warnings
     let g:vimtex_quickfix_latexlog = {
+                \ 'overfull' : 0,
+                \ 'underfull' : 0,
                 \ 'Draft' : 0,
-                \ 'Font' : 0,
+                \ 'font' : 0,
                 \ 'packages' : {
                 \   'default' : 0,
                 \ },
@@ -262,5 +302,64 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
 
     "Macros
     let g:Tex_Leader='´'
+
+    "Completion setup for ncm2
+    augroup my_cm_setup
+        autocmd!
+        autocmd BufEnter * call ncm2#enable_for_buffer()
+        autocmd Filetype tex call ncm2#register_source({
+                    \ 'name' : 'vimtex-cmds',
+                    \ 'priority': 8, 
+                    \ 'complete_length': -1,
+                    \ 'scope': ['tex'],
+                    \ 'matcher': {'name': 'prefix', 'key': 'word'},
+                    \ 'word_pattern': '\w+',
+                    \ 'complete_pattern': g:vimtex#re#ncm2#cmds,
+                    \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                    \ })
+        autocmd Filetype tex call ncm2#register_source({
+                    \ 'name' : 'vimtex-labels',
+                    \ 'priority': 8, 
+                    \ 'complete_length': -1,
+                    \ 'scope': ['tex'],
+                    \ 'matcher': {'name': 'combine',
+                    \             'matchers': [
+                    \               {'name': 'substr', 'key': 'word'},
+                    \               {'name': 'substr', 'key': 'menu'},
+                    \             ]},
+                    \ 'word_pattern': '\w+',
+                    \ 'complete_pattern': g:vimtex#re#ncm2#labels,
+                    \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                    \ })
+        autocmd Filetype tex call ncm2#register_source({
+                    \ 'name' : 'vimtex-files',
+                    \ 'priority': 8, 
+                    \ 'complete_length': -1,
+                    \ 'scope': ['tex'],
+                    \ 'matcher': {'name': 'combine',
+                    \             'matchers': [
+                    \               {'name': 'abbrfuzzy', 'key': 'word'},
+                    \               {'name': 'abbrfuzzy', 'key': 'abbr'},
+                    \             ]},
+                    \ 'word_pattern': '\w+',
+                    \ 'complete_pattern': g:vimtex#re#ncm2#files,
+                    \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                    \ })
+        autocmd Filetype tex call ncm2#register_source({
+                    \ 'name' : 'bibtex',
+                    \ 'priority': 8, 
+                    \ 'complete_length': -1,
+                    \ 'scope': ['tex'],
+                    \ 'matcher': {'name': 'combine',
+                    \             'matchers': [
+                    \               {'name': 'prefix', 'key': 'word'},
+                    \               {'name': 'abbrfuzzy', 'key': 'abbr'},
+                    \               {'name': 'abbrfuzzy', 'key': 'menu'},
+                    \             ]},
+                    \ 'word_pattern': '\w+',
+                    \ 'complete_pattern': g:vimtex#re#ncm2#bibtex,
+                    \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                    \ })
+    augroup END
 
 endif

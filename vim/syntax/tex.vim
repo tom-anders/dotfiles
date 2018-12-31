@@ -5,6 +5,7 @@ let s:tex_fast= "bcmMprsSvV"
 
 if !exists("g:tex_no_math")
  call TexNewMathZone("E","eqbox",1)
+ call TexNewMathZone("E","albox",1)
 endif
 
 if s:tex_fast =~# 'r'
