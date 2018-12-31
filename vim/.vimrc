@@ -215,6 +215,7 @@ so ~/.vim/syntax/gnuplot.vim
 set clipboard=unnamedplus 
 
 if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni-paderborn.de"
+    set shell=/usr/bin/zsh
 
     "Setup deoplete to use vimtex completion
     if hostname == "tom-linux"
