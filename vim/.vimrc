@@ -39,7 +39,7 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 set completeopt=noinsert,menuone
 
-let hostname = substitute(system('hostname'), '\n', '', '')
+let hostname=hostname()
 if hostname == "cmspool06"
     Plug 'dracula/vim'
     Plug 'wincent/terminus'
