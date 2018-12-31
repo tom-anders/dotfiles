@@ -53,6 +53,9 @@ call plug#end()
 let mapleader = ' '
 let maplocalleader = ' '
 
+map <leader><leader> za
+map <leader>a za
+
 "Mappings for switiching buffers
 map <leader>bn :bn<cr>
 map <leader>bv :bp<cr>
