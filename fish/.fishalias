@@ -5,6 +5,7 @@ alias open='mimeopen'
 alias lst='lsa -t'
 alias vrc="vim ~/.vimrc"
 alias zrc="vim ~/.zshrc"
+alias frc="vim ~/.config/fish/config.fish"
 alias irc="vim ~/.config/i3/config"
 
 #List recently changed files
