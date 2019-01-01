@@ -25,6 +25,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mbbill/undotree'
 
+"Text ojects
+Plug 'kana/vim-textobj-user'
+Plug 'sgur/vim-textobj-parameter' "i, and a, for function parameters
+Plug 'bps/vim-textobj-python'
+Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
+
 "ncm2 config
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
@@ -240,9 +246,17 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
     "Folding
     let g:Tex_FoldedMisc='preamble'
 
-    "Make Latex math a text object
-    xnoremap i$ :<C-u>normal! T$vt$<CR>
-    onoremap i$ :normal vi$<CR>
+    "Text object for LaTeX math $$
+    call textobj#user#plugin('latex', {
+                \  'dollar-math-a': {
+                \     '*pattern*': '[$][^$]*[$]',
+                \     'select': 'am',
+                \   },
+                \  'dollar-math-i': {
+                \     '*pattern*': '[$]\zs[^$]*\ze[$]',
+                \     'select': 'im',
+                \   },
+                \ })
 
     "Enable transparency
     autocmd FileType tex highlight Nontext ctermbg=none
