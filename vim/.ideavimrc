@@ -1,0 +1,7 @@
+imap ö {
+imap ä }
+imap Ö [
+imap Ä ]
+imap ü \ 
+
+set ignorecase smartcase
