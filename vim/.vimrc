@@ -23,6 +23,7 @@ Plug 'rafaqz/ranger.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'mbbill/undotree'
 
 "ncm2 config
 Plug 'roxma/nvim-yarp'
@@ -53,8 +54,13 @@ call plug#end()
 let mapleader = ' '
 let maplocalleader = ' '
 
+"toggle folds
 map <leader><leader> za
 map <leader>a za
+
+"toggle undotree
+map <leader>uu :UndotreeToggle<cr>
+map <leader>uf :UndotreeFocus<cr>
 
 "Mappings for switiching buffers
 map <leader>bn :bn<cr>
