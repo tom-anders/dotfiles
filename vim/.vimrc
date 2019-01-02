@@ -267,10 +267,8 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
 
     "vimtex
     if hostname != "Amaa.uni-paderborn.de"
-        let g:vimtex_view_general_viewer = 'okular'
+        let g:vimtex_view_method = 'zathura'
     endif
-    let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-    let g:vimtex_view_general_options_latexmk = '--unique'
     let g:vimtex_fold_enabled=1
     let g:vimtex_fold_manual=1 "should give better performance
     let g:vimtex_imaps_leader='´'
@@ -302,11 +300,6 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
     autocmd FileType tex set sw=2
     autocmd FileType tex set iskeyword+=:
     set grepprg=grep\ -nH\ $*
-    let g:tex_flavor='latex'
-    let g:Tex_DefaultTargetFormat='pdf'
-    "Set okular as viewer and redirect output of stderr
-    let g:Tex_ViewRule_pdf = 'okular --unique &> /dev/null'
-    let g:Tex_CompileRule_pdf = 'latexmk -pv -pdf $* &> /dev/null'
 
     let g:vimtex_compiler_latexmk = {
                 \ 'options' : [
