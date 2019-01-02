@@ -38,6 +38,7 @@ Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-pyclang'
 let g:ncm2_pyclang#library_path = '/usr/lib'
 Plug 'ncm2/ncm2-ultisnips'
+Plug 'ncm2/ncm2-bufword'
 "Parameter mit ultisnips vervollstaendigen
 inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or((pumvisible() ? "\<c-y>" : "\<CR>"), 'n')
 autocmd filetype tex inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
