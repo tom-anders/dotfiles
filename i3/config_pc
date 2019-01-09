@@ -129,10 +129,10 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-bindsym $mod+Shift+h resize shrink width 10 px or 10 ppt
-bindsym $mod+Shift+j resize grow height 10 px or 10 ppt
-bindsym $mod+Shift+k resize shrink height 10 px or 10 ppt
-bindsym $mod+Shift+l resize grow width 10 px or 10 ppt
+bindsym $mod+Shift+h resize shrink width 3 px or 3 ppt
+bindsym $mod+Shift+j resize grow height 3 px or 3 ppt
+bindsym $mod+Shift+k resize shrink height 3 px or 3 ppt
+bindsym $mod+Shift+l resize grow width 3 px or 3 ppt
 
 
 # TODO use the bottom one again when pywal works
@@ -183,8 +183,9 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 	
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 2 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 2 -5% #decrease sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute
+
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 #for pdfpc

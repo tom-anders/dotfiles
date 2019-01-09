@@ -61,6 +61,10 @@ snippet != "neq" iA
 \neq $0
 endsnippet
 
+snippet := "coloneqq" iA
+\coloneqq $0
+endsnippet
+
 snippet __ "subscript" iA
 _{$1} $0
 endsnippet
@@ -496,6 +500,10 @@ endsnippet
 
 snippet hh "text in superscript" i
 ^\mathrm{${1:${VISUAL}}}$0
+endsnippet
+
+snippet rm "text in mathrm" i
+\mathrm{${1:${VISUAL}}}$0
 endsnippet
 
 snippet tt "text in math" i

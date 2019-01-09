@@ -5,7 +5,6 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
-Plug 'yuttie/comfortable-motion.vim'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
@@ -14,26 +13,82 @@ Plug 'dylanaraps/wal'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi' "Python completion
 Plug 'wellle/targets.vim'
 Plug 'lazywei/vim-matlab'
 Plug 'justinmk/vim-sneak'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tommcdo/vim-exchange'
-Plug 'scrooloose/nerdtree'
+Plug 'rafaqz/ranger.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf.vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'mbbill/undotree'
 
-let hostname = substitute(system('hostname'), '\n', '', '')
+"Text ojects
+Plug 'kana/vim-textobj-user'
+Plug 'sgur/vim-textobj-parameter' "i, and a, for function parameters
+Plug 'bps/vim-textobj-python'
+Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
+
+"ncm2 config
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-pyclang'
+let g:ncm2_pyclang#library_path = '/usr/lib'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'ncm2/ncm2-bufword'
+"Parameter mit ultisnips vervollstaendigen
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or((pumvisible() ? "\<c-y>" : "\<CR>"), 'n')
+autocmd filetype tex inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+set completeopt=noinsert,menuone
+
+let hostname=hostname()
 if hostname == "cmspool06"
     Plug 'dracula/vim'
     Plug 'wincent/terminus'
 endif
 if hostname != "Amaa.uni-paderborn.de" 
-    Plug 'ervandew/supertab' 
+    " Plug 'ervandew/supertab' 
 endif
 
 call plug#end()
+
+let mapleader = ' '
+let maplocalleader = ' '
+
+"toggle folds
+map <leader><leader> za
+map <leader>a za
+
+"toggle undotree
+map <leader>uu :UndotreeToggle<cr>
+map <leader>uf :UndotreeFocus<cr>
+
+"Mappings for switiching buffers
+map <leader>bn :bn<cr>
+map <leader>bv :bp<cr>
+map <leader>bd :bd<cr>
+
+"Mappings for fzf.vim
+map <leader>ff :GFiles<cr> 
+map <leader>fg :Files<cr>
+map <leader>fb :Buffers<cr>
+map <leader>fm :Marks<cr>
+map <leader>fl :Lines<cr>
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+"Go to definition using tags
+xmap gd <C-]>
+nmap gd <C-]>
 
 if hostname == "Amaa.uni-paderborn.de"
     let g:UltiSnipsExpandTrigger="<tab>"
@@ -44,11 +99,17 @@ else
 endif
 let g:UltiSnipsJumpBackwardTrigger="<c-y>"
 
-"Use deoplete
-if hostname == "tom-linux"
-    let g:deoplete#enable_at_startup = 1
-endif
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+" For ranger.vim
+let g:ranger_terminal = 'urxvt -e'
+map <leader>rr :RangerEdit<cr>
+map <leader>rv :RangerVSplit<cr>
+map <leader>rs :RangerSplit<cr>
+map <leader>rt :RangerTab<cr>
+map <leader>ri :RangerInsert<cr>
+map <leader>ra :RangerAppend<cr>
+map <leader>rc :set operatorfunc=RangerChangeOperator<cr>g@
+map <leader>rd :RangerCD<cr>
+map <leader>rld :RangerLCD<cr>
 
 "Move vertically with f and t using the sneak plugin
 map f <Plug>Sneak_f
@@ -102,20 +163,9 @@ set smartcase
 "for vim-highlightedyank
 map y <Plug>(highlightedyank)
 
-"vim-comfortable-motion
-nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
-nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
-
-"NERDTree
-map <C-n> :NERDTreeToggle<CR>
-let NERDTreeMapOpenInTab='<ENTER>'
-
 "Remap H and L
 noremap H 0
 noremap L g_
-
-let mapleader = 'ü'
-let maplocalleader = 'ü'
 
 "for vim-airline
 set laststatus=2
@@ -179,6 +229,12 @@ set clipboard=unnamedplus
 
 if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni-paderborn.de"
 
+    if hostname == "Amaa.uni-paderborn.de"
+    	set shell=/bin/zsh
+    else
+    	set shell=/usr/bin/zsh
+    endif
+
     "Setup deoplete to use vimtex completion
     if hostname == "tom-linux"
         if !exists('g:deoplete#omni#input_patterns')
@@ -196,9 +252,17 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
     "Folding
     let g:Tex_FoldedMisc='preamble'
 
-    "Make Latex math a text object
-    xnoremap i$ :<C-u>normal! T$vt$<CR>
-    onoremap i$ :normal vi$<CR>
+    "Text object for LaTeX math $$
+    call textobj#user#plugin('latex', {
+                \  'dollar-math-a': {
+                \     '*pattern*': '[$][^$]*[$]',
+                \     'select': 'am',
+                \   },
+                \  'dollar-math-i': {
+                \     '*pattern*': '[$]\zs[^$]*\ze[$]',
+                \     'select': 'im',
+                \   },
+                \ })
 
     "Enable transparency
     autocmd FileType tex highlight Nontext ctermbg=none
@@ -209,18 +273,18 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
 
     "vimtex
     if hostname != "Amaa.uni-paderborn.de"
-        let g:vimtex_view_general_viewer = 'okular'
+        let g:vimtex_view_method = 'zathura'
     endif
-    let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-    let g:vimtex_view_general_options_latexmk = '--unique'
     let g:vimtex_fold_enabled=1
     let g:vimtex_fold_manual=1 "should give better performance
     let g:vimtex_imaps_leader='´'
 
     "Disable some warnings
     let g:vimtex_quickfix_latexlog = {
+                \ 'overfull' : 0,
+                \ 'underfull' : 0,
                 \ 'Draft' : 0,
-                \ 'Font' : 0,
+                \ 'font' : 0,
                 \ 'packages' : {
                 \   'default' : 0,
                 \ },
@@ -242,11 +306,6 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
     autocmd FileType tex set sw=2
     autocmd FileType tex set iskeyword+=:
     set grepprg=grep\ -nH\ $*
-    let g:tex_flavor='latex'
-    let g:Tex_DefaultTargetFormat='pdf'
-    "Set okular as viewer and redirect output of stderr
-    let g:Tex_ViewRule_pdf = 'okular --unique &> /dev/null'
-    let g:Tex_CompileRule_pdf = 'latexmk -pv -pdf $* &> /dev/null'
 
     let g:vimtex_compiler_latexmk = {
                 \ 'options' : [
@@ -262,5 +321,64 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
 
     "Macros
     let g:Tex_Leader='´'
+
+    "Completion setup for ncm2
+    augroup my_cm_setup
+        autocmd!
+        autocmd BufEnter * call ncm2#enable_for_buffer()
+        autocmd Filetype tex call ncm2#register_source({
+                    \ 'name' : 'vimtex-cmds',
+                    \ 'priority': 8, 
+                    \ 'complete_length': -1,
+                    \ 'scope': ['tex'],
+                    \ 'matcher': {'name': 'prefix', 'key': 'word'},
+                    \ 'word_pattern': '\w+',
+                    \ 'complete_pattern': g:vimtex#re#ncm2#cmds,
+                    \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                    \ })
+        autocmd Filetype tex call ncm2#register_source({
+                    \ 'name' : 'vimtex-labels',
+                    \ 'priority': 8, 
+                    \ 'complete_length': -1,
+                    \ 'scope': ['tex'],
+                    \ 'matcher': {'name': 'combine',
+                    \             'matchers': [
+                    \               {'name': 'substr', 'key': 'word'},
+                    \               {'name': 'substr', 'key': 'menu'},
+                    \             ]},
+                    \ 'word_pattern': '\w+',
+                    \ 'complete_pattern': g:vimtex#re#ncm2#labels,
+                    \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                    \ })
+        autocmd Filetype tex call ncm2#register_source({
+                    \ 'name' : 'vimtex-files',
+                    \ 'priority': 8, 
+                    \ 'complete_length': -1,
+                    \ 'scope': ['tex'],
+                    \ 'matcher': {'name': 'combine',
+                    \             'matchers': [
+                    \               {'name': 'abbrfuzzy', 'key': 'word'},
+                    \               {'name': 'abbrfuzzy', 'key': 'abbr'},
+                    \             ]},
+                    \ 'word_pattern': '\w+',
+                    \ 'complete_pattern': g:vimtex#re#ncm2#files,
+                    \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                    \ })
+        autocmd Filetype tex call ncm2#register_source({
+                    \ 'name' : 'bibtex',
+                    \ 'priority': 8, 
+                    \ 'complete_length': -1,
+                    \ 'scope': ['tex'],
+                    \ 'matcher': {'name': 'combine',
+                    \             'matchers': [
+                    \               {'name': 'prefix', 'key': 'word'},
+                    \               {'name': 'abbrfuzzy', 'key': 'abbr'},
+                    \               {'name': 'abbrfuzzy', 'key': 'menu'},
+                    \             ]},
+                    \ 'word_pattern': '\w+',
+                    \ 'complete_pattern': g:vimtex#re#ncm2#bibtex,
+                    \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                    \ })
+    augroup END
 
 endif
