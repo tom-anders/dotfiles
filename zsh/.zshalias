@@ -11,7 +11,7 @@ alias irc="vim ~/.config/i3/config"
 alias lh='ls -lh --color=always -t | head'
 alias ls='ls --color=tty --group-directories-first'
 
-if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]] then
+if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]]; then
     alias vim='nvim'
     alias paul='cd /home/tom/Documents/PaulFiles && paul -u tap'
     alias update='sudo pacman -Syu'
@@ -90,7 +90,7 @@ if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostnam
 
     alias w="cd /upb/scratch/departments/pc2/groups/HPC-PRF-HDPADI/tap"
 
-    alias ranger=" /upb/departments/pc2/scratch/tap/ranger/ranger.py"
+    alias ranger=" /upb/scratch/departments/pc2/groups/HPC-PRF-HDPADI/tap/ranger/ranger.py"
 
     alias mine="ccsinfo -s --mine --fmt=\"%35N %7P %w %5v%D %60u\" | less"
 fi
