@@ -21,7 +21,10 @@ Plug 'honza/vim-snippets'
 Plug 'tommcdo/vim-exchange'
 Plug 'rafaqz/ranger.vim'
 Plug 'junegunn/vim-easy-align'
+
 Plug 'junegunn/fzf.vim'
+set rtp+=/usr/local/opt/fzf "for mac
+
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mbbill/undotree'
 
