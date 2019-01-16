@@ -17,8 +17,8 @@ set linetype 6 lc rgb '#4dbeee'
 set style line 7 lt 1 lc rgb '#a2142f' # red
 set linetype 7 lc rgb '#a2142f' 
 
-# palette
-set palette defined (\
+set macros
+parula = "defined (\
 0 '#352a87',\
 1 '#0363e1',\
 2 '#1485d4',\
@@ -27,5 +27,18 @@ set palette defined (\
 5 '#92bf73',\
 6 '#d9ba56',\
 7 '#fcce2e',\
-8 '#f9fb0e')
+8 '#f9fb0e')"
 
+# set palette @jet as an alternative (rainbow)
+set macros 
+jet = "defined (0  0.0 0.0 0.5, \
+                   1  0.0 0.0 1.0, \
+                   2  0.0 0.5 1.0, \
+                   3  0.0 1.0 1.0, \
+                   4  0.5 1.0 0.5, \
+                   5  1.0 1.0 0.0, \
+                   6  1.0 0.5 0.0, \
+                   7  1.0 0.0 0.0, \
+                   8  0.5 0.0 0.0 )"
+
+set palette @parula # parula as default
