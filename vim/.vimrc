@@ -22,6 +22,10 @@ Plug 'tommcdo/vim-exchange'
 Plug 'rafaqz/ranger.vim'
 Plug 'junegunn/vim-easy-align'
 
+Plug 'tommcdo/vim-express' "For g= to apply an expression onto a motion
+"Convert to title case inside a motion, needs pip install titlecase
+autocmd VimEnter * MapExpress gt system('titlecase ' . v:val)
+
 Plug 'junegunn/fzf.vim'
 set rtp+=/usr/local/opt/fzf "for mac
 
