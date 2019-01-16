@@ -153,6 +153,8 @@ autocmd FileType gnuplot setlocal commentstring=#\ %s
 "Colorscheme depending on computer (default: dracula)
 if hostname == "arch-laptop" || hostname == "tom-linux"
     color wal
+else
+    color elflord
 endif
 set hidden
 set backspace=indent,eol,start
