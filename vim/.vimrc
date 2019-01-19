@@ -21,7 +21,14 @@ Plug 'honza/vim-snippets'
 Plug 'tommcdo/vim-exchange'
 Plug 'rafaqz/ranger.vim'
 Plug 'junegunn/vim-easy-align'
+
+Plug 'tommcdo/vim-express' "For g= to apply an expression onto a motion
+"Convert to title case inside a motion, needs pip install titlecase
+autocmd VimEnter * MapExpress gt system('titlecase ' . v:val)
+
 Plug 'junegunn/fzf.vim'
+set rtp+=/usr/local/opt/fzf "for mac
+
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mbbill/undotree'
 
@@ -91,7 +98,7 @@ nmap ga <Plug>(EasyAlign)
 xmap gd <C-]>
 nmap gd <C-]>
 
-if hostname == "Amaa.uni-paderborn.de"
+if hostname == "Amaa.uni-paderborn.de" || hostname == "iMac-Pro.local"
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<tab>"
 else 
@@ -147,6 +154,8 @@ autocmd FileType gnuplot setlocal commentstring=#\ %s
 "Colorscheme depending on computer (default: dracula)
 if hostname == "arch-laptop" || hostname == "tom-linux"
     color wal
+else
+    color elflord
 endif
 set hidden
 set backspace=indent,eol,start
@@ -228,8 +237,13 @@ so ~/.vim/syntax/gnuplot.vim
 "yank to system clipboard (hopefully)
 set clipboard=unnamedplus 
 
-if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni-paderborn.de"
-    set shell=/usr/bin/zsh
+if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni-paderborn.de" || hostname == "iMac-Pro.local"
+
+    if hostname == "Amaa.uni-paderborn.de" || hostname == "iMac-Pro.local"
+    	set shell=/bin/zsh
+    else
+    	set shell=/usr/bin/zsh
+    endif
 
     "Setup deoplete to use vimtex completion
     if hostname == "tom-linux"
@@ -268,7 +282,7 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
     highlight LineNr ctermbg=none
 
     "vimtex
-    if hostname != "Amaa.uni-paderborn.de"
+    if hostname != "Amaa.uni-paderborn.de" && hostname != "iMac-Pro.local"
         let g:vimtex_view_method = 'zathura'
     endif
     let g:vimtex_fold_enabled=1
