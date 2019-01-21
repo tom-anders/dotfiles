@@ -138,7 +138,8 @@ nnoremap <tab> <C-o>
 nnoremap <s-tab> <C-i>
 
 "indent file
-nnoremap g= gg=G``
+"vim-express also defines this, so we have to override it after the plugins are sourced
+autocmd VimEnter * nnoremap g= gg=G``zz 
 
 "Make sure gnuplot syntax works
 source ~/.vim/syntax/gnuplot.vim
