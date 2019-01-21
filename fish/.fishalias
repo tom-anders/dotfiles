@@ -102,6 +102,10 @@ function tldr
     wget -qO- cheat.sh/$argv[1]
 end
 
+function take
+    mkdir $argv[1]; and cd $argv[1]
+end
+
 alias mv="mv -i"
 
 if [ (hostname) = "fe1" ]; or [ (hostname) = "fe-402-1.local" ]; or [ (hostname) = "fe2" ]

@@ -80,6 +80,7 @@ map <leader>uf :UndotreeFocus<cr>
 map <leader>bn :bn<cr>
 map <leader>bv :bp<cr>
 map <leader>bd :bd<cr>
+nnoremap <leader>wq :w\|bd<cr>
 
 "Mappings for fzf.vim
 map <leader>ff :GFiles<cr> 
