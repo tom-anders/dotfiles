@@ -10,7 +10,7 @@ alias irc="vim ~/.config/i3/config"
 #List recently changed files
 alias lh='ls -lh --color=always -t | head'
 
-alias noctua='ssh -X -t -A tap@fe.noctua.pc2.uni-paderborn.de ssh -X noctua-last'
+alias noctua='ssh -X -t -A tap@fe.noctua.pc2.uni-paderborn.de ssh -X -t noctua-last tmux a'
 
 if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]]; then
     alias ls='ls --color=tty --group-directories-first'
