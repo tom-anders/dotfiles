@@ -2,6 +2,8 @@ alias latexmk='latexmk -pdf -pvc'
 alias luamk='latexmk -pdf -pvc -lualatex -shell-escape'
 alias open='mimeopen'
 
+alias dot='cd ~/.dotfiles && git status'
+
 alias lst='lsa -t'
 alias vrc="vim ~/.vimrc"
 alias zrc="vim ~/.zshrc"
