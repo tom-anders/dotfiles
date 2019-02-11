@@ -134,8 +134,16 @@ bindsym $mod+Shift+j resize grow height 3 px or 3 ppt
 bindsym $mod+Shift+k resize shrink height 3 px or 3 ppt
 bindsym $mod+Shift+l resize grow width 3 px or 3 ppt
 
+# Scratchpad
+# Move to scratchpad
+bindsym $mod+Shift+p move scratchpad 
+# Show the first scratchpad window
+bindsym $mod+p scratchpad show
 
-# TODO use the bottom one again when pywal works
+# Start urxvt with ranger on scratchpad at startup
+for_window [instance="__scratchpad"] move scratchpad 
+exec --no-startup-id urxvt -name __scratchpad -e ranger
+
 bindsym $mod+shift+w exec "/home/tom/.config/wal/changeWallpaper.py"
 
 bindsym $mod+r mode "resize"
