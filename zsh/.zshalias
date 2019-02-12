@@ -21,7 +21,7 @@ if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]]; then
     alias update='sudo pacman -Syu'
     alias accio='sudo pacman -S'
 
-    alias ssm="ssh -t tap@antares.upb.de ssh tap@amaa.uni-paderborn.de"
+    alias ssm="ssh -t tap@antares.upb.de ssh tap@stefan-schumacher11.uni-paderborn.de"
     alias ssc="ssh -t -X tap@antares.upb.de ssh -X tap@cmspool06"
 
     alias fuck='sudo $(fc -ln -1)'
@@ -80,6 +80,8 @@ pl() {
 tldr() {
     wget -qO- cheat.sh/$1
 }
+
+alias chx="chmod +x"
 
 alias mv="mv -i"
 
