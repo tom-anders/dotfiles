@@ -150,7 +150,13 @@ au BufNewFile,BufRead *.plt set filetype=gnuplot
 autocmd FileType matlab setlocal commentstring=%\ %s
 "Gnuplot comments
 autocmd FileType gnuplot setlocal commentstring=#\ %s
+"C++ comments
+autocmd FileType cpp setlocal commentstring=//\ %s
 
+"Fix indent after braces
+inoremap {<cr> {<cr>}<Esc>O
+inoremap (<cr> (<cr>)<Esc>O
+inoremap [<cr> [<cr>]<Esc>O
 
 "Colorscheme depending on computer (default: dracula)
 if hostname == "arch-laptop" || hostname == "tom-linux"
