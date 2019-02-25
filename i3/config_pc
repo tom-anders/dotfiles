@@ -99,11 +99,13 @@ workspace 5 output DisplayPort-1
 workspace 6 output DisplayPort-1
 workspace 7 output DisplayPort-1
 workspace 8 output DisplayPort-1
+workspace 9 output HDMI-A-1
+workspace 10 output HDMI-A-1
 
 bindsym Control+Left workspace prev
 bindsym Control+Right workspace next
 
-for_window [class="Spotify"] move to workspace 2
+for_window [class="Spotify"] move to workspace 9
 
 for_window [class="Chromium"] move to workspace 1
 
