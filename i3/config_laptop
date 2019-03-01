@@ -9,6 +9,16 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec urxvt -cd "`xcwd`" #Open new terminal in current directory
 
+# Scratchpad
+# Move to scratchpad
+bindsym $mod+Shift+p move scratchpad 
+# Show the first scratchpad window
+bindsym $mod+p scratchpad show
+
+# Start urxvt with ranger on scratchpad at startup
+for_window [instance="__scratchpad"] move scratchpad 
+exec --no-startup-id urxvt -name __scratchpad -e ranger
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -96,8 +106,6 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # Cycle wallpapers and apply new colorscheme.
 bindsym $mod+shift+w exec "wal --iterative -i $HOME/Pictures/Wallpapers -o $HOME/.config/polybar/launch.sh --backend=wal"
-#restart polybar
-bindsym $mod+shift+p exec "$HOME/.config/polybar/launch.sh"
 
 gaps inner 6
 
