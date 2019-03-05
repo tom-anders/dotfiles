@@ -143,7 +143,7 @@ bindsym $mod+p scratchpad show
 for_window [instance="__scratchpad"] move scratchpad 
 exec --no-startup-id urxvt -name __scratchpad -e ranger
 
-bindsym $mod+shift+w exec "/home/tom/.config/wal/changeWallpaper.py"
+bindsym $mod+shift+w exec "/home/tom/.dotfiles/i3/changeWallpaper.py"
 
 bindsym $mod+r mode "resize"
 
@@ -182,7 +182,8 @@ exec --no-startup-id xset s off -dpms #Don't turn off screen
 exec --no-startup-id spotify
 exec --no-startup-id chromium
 # exec --no-startup-id "wal -i $HOME/Pictures/Wallpapers -o $HOME/.config/polybar/launch.sh &"
-exec --no-startup-id "wal -i $HOME/Pictures/Wallpapers/XDNHDAS.jpg -o $HOME/.config/polybar/launch.sh &"
+# exec --no-startup-id "wal -i $HOME/Pictures/Wallpapers/XDNHDAS.jpg -o $HOME/.config/polybar/launch.sh &"
+exec --no-startup-id "/home/tom/.dotfiles/i3/changeWallpaper.py"
 exec --no-startup-id wal -R
 
 bindsym XF86AudioStop exec playerctl play-pause

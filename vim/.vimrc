@@ -89,6 +89,10 @@ map <leader>fb :Buffers<cr>
 map <leader>fm :Marks<cr>
 map <leader>fl :Lines<cr>
 
+" Fugitive mappings
+map <leader>gs :Gstatus<cr> 
+map <leader>gr :Gread<cr> 
+
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
