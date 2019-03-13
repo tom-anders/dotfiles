@@ -68,6 +68,9 @@ call plug#end()
 let mapleader = ' '
 let maplocalleader = ' '
 
+" Switch to header file and back
+map <leader>hh :e %:p:s,.hpp$,.X123X,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<CR><Paste>
+
 "toggle folds
 map <leader><leader> za
 map <leader>a za
@@ -88,6 +91,10 @@ map <leader>fg :Files<cr>
 map <leader>fb :Buffers<cr>
 map <leader>fm :Marks<cr>
 map <leader>fl :Lines<cr>
+
+" Fugitive mappings
+map <leader>gs :Gstatus<cr> 
+map <leader>gr :Gread<cr> 
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)

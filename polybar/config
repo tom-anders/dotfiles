@@ -1,0 +1,258 @@
+[colors]
+xcolor0 = ${xrdb:color0}
+xcolor1 = ${xrdb:color1}
+xcolor2 = ${xrdb:color2}
+xcolor3 = ${xrdb:color3}
+xcolor4 = ${xrdb:color4}
+xcolor5 = ${xrdb:color5}
+xcolor6 = ${xrdb:color6}
+xcolor7 = ${xrdb:color7}
+xcolor8 = ${xrdb:color8}
+xcolor9 = ${xrdb:color9}
+xcolor10 = ${xrdb:color10}
+xcolor11 = ${xrdb:color11}
+xcolor12 = ${xrdb:color12}
+xcolor13 = ${xrdb:color13}
+xcolor14 = ${xrdb:color14}
+xcolor15 = ${xrdb:color15}
+
+background = ${xrdb:background}
+foreground = ${xrdb:foreground}
+
+yellow = #FFC66D
+black = #000000
+grey = #2B2B2B
+aqua = #A9B7C6
+blue = #6897BB
+white = #FFFFFF
+orange = #CC7833
+red = #D25252
+
+[global/wm]
+margin-top = 0
+margin-bottom = 2
+
+[bar/baseBar]
+width = 100%
+height = 25
+background = ${colors.grey}
+foreground = ${xrdb:color7}
+
+border-size=8
+border-bottom-size=0
+border-color=#00
+
+spacing = 1
+padding-left = 1
+padding-right = 0
+module-margin-left = 0
+module-margin-right = 0
+
+line-size = 4
+
+font-0 = SourceCodePro:size=12;3
+font-1 = SourceSansPro:size=12;3
+font-2 = FontAwesome:size=12;3
+font-3 = MaterialIcons:size=12;3
+font-4 = Termsynu:size=12;3
+
+[bar/Bar]
+inherit = bar/baseBar
+monitor = HDMI-A-0
+
+modules-left = i3 
+modules-center = xwindow
+modules-right = cpu memory temperature filesystem
+
+tray-position = right
+tray-padding = 0
+
+[bar/Bar2]
+inherit = bar/baseBar
+monitor = DisplayPort-1
+modules-left = i3
+modules-center = spotify
+modules-right = wlan volume date
+
+[bar/Bar3]
+inherit = bar/baseBar
+monitor = HDMI-A-1
+modules-left = i3
+
+[module/volume]
+type = internal/volume
+
+format-volume = <label-volume> 
+label-volume =  %percentage%%
+
+label-volume-padding = 1
+
+format-muted-prefix = " "
+label-muted = Mute
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+
+[module/i3]
+type = internal/i3
+format = <label-state><label-mode>
+index-sort = true
+
+pin-workspaces = true
+
+label-mode-foreground = ${colors.grey}
+label-mode-background = ${colors.red}
+label-mode-padding = 1
+label-mode-margin = 1
+
+label-focused-font = 3
+label-unfocused-font = 3
+label-urgent-font = 3
+label-visible-font = 3
+
+label-focused = %name%
+label-focused-background = ${xrdb:color1}
+label-focused-foreground = ${xrdb:color7}
+label-focused-padding = 2
+
+label-unfocused = %name%
+label-unfocused-padding = 2
+
+label-visible = %name%
+label-visible-padding = 2
+
+label-urgent = %name%
+/*label-urgent-foreground = ${colors.red}*/
+label-urgent-foreground = ${colors.grey}
+label-urgent-background = ${colors.red}
+label-urgent-padding = 2
+
+[module/wlan]
+type = internal/network
+interface = enp0s25
+interval = 3.0
+
+label-connected-padding = 1
+format-connected = <label-connected>
+label-connected = %local_ip%
+label-disconnected = %ifname% disconnected
+ramp-signal-0 = 
+
+
+[module/filesystem]
+type = internal/fs
+
+label-mounted = %mountpoint%: %free% 
+label-mounted-padding=2
+
+; Mountpoints to display
+mount-0 = /
+
+; Seconds to sleep between updates
+; Default: 30
+interval = 60
+
+; Display fixed precision values
+; Default: false
+fixed-values = true
+
+; Spacing between entries
+; Default: 2
+spacing = 4
+
+[module/spotify]
+type = custom/script
+exec = ~/.config/polybar/spotify.sh %artist% - %title%
+tail = true
+interval = 1
+
+[module/cpu]
+type = internal/cpu
+; Available tags:
+;   <label> (default)
+;   <bar-load>
+;   <ramp-load>
+;   <ramp-coreload>
+format = <label> 
+
+label =  %percentage%%
+label-padding=1
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 1
+
+[module/temperature]
+type = internal/temperature
+
+format <label> <ramp>
+
+label =  %temperature%
+label-padding=1
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 5
+
+; Thermal zone to use
+; To list all the zone types, run 
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 2
+
+; Threshold temperature to display warning label
+; Default: 80
+warn-temperature = 60
+
+[module/memory]
+type = internal/memory
+
+label =  %gb_free%
+label-padding=1
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 3
+
+[module/date]
+type = internal/date
+date =  %A, %b. %d  %H:%M
+time = %H:%M
+interval = 5
+format-font =3 
+format-padding = 1
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+
+format-charging-padding = 1
+format-discharging-padding = 1
+format-full-padding = 1
+format-full-prefix = " "
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+[module/xwindow]
+type = internal/xwindow
+label = %title%
+
+format-padding = 2
