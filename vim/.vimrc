@@ -253,6 +253,8 @@ set clipboard=unnamedplus
 
 if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "stefan-schumacher11.uni-paderborn.de" 
 
+    let g:surround_{char2nr('c')} = "\\\1command\1{\r}" "Surround with latex cmd
+
     if hostname == "stefan-schumacher11.uni-paderborn.de" 
     	set shell=/bin/zsh
     else
