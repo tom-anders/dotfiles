@@ -160,6 +160,11 @@ autocmd FileType gnuplot setlocal commentstring=#\ %s
 "C++ comments
 autocmd FileType cpp setlocal commentstring=//\ %s
 
+"Insert comment divider
+map <leader>cc o<Esc>99A=<Esc>gcc
+"Comment box
+map <leader>cb O<Esc>O<Esc>100A=<Esc><CR>ix<CR><Esc>i<Esc>100a=<Esc>gc2kjcl
+
 "Fix indent after braces
 inoremap {<cr> {<cr>}<Esc>O
 inoremap (<cr> (<cr>)<Esc>O
