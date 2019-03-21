@@ -7,7 +7,13 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-surround'
+
 Plug 'lervag/vimtex'
+let g:tex_flavor='latex'
+set conceallevel=2
+let g:tex_conceal='abdmg'
+Plug 'KeitaNakamura/tex-conceal.vim'
+
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'dylanaraps/wal'
 Plug 'tpope/vim-repeat'
@@ -239,13 +245,6 @@ onoremap fÖ f[
 onoremap fü f\
 onoremap tü t\
 
-"On a German keyboard @ is altgr+q, so when executing a macro with @ i may
-"accidentally press only q and thus overwrite the macro, so simply swap @ and
-"q in normal mode:
-
-nnoremap @ q
-nnoremap q @
-
 "map j to gj except when there is a count!
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
@@ -301,6 +300,7 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "stefan-s
     highlight Normal ctermbg=none
     autocmd FileType tex highlight LineNr ctermbg=none
     highlight LineNr ctermbg=none
+    autocmd FileType tex highlight Conceal cterm=none ctermbg=none 
 
     "vimtex
     if hostname != "stefan-schumacher11.uni-paderborn.de" 
@@ -309,6 +309,15 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "stefan-s
     let g:vimtex_fold_enabled=1
     let g:vimtex_fold_manual=1 "should give better performance
     let g:vimtex_imaps_leader='´'
+
+    let  g:vimtex_fold_types = {
+           \ 'preamble' : {'enabled' : 0},
+           \ 'env_options' : {'enabled' : 1},
+           \ 'cmd_single_opt' : {'enabled' : 1},
+           \ 'envs' : {
+           \   'blacklist' : ['equation', 'eqbox', 'axis', 'groupplot'],
+           \ },
+           \}
 
     "Disable some warnings
     let g:vimtex_quickfix_latexlog = {
