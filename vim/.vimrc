@@ -101,19 +101,24 @@ map <leader>zl :Lines<cr>
 " ===================================================================================================
 " fzf-bibtex integration 
 " ===================================================================================================
-"TODO use my own script here...
-"
 function! s:bibtex_cite_sink(lines)
-    let r=system("bibtex-cite ", a:lines)
-    execute ':normal! i\cite{' . r . '}'
-    execute ':normal! F@dlf}'
+    execute ':normal! i\cite{' . split(a:lines[0])[-1] . '}'
+    call feedkeys('a ') "Back to inser mode
+endfunction
+function! s:bibtex_cite_sink_single(lines)
+    execute ':normal! a'split(a:lines[0])[-1]
 endfunction
 
 nnoremap <leader>c :call fzf#run({
-                        \ 'source': 'bibtex-ls \| grep "theorie"',
+                        \ 'source': './bibtexToFzf.py',
                         \ 'sink*': function('<sid>bibtex_cite_sink'),
                         \ 'up': '40%',
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+nnoremap <leader>sc :call fzf#run({
+                        \ 'source': './bibtexToFzf.py',
+                        \ 'sink*': function('<sid>bibtex_cite_sink_single'),
+                        \ 'up': '40%',
+                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR><CR>
 " ===================================================================================================
 
 " Fugitive mappings
