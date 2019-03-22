@@ -38,12 +38,24 @@ Plug 'sgur/vim-textobj-parameter' "i, and a, for function parameters
 Plug 'bps/vim-textobj-python'
 Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
 
+" LanguageServer client for NeoVim.
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+if executable('cquery')
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'cquery',
+      \ 'cmd': {server_info->['cquery']},
+      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
+      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+      \ })
+endif
+Plug 'ncm2/ncm2-vim-lsp'
+
 "ncm2 config
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-jedi'
-Plug 'ncm2/ncm2-pyclang'
-let g:ncm2_pyclang#library_path = '/usr/lib'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-bufword'
 "Parameter mit ultisnips vervollstaendigen
@@ -53,6 +65,7 @@ autocmd filetype tex inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 set completeopt=noinsert,menuone
+
 
 let hostname=hostname()
 if hostname == "cmspool06"
