@@ -98,6 +98,24 @@ map <leader>zb :Buffers<cr>
 map <leader>zm :Marks<cr>
 map <leader>zl :Lines<cr>
 
+" ===================================================================================================
+" fzf-bibtex integration 
+" ===================================================================================================
+"TODO use my own script here...
+"
+function! s:bibtex_cite_sink(lines)
+    let r=system("bibtex-cite ", a:lines)
+    execute ':normal! i\cite{' . r . '}'
+    execute ':normal! F@dlf}'
+endfunction
+
+nnoremap <leader>c :call fzf#run({
+                        \ 'source': 'bibtex-ls \| grep "theorie"',
+                        \ 'sink*': function('<sid>bibtex_cite_sink'),
+                        \ 'up': '40%',
+                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+" ===================================================================================================
+
 " Fugitive mappings
 map <leader>gs :Gstatus<cr> 
 map <leader>gr :Gread<cr> 
@@ -167,9 +185,9 @@ autocmd FileType gnuplot setlocal commentstring=#\ %s
 autocmd FileType cpp setlocal commentstring=//\ %s
 
 "Insert comment divider
-map <leader>cc o<Esc>99A=<Esc>gcc
+map <leader>d o<Esc>99A=<Esc>gcc
 "Comment box
-map <leader>cb O<Esc>O<Esc>100A=<Esc><CR>ix<CR><Esc>i<Esc>100a=<Esc>gc2kjcl
+map <leader>bb O<Esc>O<Esc>100A=<Esc><CR>ix<CR><Esc>i<Esc>100a=<Esc>gc2kjcl
 
 "Fix indent after braces
 inoremap {<cr> {<cr>}<Esc>O
