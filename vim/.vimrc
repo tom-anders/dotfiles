@@ -92,11 +92,11 @@ map <leader>bd :bd<cr>
 nnoremap <leader>wq :w\|bd<cr>
 
 "Mappings for fzf.vim
-map <leader>ff :GFiles<cr> 
-map <leader>fg :Files<cr>
-map <leader>fb :Buffers<cr>
-map <leader>fm :Marks<cr>
-map <leader>fl :Lines<cr>
+map <leader>f :GFiles<cr> 
+map <leader>zf :Files<cr>
+map <leader>zb :Buffers<cr>
+map <leader>zm :Marks<cr>
+map <leader>zl :Lines<cr>
 
 " Fugitive mappings
 map <leader>gs :Gstatus<cr> 
