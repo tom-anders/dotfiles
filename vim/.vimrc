@@ -113,12 +113,12 @@ nnoremap <leader>c :call fzf#run({
                         \ 'source': './bibtexToFzf.py',
                         \ 'sink*': function('<sid>bibtex_cite_sink'),
                         \ 'down': '40%',
-                        \ 'options': '--ansi --prompt "Cite> "'})<CR>
+                        \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR>
 nnoremap <leader>sc :call fzf#run({
                         \ 'source': './bibtexToFzf.py',
                         \ 'sink*': function('<sid>bibtex_cite_sink_single'),
                         \ 'down': '40%',
-                        \ 'options': '--ansi --prompt "Cite> "'})<CR><CR>
+                        \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR><CR>
 " ===================================================================================================
 
 " Fugitive mappings
