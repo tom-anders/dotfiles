@@ -79,7 +79,7 @@ tldr() {
 
 alias mv="mv -i"
 
-if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostname) = fe2 ]]; then #Double braces for * to work
+if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostname) = fe2 ]] || [[ $(hostname) = ln-0002 ]]; then #Double braces for * to work
     alias lsa="ls -al"
     alias gst="git status"
     alias gl="git pull"
@@ -93,4 +93,8 @@ if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostnam
     alias ranger=" /upb/scratch/departments/pc2/groups/HPC-PRF-HDPADI/tap/ranger/ranger.py"
 
     alias mine="ccsinfo -s --mine --fmt=\"%35N %7P %w %5v%D %60u\" | less"
+
+    q() {
+        watch -n 3 "squeue -o '%.18i %.9P %.8j %.8u %.2t %.10M %.6D %20R %S' | grep --color -E '^|.*tap.*'"
+    }
 fi
