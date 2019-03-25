@@ -8,7 +8,6 @@ if [ $(hostname) = 'arch-laptop' ]; then
     export PATH=$HOME/.local/bin:/opt/intel/bin:$PATH
     export LD_LIBRARY_PATH=/home/tom/adolc_base/lib64:/usr/local/lib:$LD_LIBRARY_PATH
     export LIBRARY_PATH=/home/tom/adolc_base/lib64:/usr/local/lib:$LIBRARY_PATH
-    source $HOME/.cargo/env
     export EDITOR=nvim
 
     # Path to your oh-my-zsh installation.
@@ -21,6 +20,8 @@ if [ $(hostname) = 'arch-laptop' ]; then
     alias presentationOff='xrandr --output HDMI-1 --off'
 
     eval "$(fasd --init auto)"
+
+    export FZF_DEFAULT_COMMAND='fd --type f --color=never'
 fi
 
 if [[ $(hostname) = 'tom-linux' ]]; then
@@ -43,6 +44,8 @@ if [[ $(hostname) = 'tom-linux' ]]; then
 
     #fasd init
     eval "$(fasd --init auto)"
+
+    export FZF_DEFAULT_COMMAND='fd --type f --color=never'
 fi
 
 if [[ $(hostname) = cmspool* ]]; then #Double braces for * to work

@@ -132,12 +132,30 @@ snippet mc "mathcal" w
 \mathcal{${1:${VISUAL:1}}} 
 endsnippet
 
+snippet  "mc." "mathcal with letter" wr
+\mathcal{`!p m = match.group(0)
+l = m[len(m)-1]
+snip.rv=l`} $0
+endsnippet
+
 snippet mf "mathbf" w
 \mathbf{${1:${VISUAL:1}}} 
 endsnippet
 
+snippet  "mf." "mathbf with letter" wr
+\mathbf{`!p m = match.group(0)
+l = m[len(m)-1]
+snip.rv=l`} $0
+endsnippet
+
 snippet mb "mathbb" w
 \mathbb{${1:${VISUAL:1}}} 
+endsnippet
+
+snippet  "mb." "mathbb with letter" wr
+\mathbb{`!p m = match.group(0)
+l = m[len(m)-1]
+snip.rv=l`} $0
 endsnippet
 
 snippet bf "textbf" w
@@ -368,6 +386,10 @@ snippet int "integral" w
 \int_{$1}^{$2} ${3:${VISUAL}} \dd{$4} $0
 endsnippet
 
+snippet sc "sum with mathclap" W
+\sum_{\mathclap{$1}} ${2:${VISUAL}} $0
+endsnippet
+
 snippet s "sum w/o superscript" W
 \sum_{$1} ${2:${VISUAL}} $0
 endsnippet
@@ -528,6 +550,10 @@ endsnippet
 
 snippet tm "tikzmark" w
 \tikzmark{$1}{${2:${VISUAL}}} $0
+endsnippet
+
+snippet  inf "\infty" w
+\infty
 endsnippet
 
 # vim:ft=snippets:

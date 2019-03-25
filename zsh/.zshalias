@@ -2,6 +2,8 @@ alias latexmk='latexmk -pdf -pvc'
 alias luamk='latexmk -pdf -pvc -lualatex -shell-escape'
 alias open='mimeopen'
 
+alias dot='cd ~/.dotfiles && git status'
+
 alias lst='lsa -t'
 alias vrc="vim ~/.vimrc"
 alias zrc="vim ~/.zshrc"
@@ -9,15 +11,17 @@ alias irc="vim ~/.config/i3/config"
 
 #List recently changed files
 alias lh='ls -lh --color=always -t | head'
-alias ls='ls --color=tty --group-directories-first'
+
+alias noctua='ssh -X -t -A tap@fe.noctua.pc2.uni-paderborn.de ssh -X -t noctua-last tmux a'
 
 if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]]; then
+    alias ls='ls --color=tty --group-directories-first'
     alias vim='nvim'
     alias paul='cd /home/tom/Documents/PaulFiles && paul -u tap'
     alias update='sudo pacman -Syu'
     alias accio='sudo pacman -S'
 
-    alias ssm="ssh -t tap@antares.upb.de ssh tap@amaa.uni-paderborn.de"
+    alias ssm="ssh -t tap@antares.upb.de ssh tap@stefan-schumacher11.uni-paderborn.de"
     alias ssc="ssh -t -X tap@antares.upb.de ssh -X tap@cmspool06"
 
     alias fuck='sudo $(fc -ln -1)'
@@ -76,6 +80,8 @@ pl() {
 tldr() {
     wget -qO- cheat.sh/$1
 }
+
+alias chx="chmod +x"
 
 alias mv="mv -i"
 

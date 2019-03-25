@@ -7,7 +7,13 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-surround'
+
 Plug 'lervag/vimtex'
+let g:tex_flavor='latex'
+set conceallevel=2
+let g:tex_conceal='abdmg'
+Plug 'KeitaNakamura/tex-conceal.vim'
+
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'dylanaraps/wal'
 Plug 'tpope/vim-repeat'
@@ -22,6 +28,10 @@ Plug 'tommcdo/vim-exchange'
 Plug 'rafaqz/ranger.vim'
 Plug 'junegunn/vim-easy-align'
 
+Plug 'tommcdo/vim-express' "For g= to apply an expression onto a motion
+"Convert to title case inside a motion, needs pip install titlecase
+autocmd VimEnter * MapExpress gt system('titlecase ' . v:val)
+
 Plug 'junegunn/fzf.vim'
 set rtp+=/usr/local/opt/fzf "for mac
 
@@ -34,12 +44,24 @@ Plug 'sgur/vim-textobj-parameter' "i, and a, for function parameters
 Plug 'bps/vim-textobj-python'
 Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
 
+" LanguageServer client for NeoVim.
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+if executable('cquery')
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'cquery',
+      \ 'cmd': {server_info->['cquery']},
+      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
+      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+      \ })
+endif
+Plug 'ncm2/ncm2-vim-lsp'
+
 "ncm2 config
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-jedi'
-Plug 'ncm2/ncm2-pyclang'
-let g:ncm2_pyclang#library_path = '/usr/lib'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-bufword'
 "Parameter mit ultisnips vervollstaendigen
@@ -50,12 +72,13 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 set completeopt=noinsert,menuone
 
+
 let hostname=hostname()
 if hostname == "cmspool06"
     Plug 'dracula/vim'
     Plug 'wincent/terminus'
 endif
-if hostname != "Amaa.uni-paderborn.de" 
+if hostname != "stefan-schumacher11.uni-paderborn.de" 
     " Plug 'ervandew/supertab' 
 endif
 
@@ -63,6 +86,9 @@ call plug#end()
 
 let mapleader = ' '
 let maplocalleader = ' '
+
+" Switch to header file and back
+map <leader>hh :e %:p:s,.hpp$,.X123X,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<CR><Paste>
 
 "toggle folds
 map <leader><leader> za
@@ -76,13 +102,41 @@ map <leader>uf :UndotreeFocus<cr>
 map <leader>bn :bn<cr>
 map <leader>bv :bp<cr>
 map <leader>bd :bd<cr>
+nnoremap <leader>wq :w\|bd<cr>
 
 "Mappings for fzf.vim
-map <leader>ff :GFiles<cr> 
-map <leader>fg :Files<cr>
-map <leader>fb :Buffers<cr>
-map <leader>fm :Marks<cr>
-map <leader>fl :Lines<cr>
+map <leader>f :GFiles<cr> 
+map <leader>zf :Files<cr>
+map <leader>zb :Buffers<cr>
+map <leader>zm :Marks<cr>
+map <leader>zl :Lines<cr>
+
+" ===================================================================================================
+" fzf-bibtex integration 
+" ===================================================================================================
+function! s:bibtex_cite_sink(lines)
+    execute ':normal! i\cite{' . split(a:lines[0])[-1] . '}'
+    call feedkeys('a ') "Back to inser mode
+endfunction
+function! s:bibtex_cite_sink_single(lines)
+    execute ':normal! a'split(a:lines[0])[-1]
+endfunction
+
+nnoremap <leader>c :call fzf#run({
+                        \ 'source': './bibtexToFzf.py',
+                        \ 'sink*': function('<sid>bibtex_cite_sink'),
+                        \ 'down': '40%',
+                        \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR>
+nnoremap <leader>sc :call fzf#run({
+                        \ 'source': './bibtexToFzf.py',
+                        \ 'sink*': function('<sid>bibtex_cite_sink_single'),
+                        \ 'down': '40%',
+                        \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR><CR>
+" ===================================================================================================
+
+" Fugitive mappings
+map <leader>gs :Gstatus<cr> 
+map <leader>gr :Gread<cr> 
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -93,7 +147,7 @@ nmap ga <Plug>(EasyAlign)
 xmap gd <C-]>
 nmap gd <C-]>
 
-if hostname == "Amaa.uni-paderborn.de"
+if hostname == "stefan-schumacher11.uni-paderborn.de" 
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<tab>"
 else 
@@ -134,7 +188,8 @@ nnoremap <tab> <C-o>
 nnoremap <s-tab> <C-i>
 
 "indent file
-nnoremap g= gg=G``
+"vim-express also defines this, so we have to override it after the plugins are sourced
+autocmd VimEnter * nnoremap g= gg=G``zz 
 
 "Make sure gnuplot syntax works
 source ~/.vim/syntax/gnuplot.vim
@@ -144,11 +199,24 @@ au BufNewFile,BufRead *.plt set filetype=gnuplot
 autocmd FileType matlab setlocal commentstring=%\ %s
 "Gnuplot comments
 autocmd FileType gnuplot setlocal commentstring=#\ %s
+"C++ comments
+autocmd FileType cpp setlocal commentstring=//\ %s
 
+"Insert comment divider
+map <leader>d o<Esc>99A=<Esc>gcc
+"Comment box
+map <leader>bb O<Esc>O<Esc>100A=<Esc><CR>ix<CR><Esc>i<Esc>100a=<Esc>gc2kjcl
+
+"Fix indent after braces
+inoremap {<cr> {<cr>}<Esc>O
+inoremap (<cr> (<cr>)<Esc>O
+inoremap [<cr> [<cr>]<Esc>O
 
 "Colorscheme depending on computer (default: dracula)
 if hostname == "arch-laptop" || hostname == "tom-linux"
     color wal
+else
+    color elflord
 endif
 set hidden
 set backspace=indent,eol,start
@@ -213,13 +281,6 @@ onoremap fÖ f[
 onoremap fü f\
 onoremap tü t\
 
-"On a German keyboard @ is altgr+q, so when executing a macro with @ i may
-"accidentally press only q and thus overwrite the macro, so simply swap @ and
-"q in normal mode:
-
-nnoremap @ q
-nnoremap q @
-
 "map j to gj except when there is a count!
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
@@ -230,9 +291,11 @@ so ~/.vim/syntax/gnuplot.vim
 "yank to system clipboard (hopefully)
 set clipboard=unnamedplus 
 
-if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni-paderborn.de"
+if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "stefan-schumacher11.uni-paderborn.de" 
 
-    if hostname == "Amaa.uni-paderborn.de"
+    let g:surround_{char2nr('c')} = "\\\1command\1{\r}" "Surround with latex cmd
+
+    if hostname == "stefan-schumacher11.uni-paderborn.de" 
     	set shell=/bin/zsh
     else
     	set shell=/usr/bin/zsh
@@ -273,14 +336,24 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "Amaa.uni
     highlight Normal ctermbg=none
     autocmd FileType tex highlight LineNr ctermbg=none
     highlight LineNr ctermbg=none
+    autocmd FileType tex highlight Conceal cterm=none ctermbg=none 
 
     "vimtex
-    if hostname != "Amaa.uni-paderborn.de"
+    if hostname != "stefan-schumacher11.uni-paderborn.de" 
         let g:vimtex_view_method = 'zathura'
     endif
     let g:vimtex_fold_enabled=1
     let g:vimtex_fold_manual=1 "should give better performance
     let g:vimtex_imaps_leader='´'
+
+    let  g:vimtex_fold_types = {
+           \ 'preamble' : {'enabled' : 0},
+           \ 'env_options' : {'enabled' : 1},
+           \ 'cmd_single_opt' : {'enabled' : 1},
+           \ 'envs' : {
+           \   'blacklist' : ['equation', 'eqbox', 'axis', 'groupplot'],
+           \ },
+           \}
 
     "Disable some warnings
     let g:vimtex_quickfix_latexlog = {
