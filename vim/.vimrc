@@ -35,6 +35,8 @@ autocmd VimEnter * MapExpress gt system('titlecase ' . v:val)
 Plug 'junegunn/fzf.vim'
 set rtp+=/usr/local/opt/fzf "for mac
 
+Plug 'Shougo/denite.nvim'
+
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mbbill/undotree'
 
