@@ -1,5 +1,6 @@
 URxvt*scrollBar:        false
-URxvt.font: xft:Hack-Regular:size=16
+!URxvt.font: xft:Hack-Regular:size=16
+URxvt.font: xft:Hack Nerd Font Mono:size=16
 URxvt.letterSpace: 0
 URxvt.internalBorder: 7
 
