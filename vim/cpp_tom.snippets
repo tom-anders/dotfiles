@@ -1,0 +1,77 @@
+extends c
+
+snippet for "for loop ´"
+for (int $1 = 0; $1 < ${2:count}; $1++) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet foru "for unsigned loop"
+for (unsigned $1 = 0; $1 < ${2:count}; $1++) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet foru "for size_t loop"
+for (size_t $1 = 0; $1 < ${2:count}; $1++) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet fore "for each loop"
+for (auto $1 : $2) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet fun "function"
+${1:void}($2) {
+	$3
+}
+endsnippet
+
+snippet main "main function"
+int main(int argc, char **argv){
+	$0
+	return 0;
+}
+endsnippet
+
+snippet if "if"
+if ($1) {
+	$2
+} $0
+endsnippet
+
+snippet ifei "if else if"
+if ($1) {
+	$2
+} else if ($3) {
+	$4
+}
+endsnippet
+
+snippet vec "std::vector<T>"
+std::vector<${1:double}> ${2:vec}
+endsnippet
+
+snippet us "unsigned"
+unsigned 
+endsnippet
+
+snippet st "size_t"
+size_t 
+endsnippet
+
+snippet str "string"
+std::string 
+endsnippet
+
+snippet fmt "fmt::print"
+fmt::print("{} $2 \n", $3);
+endsnippet
+
+snippet nl "new line"
+fmt::print("$1\n");
+endsnippet
+
