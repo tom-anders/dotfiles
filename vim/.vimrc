@@ -11,6 +11,7 @@ Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
 let g:tex_flavor='latex'
 set conceallevel=2
+set concealcursor=nc
 let g:tex_conceal='abdmg'
 Plug 'KeitaNakamura/tex-conceal.vim'
 
