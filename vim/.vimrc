@@ -36,6 +36,8 @@ autocmd VimEnter * MapExpress gt system('titlecase ' . v:val)
 Plug 'junegunn/fzf.vim'
 set rtp+=/usr/local/opt/fzf "for mac
 
+Plug 'Shougo/denite.nvim'
+
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mbbill/undotree'
 
@@ -134,6 +136,8 @@ nnoremap <leader>sc :call fzf#run({
                         \ 'down': '40%',
                         \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR><CR>
 " ===================================================================================================
+
+nnoremap <silent> <Leader>t :so ~/.vim/plugged/vimtex/autoload/vimtex/fzf.vim<CR> :call vimtex#fzf#run('ctl')<CR>
 
 " Fugitive mappings
 map <leader>gs :Gstatus<cr> 
@@ -300,14 +304,6 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "stefan-s
     	set shell=/bin/zsh
     else
     	set shell=/usr/bin/zsh
-    endif
-
-    "Setup deoplete to use vimtex completion
-    if hostname == "tom-linux"
-        if !exists('g:deoplete#omni#input_patterns')
-            let g:deoplete#omni#input_patterns = {}
-        endif
-        let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
     endif
 
     "Referencing with autocompletion

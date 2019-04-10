@@ -19,7 +19,7 @@ if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]]; then
     alias vim='nvim'
     alias paul='cd /home/tom/Documents/PaulFiles && paul -u tap'
     alias update='sudo pacman -Syu'
-    alias accio='sudo pacman -S'
+    alias accio='sudo pacman -Sy'
 
     alias ssm="ssh -t tap@antares.upb.de ssh tap@stefan-schumacher11.uni-paderborn.de"
     alias ssc="ssh -t -X tap@antares.upb.de ssh -X tap@cmspool06"
