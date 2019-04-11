@@ -138,7 +138,7 @@ autocmd FileType tex inoremap <C-c> <Esc> :call fzf#run({
 
 " ===================================================================================================
 
-nnoremap <silent> <Leader>t :so ~/.vim/plugged/vimtex/autoload/vimtex/fzf.vim<CR> :call vimtex#fzf#run('ctl')<CR>
+nnoremap <silent> <Leader>t :call vimtex#fzf#run('ctl')<CR>
 
 " Fugitive mappings
 map <leader>gs :Gstatus<cr> 
