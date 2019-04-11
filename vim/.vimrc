@@ -404,16 +404,21 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "stefan-s
     augroup my_cm_setup
         autocmd!
         autocmd BufEnter * call ncm2#enable_for_buffer()
-        autocmd Filetype tex call ncm2#register_source({
-                    \ 'name' : 'vimtex-cmds',
-                    \ 'priority': 8, 
-                    \ 'complete_length': -1,
-                    \ 'scope': ['tex'],
-                    \ 'matcher': {'name': 'prefix', 'key': 'word'},
-                    \ 'word_pattern': '\w+',
-                    \ 'complete_pattern': g:vimtex#re#ncm2#cmds,
-                    \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
-                    \ })
+
+        "Too slow otherwise
+        if hostname != "arch-laptop" 
+            autocmd Filetype tex call ncm2#register_source({
+                        \ 'name' : 'vimtex-cmds',
+                        \ 'priority': 8, 
+                        \ 'complete_length': -1,
+                        \ 'scope': ['tex'],
+                        \ 'matcher': {'name': 'prefix', 'key': 'word'},
+                        \ 'word_pattern': '\w+',
+                        \ 'complete_pattern': g:vimtex#re#ncm2#cmds,
+                        \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                        \ })
+        endif
+
         autocmd Filetype tex call ncm2#register_source({
                     \ 'name' : 'vimtex-labels',
                     \ 'priority': 8, 
