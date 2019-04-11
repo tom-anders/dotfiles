@@ -66,13 +66,12 @@ Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-bufword'
-"Parameter mit ultisnips vervollstaendigen
-inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or((pumvisible() ? "\<c-y>" : "\<CR>"), 'n')
-autocmd filetype tex inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-set completeopt=noinsert,menuone
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+set completeopt=noinsert,menuone,noselect
 
 
 let hostname=hostname()
@@ -208,11 +207,6 @@ autocmd FileType cpp setlocal commentstring=//\ %s
 map <leader>d o<Esc>99A=<Esc>gcc
 "Comment box
 map <leader>bb O<Esc>O<Esc>100A=<Esc><CR>ix<CR><Esc>i<Esc>100a=<Esc>gc2kjcl
-
-"Fix indent after braces
-inoremap {<cr> {<cr>}<Esc>O
-inoremap (<cr> (<cr>)<Esc>O
-inoremap [<cr> [<cr>]<Esc>O
 
 "Colorscheme depending on computer (default: dracula)
 if hostname == "arch-laptop" || hostname == "tom-linux"
