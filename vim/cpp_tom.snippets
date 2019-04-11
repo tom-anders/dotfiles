@@ -12,7 +12,7 @@ for (unsigned $1 = 0; $1 < ${2:count}; $1++) {
 }
 endsnippet
 
-snippet foru "for size_t loop"
+snippet fors "for size_t loop"
 for (size_t $1 = 0; $1 < ${2:count}; $1++) {
 	${VISUAL}$0
 }
@@ -25,8 +25,8 @@ for (auto $1 : $2) {
 endsnippet
 
 snippet fun "function"
-${1:void}($2) {
-	$3
+${1:void} $2($3) {
+	$0
 }
 endsnippet
 
@@ -51,6 +51,23 @@ if ($1) {
 }
 endsnippet
 
+<<<<<<< HEAD
+snippet vec "std::vector<T>" w
+std::vector<${1:double}> ${2:vec}
+endsnippet
+
+snippet us "unsigned" w
+unsigned 
+endsnippet
+
+snippet st "size_t" w
+size_t 
+endsnippet
+
+snippet str "string" w
+std::string
+endsnippet
+
 snippet vec "std::vector<T>"
 std::vector<${1:double}> ${2:vec}
 endsnippet
@@ -61,10 +78,6 @@ endsnippet
 
 snippet st "size_t"
 size_t 
-endsnippet
-
-snippet str "string"
-std::string 
 endsnippet
 
 snippet fmt "fmt::print"
