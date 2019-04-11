@@ -116,23 +116,26 @@ map <leader>zl :Lines<cr>
 " fzf-bibtex integration 
 " ===================================================================================================
 function! s:bibtex_cite_sink(lines)
-    execute ':normal! i\cite{' . split(a:lines[0])[-1] . '}'
-    call feedkeys('a ') "Back to inser mode
+    execute ':normal! a\cite{' . split(a:lines[0])[-1] . '}'
+    call feedkeys('a') "Back to insert mode
 endfunction
 function! s:bibtex_cite_sink_single(lines)
-    execute ':normal! a'split(a:lines[0])[-1]
+    execute ':normal!i' . trim(split(a:lines[0])[-1])
+    " execute ':normal!i'
 endfunction
 
-nnoremap <leader>c :call fzf#run({
-                        \ 'source': './bibtexToFzf.py',
-                        \ 'sink*': function('<sid>bibtex_cite_sink'),
-                        \ 'down': '40%',
-                        \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR>
-nnoremap <leader>sc :call fzf#run({
+" autocmd FileType tex inoremap <C-c> <Esc> :call fzf#run({
+"                         \ 'source': './bibtexToFzf.py',
+"                         \ 'sink*': function('<sid>bibtex_cite_sink'),
+"                         \ 'down': '40%',
+"                         \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR>
+imap ,c \cite{}<Esc>i<C-c>
+autocmd FileType tex inoremap <C-c> <Esc> :call fzf#run({
                         \ 'source': './bibtexToFzf.py',
                         \ 'sink*': function('<sid>bibtex_cite_sink_single'),
                         \ 'down': '40%',
                         \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR><CR>
+
 " ===================================================================================================
 
 nnoremap <silent> <Leader>t :so ~/.vim/plugged/vimtex/autoload/vimtex/fzf.vim<CR> :call vimtex#fzf#run('ctl')<CR>
@@ -303,7 +306,6 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "stefan-s
     inoremap ,rf \autoref{fig:}<Esc>i<C-X><C-O>
     inoremap ,re \autoref{eq:}<Esc>i<C-X><C-O>
     inoremap ,rk \autoref{kap:}<Esc>i<C-X><C-O>
-    inoremap ,c \cite{}<Esc>i<C-X><C-O>
 
     "Folding
     let g:Tex_FoldedMisc='preamble'
