@@ -83,7 +83,19 @@ if hostname != "stefan-schumacher11.uni-paderborn.de"
     " Plug 'ervandew/supertab' 
 endif
 
+Plug 'jacoborus/tender.vim'
+Plug 'drewtempelmeyer/palenight.vim'
+
 call plug#end()
+
+"Colorscheme depending on computer (default: dracula)
+if hostname == "arch-laptop" || hostname == "tom-linux"
+    color wal
+elseif hostname == "stefan-schumacher11.uni-paderborn.de" 
+    color tender
+else
+    color elflord
+endif
 
 let mapleader = ' '
 let maplocalleader = ' '
@@ -213,12 +225,6 @@ map <leader>d o<Esc>99A=<Esc>gcc
 "Comment box
 map <leader>bb O<Esc>O<Esc>100A=<Esc><CR>ix<CR><Esc>i<Esc>100a=<Esc>gc2kjcl
 
-"Colorscheme depending on computer (default: dracula)
-if hostname == "arch-laptop" || hostname == "tom-linux"
-    color wal
-else
-    color elflord
-endif
 set hidden
 set backspace=indent,eol,start
 
