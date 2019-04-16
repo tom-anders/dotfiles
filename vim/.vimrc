@@ -339,6 +339,8 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "stefan-s
     "vimtex
     if hostname != "stefan-schumacher11.uni-paderborn.de" 
         let g:vimtex_view_method = 'zathura'
+    else 
+        let g:vimtex_view_method = 'skim'
     endif
     let g:vimtex_fold_enabled=1
     let g:vimtex_fold_manual=1 "should give better performance
