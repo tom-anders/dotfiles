@@ -123,6 +123,7 @@ map <leader>zf :Files<cr>
 map <leader>zb :Buffers<cr>
 map <leader>zm :Marks<cr>
 map <leader>zl :Lines<cr>
+map <leader>zg :Rg<cr>
 
 " ===================================================================================================
 " fzf-bibtex integration 
