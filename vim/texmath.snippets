@@ -79,12 +79,12 @@ snippet e "exponential function" W
 e^{$1} $0
 endsnippet
 
-snippet ei "comlex exponential function" w
-e^{$1i $2} $0
+snippet ei "complex exponential function" w
+e^{$1\i $2} $0
 endsnippet
 
 snippet eip "complex exponential function with braces" w
-e^{i\qty( $1) $2} $0
+e^{\i\qty( $1) $2} $0
 endsnippet
 
 snippet ep "exponential function with braces" w
@@ -383,7 +383,7 @@ snippet md "math diferential"
 endsnippet
 
 snippet int "integral" w
-\int_{$1}^{$2} ${3:${VISUAL}} \dd{$4} $0
+\int_{$1}^{$2} ${4:${VISUAL}} \dd{$3} $0
 endsnippet
 
 snippet sc "sum with mathclap" W
@@ -499,15 +499,15 @@ snippet wf "sqrt w/ fraction" W
 endsnippet
 
 snippet d "Text Math" W
-$ $1$ $0
+$$1$ $0
 endsnippet
 
 snippet dd "Text Math" w
-$ $1$ $0
+$$1$ $0
 endsnippet
 
 snippet Dd "Text Math w/o space" w
-$ $1$$0
+$$1$$0
 endsnippet
 
 snippet mat "Smart Matrix"

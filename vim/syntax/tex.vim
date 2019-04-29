@@ -44,7 +44,5 @@ syn match texMathSymbol '\\m\(=\| \|\n\|{\|}\|\[\|\]\|\^\|_\|+\|-\|\\\|(\|)\)\@=
 syn match texMathSymbol '\\h\(=\| \|\n\|{\|}\|\[\|\]\|\^\|_\|+\|-\|\\\|(\|)\)\@=' contained conceal cchar=ħ
 syn match texMathSymbol '\\hbar\(=\| \|\n\|{\|}\|\[\|\]\|\^\|_\|+\|-\|\\\|(\|)\)\@=' contained conceal cchar=ħ
 
-syn match texMathSymbol '\\qty' contained conceal
-
 syn region texBoldMathText matchgroup=texStatement start='\\\(label\){' end='}' concealends contains=@texMathZoneGroup containedin=texMathMatcher
 

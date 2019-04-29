@@ -66,13 +66,12 @@ Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-bufword'
-"Parameter mit ultisnips vervollstaendigen
-inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or((pumvisible() ? "\<c-y>" : "\<CR>"), 'n')
-autocmd filetype tex inoremap <expr> <CR> (pumvisible() ? "\<c-y>" : "\<CR>")
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-set completeopt=noinsert,menuone
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+set completeopt=noinsert,menuone,noselect
 
 
 let hostname=hostname()
@@ -84,7 +83,19 @@ if hostname != "stefan-schumacher11.uni-paderborn.de"
     " Plug 'ervandew/supertab' 
 endif
 
+Plug 'jacoborus/tender.vim'
+Plug 'drewtempelmeyer/palenight.vim'
+
 call plug#end()
+
+"Colorscheme depending on computer (default: dracula)
+if hostname == "arch-laptop" || hostname == "tom-linux"
+    color wal
+elseif hostname == "stefan-schumacher11.uni-paderborn.de" 
+    color tender
+else
+    color elflord
+endif
 
 let mapleader = ' '
 let maplocalleader = ' '
@@ -117,26 +128,29 @@ map <leader>zl :Lines<cr>
 " fzf-bibtex integration 
 " ===================================================================================================
 function! s:bibtex_cite_sink(lines)
-    execute ':normal! i\cite{' . split(a:lines[0])[-1] . '}'
-    call feedkeys('a ') "Back to inser mode
+    execute ':normal! a\cite{' . split(a:lines[0])[-1] . '}'
+    call feedkeys('a') "Back to insert mode
 endfunction
 function! s:bibtex_cite_sink_single(lines)
-    execute ':normal! a'split(a:lines[0])[-1]
+    execute ':normal!i' . trim(split(a:lines[0])[-1])
+    " execute ':normal!i'
 endfunction
 
-nnoremap <leader>c :call fzf#run({
-                        \ 'source': './bibtexToFzf.py',
-                        \ 'sink*': function('<sid>bibtex_cite_sink'),
-                        \ 'down': '40%',
-                        \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR>
-nnoremap <leader>sc :call fzf#run({
+" autocmd FileType tex inoremap <C-c> <Esc> :call fzf#run({
+"                         \ 'source': './bibtexToFzf.py',
+"                         \ 'sink*': function('<sid>bibtex_cite_sink'),
+"                         \ 'down': '40%',
+"                         \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR>
+imap ,c \cite{}<Esc>i<C-c>
+autocmd FileType tex inoremap <C-c> <Esc> :call fzf#run({
                         \ 'source': './bibtexToFzf.py',
                         \ 'sink*': function('<sid>bibtex_cite_sink_single'),
                         \ 'down': '40%',
                         \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR><CR>
+
 " ===================================================================================================
 
-nnoremap <silent> <Leader>t :so ~/.vim/plugged/vimtex/autoload/vimtex/fzf.vim<CR> :call vimtex#fzf#run('ctl')<CR>
+nnoremap <silent> <Leader>t :call vimtex#fzf#run('ctl')<CR>
 
 " Fugitive mappings
 map <leader>gs :Gstatus<cr> 
@@ -211,17 +225,6 @@ map <leader>d o<Esc>99A=<Esc>gcc
 "Comment box
 map <leader>bb O<Esc>O<Esc>100A=<Esc><CR>ix<CR><Esc>i<Esc>100a=<Esc>gc2kjcl
 
-"Fix indent after braces
-inoremap {<cr> {<cr>}<Esc>O
-inoremap (<cr> (<cr>)<Esc>O
-inoremap [<cr> [<cr>]<Esc>O
-
-"Colorscheme depending on computer (default: dracula)
-if hostname == "arch-laptop" || hostname == "tom-linux"
-    color wal
-else
-    color elflord
-endif
 set hidden
 set backspace=indent,eol,start
 
@@ -309,7 +312,6 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "stefan-s
     inoremap ,rf \autoref{fig:}<Esc>i<C-X><C-O>
     inoremap ,re \autoref{eq:}<Esc>i<C-X><C-O>
     inoremap ,rk \autoref{kap:}<Esc>i<C-X><C-O>
-    inoremap ,c \cite{}<Esc>i<C-X><C-O>
 
     "Folding
     let g:Tex_FoldedMisc='preamble'
@@ -337,6 +339,8 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "stefan-s
     "vimtex
     if hostname != "stefan-schumacher11.uni-paderborn.de" 
         let g:vimtex_view_method = 'zathura'
+    else 
+        let g:vimtex_view_method = 'skim'
     endif
     let g:vimtex_fold_enabled=1
     let g:vimtex_fold_manual=1 "should give better performance
@@ -398,16 +402,21 @@ if hostname == "arch-laptop" || hostname == "tom-linux" || hostname == "stefan-s
     augroup my_cm_setup
         autocmd!
         autocmd BufEnter * call ncm2#enable_for_buffer()
-        autocmd Filetype tex call ncm2#register_source({
-                    \ 'name' : 'vimtex-cmds',
-                    \ 'priority': 8, 
-                    \ 'complete_length': -1,
-                    \ 'scope': ['tex'],
-                    \ 'matcher': {'name': 'prefix', 'key': 'word'},
-                    \ 'word_pattern': '\w+',
-                    \ 'complete_pattern': g:vimtex#re#ncm2#cmds,
-                    \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
-                    \ })
+
+        "Too slow otherwise
+        if hostname != "arch-laptop" 
+            autocmd Filetype tex call ncm2#register_source({
+                        \ 'name' : 'vimtex-cmds',
+                        \ 'priority': 8, 
+                        \ 'complete_length': -1,
+                        \ 'scope': ['tex'],
+                        \ 'matcher': {'name': 'prefix', 'key': 'word'},
+                        \ 'word_pattern': '\w+',
+                        \ 'complete_pattern': g:vimtex#re#ncm2#cmds,
+                        \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                        \ })
+        endif
+
         autocmd Filetype tex call ncm2#register_source({
                     \ 'name' : 'vimtex-labels',
                     \ 'priority': 8, 

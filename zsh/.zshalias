@@ -1,6 +1,5 @@
 alias latexmk='latexmk -pdf -pvc'
 alias luamk='latexmk -pdf -pvc -lualatex -shell-escape'
-alias open='mimeopen'
 
 alias dot='cd ~/.dotfiles && git status'
 
@@ -15,6 +14,7 @@ alias lh='ls -lh --color=always -t | head'
 alias noctua='ssh -X -t -A tap@fe.noctua.pc2.uni-paderborn.de ssh -X -t noctua-last tmux a'
 
 if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]]; then
+    alias open='mimeopen'
     alias ls='ls --color=tty --group-directories-first'
     alias vim='nvim'
     alias paul='cd /home/tom/Documents/PaulFiles && paul -u tap'
