@@ -102,6 +102,6 @@ if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostnam
     alias mine="ccsinfo -s --mine --fmt=\"%35N %7P %w %5v%D %60u\" | less"
 
     q() {
-        watch -n 3 "squeue -o '%.10i %.9P %.20j %.8T %.8M %.6D %20R %S'"
+        watch -n 3 "squeue -o '%.10i %.40j %.8T %.8M %.6D %20R %S'"
     }
 fi
