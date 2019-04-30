@@ -91,6 +91,8 @@ if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostnam
     alias gl="git pull"
     alias gp="git push"
     alias gcam="git commit -am"
+    alias gco="git checkout"
+    alias gcm="git checkout master"
     alias ..="cd .."
     alias ...="cd ..."
 
