@@ -168,20 +168,36 @@ snippet la "label"
 \label{$1} $0
 endsnippet
 
-snippet ref "ref"
+snippet ref "ref" w
 \cref{$1} $0
 endsnippet
 
-snippet re "ref eq"
+snippet re "ref eq" w
 \cref{eq:$1} $0
 endsnippet
 
-snippet rs "ref section"
+snippet rs "ref section" w
 \cref{sec:$1} $0
 endsnippet
 
-snippet rf "ref figure"
+snippet rf "ref figure" w
 \cref{fig:$1} $0
+endsnippet
+
+snippet cref "ref" w
+\Cref{$1} $0
+endsnippet
+
+snippet cre "ref eq" w
+\Cref{eq:$1} $0
+endsnippet
+
+snippet crs "ref section" w
+\Cref{sec:$1} $0
+endsnippet
+
+snippet crf "ref figure" w
+\Cref{fig:$1} $0
 endsnippet
 
 snippet tc "text color"
