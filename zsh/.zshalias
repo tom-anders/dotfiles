@@ -107,3 +107,5 @@ if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostnam
         watch -n 3 "squeue -o '%.10i %.40j %.8T %.8M %.6D %20R %S' && echo '' && sinfo -s"
     }
 fi
+
+alias master="cd ~/Documents/Masterarbeit && vim main.tex"
