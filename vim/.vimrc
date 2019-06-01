@@ -123,6 +123,9 @@ map <leader>bv :bp<cr>
 map <leader>bd :bd<cr>
 nnoremap <leader>wq :w\|bd<cr>
 
+map <C-l> :bn<cr>
+map <C-h> :bp<cr>
+
 "Mappings for fzf.vim
 map <leader>f :GFiles<cr> 
 map <leader>zf :Files<cr>
