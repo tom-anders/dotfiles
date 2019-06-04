@@ -1,5 +1,4 @@
 call plug#begin('~/.vim/plugged')
-Plug 'jiangmiao/auto-pairs'
 Plug 'dracula/vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'vim-airline/vim-airline'
@@ -7,12 +6,19 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-surround'
+Plug 'vim-scripts/ReplaceWithRegister'
 
 Plug 'lervag/vimtex'
 let g:tex_flavor='latex'
 set conceallevel=2
 let g:tex_conceal='abdmg'
 Plug 'KeitaNakamura/tex-conceal.vim'
+
+Plug 'tmsvg/pear-tree'
+let g:pear_tree_repeatable_expand = 0
+let g:pear_tree_smart_openers = 1
+let g:pear_tree_smart_closers = 1
+let g:pear_tree_smart_backspace = 1
 
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'dylanaraps/wal'
@@ -116,6 +122,9 @@ map <leader>bn :bn<cr>
 map <leader>bv :bp<cr>
 map <leader>bd :bd<cr>
 nnoremap <leader>wq :w\|bd<cr>
+
+map <C-l> :bn<cr>
+map <C-h> :bp<cr>
 
 "Mappings for fzf.vim
 map <leader>f :GFiles<cr> 
