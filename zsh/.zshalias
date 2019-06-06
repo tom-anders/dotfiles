@@ -12,6 +12,7 @@ alias irc="vim ~/.config/i3/config"
 alias lh='ls -lh --color=always -t | head'
 
 alias noctua='ssh -X -t -A tap@fe.noctua.pc2.uni-paderborn.de ssh -X -t noctua-last tmux a'
+alias pc2='ssh tap@fe-2.cv2012.pc2.uni-paderborn.de -t tmux a'
 
 if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]]; then
     alias open='mimeopen'
