@@ -1,5 +1,8 @@
 alias latexmk='latexmk -pdf -pvc'
 alias luamk='latexmk -pdf -pvc -lualatex -shell-escape'
+luarun() {
+    echo $1 | entr latexrun --latex-cmd=lualatex $1
+}
 
 alias dot='cd ~/.dotfiles && git status'
 
