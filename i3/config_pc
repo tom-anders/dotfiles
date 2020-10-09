@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -173,7 +173,7 @@ exec_always --no-startup-id xmodmap -e "pointer = 3 2 1"
 #has to be executed twice to work for some reason
 #exec_always --no-startup-id xmodmap ~/Documents/scripts/.capsToEscape
 exec_always --no-startup-id xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-exec --no-startup-id ~/.screenlayout/tom.sh 
+exec --no-startup-id ~/.screenlayout/newhome.sh 
 exec_always --no-startup-id allow_rgb10_configs=false compton --inactive-dim 0.2
 exec_always --no-startup-id xset -b
 exec --no-startup-id fluxgui

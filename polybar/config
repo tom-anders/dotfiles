@@ -58,7 +58,7 @@ font-4 = Termsynu:size=12;3
 
 [bar/Bar]
 inherit = bar/baseBar
-monitor = HDMI-A-0
+monitor = HDMI-A-1
 
 modules-left = i3 
 modules-center = xwindow
@@ -73,11 +73,6 @@ monitor = DisplayPort-1
 modules-left = i3
 modules-center = spotify
 modules-right = wlan volume date
-
-[bar/Bar3]
-inherit = bar/baseBar
-monitor = HDMI-A-1
-modules-left = i3
 
 [module/volume]
 type = internal/volume
