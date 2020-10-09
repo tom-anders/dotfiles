@@ -177,7 +177,7 @@ exec --no-startup-id ~/.screenlayout/newhome.sh
 exec_always --no-startup-id allow_rgb10_configs=false compton --inactive-dim 0.2
 exec_always --no-startup-id xset -b
 exec --no-startup-id fluxgui
-exec --no-startup-id xset r rate 180 25
+exec --no-startup-id xset r rate 200 40
 exec --no-startup-id xset s off -dpms #Don't turn off screen
 exec --no-startup-id spotify
 exec --no-startup-id chromium
