@@ -4,6 +4,8 @@ luarun() {
     echo $1 | entr latexrun --latex-cmd=lualatex $1
 }
 
+alias gstv='git status -vv'
+
 alias tiga='tig --all'
 
 alias dot='cd ~/.dotfiles && git status'

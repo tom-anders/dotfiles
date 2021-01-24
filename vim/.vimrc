@@ -14,11 +14,7 @@ set conceallevel=2
 let g:tex_conceal='abdmg'
 Plug 'KeitaNakamura/tex-conceal.vim'
 
-Plug 'tmsvg/pear-tree'
-let g:pear_tree_repeatable_expand = 0
-let g:pear_tree_smart_openers = 1
-let g:pear_tree_smart_closers = 1
-let g:pear_tree_smart_backspace = 1
+" Plug 'tmsvg/pear-tree' <- Use coc-pairs instead to not break autocomplete
 
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'dylanaraps/wal'
@@ -41,7 +37,6 @@ autocmd VimEnter * MapExpress gt system('titlecase ' . v:val)
 Plug 'junegunn/fzf.vim'
 set rtp+=/usr/local/opt/fzf "for mac
 
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'mbbill/undotree'
 
 "Text ojects
@@ -50,9 +45,28 @@ Plug 'sgur/vim-textobj-parameter' "i, and a, for function parameters
 Plug 'bps/vim-textobj-python'
 Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
 
-"coc.nvim, mainly copied from https://github.com/neoclide/coc.nvim#example-vim-configuration
-"-----------------------------------------------------------------------------------------------
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+set completeopt=noinsert,menuone,noselect
+
+let hostname=hostname()
+
+Plug 'jacoborus/tender.vim'
+Plug 'drewtempelmeyer/palenight.vim'
+
+call plug#end()
+
+"Colorscheme depending on computer 
+if hostname == "arch-laptop" || hostname == "tom-linux"
+    color wal
+else
+    color elflord
+endif
+
+let mapleader = ' '
+let maplocalleader = ' '
+
+"coc.nvim config, mainly copied from https://github.com/neoclide/coc.nvim#example-vim-configuration
+"-----------------------------------------------------------------------------------------------
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -199,24 +213,6 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 "--------------------------------------------------------------
 
-set completeopt=noinsert,menuone,noselect
-
-let hostname=hostname()
-
-Plug 'jacoborus/tender.vim'
-Plug 'drewtempelmeyer/palenight.vim'
-
-call plug#end()
-
-"Colorscheme depending on computer 
-if hostname == "arch-laptop" || hostname == "tom-linux"
-    color wal
-else
-    color elflord
-endif
-
-let mapleader = ' '
-let maplocalleader = ' '
 
 " Switch to header file and back
 map <leader>hh :e %:p:s,.hpp$,.X123X,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<CR><Paste>
@@ -258,10 +254,6 @@ map <leader>gr :Gread<cr>
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-
-"Go to definition using tags TODO handled by coc.nvim?
-" xmap gd <C-]>
-" nmap gd <C-]>
 
 if hostname == "stefan-schumacher11.uni-paderborn.de" 
     let g:UltiSnipsExpandTrigger="<tab>"
