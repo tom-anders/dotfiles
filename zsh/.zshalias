@@ -1,12 +1,7 @@
-alias latexmk='latexmk -pdf -pvc'
-alias luamk='latexmk -pdf -pvc -lualatex -shell-escape'
-luarun() {
-    echo $1 | entr latexrun --latex-cmd=lualatex $1
-}
-
 alias gstv='git status -vv'
 
 alias tiga='tig --all'
+alias t='tiga'
 
 alias dot='cd ~/.dotfiles && git status'
 
@@ -18,42 +13,23 @@ alias irc="vim ~/.config/i3/config"
 #List recently changed files
 alias lh='ls -lh --color=always -t | head'
 
-alias noctua='ssh -X -t -A tap@fe.noctua.pc2.uni-paderborn.de ssh -X -t noctua-last tmux a'
-alias pc2='ssh tap@fe-2.cv2012.pc2.uni-paderborn.de -t tmux a'
+alias open='mimeopen'
+alias ls='ls --color=tty --group-directories-first'
+alias vim='nvim'
+alias update='sudo pacman -Syu'
+alias accio='sudo pacman -Sy'
 
-if [[ $(hostname) = 'arch-laptop' ]] || [[ $(hostname) = 'tom-linux' ]]; then
-    alias open='mimeopen'
-    alias ls='ls --color=tty --group-directories-first'
-    alias vim='nvim'
-    alias paul='cd /home/tom/Documents/PaulFiles && paul -u tap'
-    alias update='sudo pacman -Syu'
-    alias accio='sudo pacman -Sy'
+alias fuck='sudo $(fc -ln -1)'
 
-    alias ssm="ssh -t tap@antares.upb.de ssh tap@stefan-schumacher11.uni-paderborn.de"
-    alias ssc="ssh -t -X tap@antares.upb.de ssh -X tap@cmspool06"
+#When leaving ranger, keep the terminal in the current directory
+alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"' 
+alias r='ranger'
 
-    alias fuck='sudo $(fc -ln -1)'
+alias diff='colordiff'
 
-    #When leaving ranger, keep the terminal in the current directory
-    alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"' 
-    alias r='ranger'
+alias cat="bat --theme=1337" #Cat clone with syntax highlighting
 
-    alias diff='colordiff'
-
-    #Needs sox installed
-    alias guitar='for n in E2 A2 D3 G3 B3 E4;do play -n synth 4 pluck $n repeat 2;done'
-
-    alias univpn='~/Documents/scripts/uni_vpn.sh'
-
-    alias cat="bat --theme=1337" #Cat clone with syntax highlighting
-    alias find="fd" #Alternative to find
-
-    alias gnuplot="rlwrap -c gnuplot"
-
-    alias find="fd" #Alternative to find
-
-    unalias zz
-fi
+unalias zz
 
 # fasd & fzf change directory
 zz() {
@@ -92,28 +68,91 @@ tldr() {
 alias chx="chmod +x"
 
 alias mv="mv -i"
+alias fd="fd --hidden"
 
-if [[ $(hostname) = fe1 ]] || [[ $(hostname) = fe-402-1.local ]] || [[ $(hostname) = fe2 ]] || [[ $(hostname) = ln-0002 ]]; then #Double braces for * to work
-    alias lsa="ls -al"
-    alias gst="git status"
-    alias gl="git pull"
-    alias gp="git push"
-    alias gcam="git commit -am"
-    alias gco="git checkout"
-    alias gcm="git checkout master"
-    alias ..="cd .."
-    alias ...="cd ..."
+# Need to add --no-thin due to some weird unpacker error
+gpg() {
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    git push --no-thin gerrit HEAD:refs/for/$branch
+}
+# Push to develop
+alias gpgd="git push --no-thin gerrit HEAD:refs/for/develop"
+# Push draf to develop
+alias gpdd="git push --no-thin gerrit HEAD:refs/drafts/develop"
 
-    alias w="cd $PC2DATA/hpc-prf-pdsm/tap/ThreeLevelSystems"
-    alias o="cd $PC2PFS/HPC-PRF-HDPADI/tap/output/ipopt"
+unalias gpd
+gpd() {
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    git push --no-thin gerrit HEAD:refs/drafts/$branch
+}
+gpt() {
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    git push --no-thin gerrit HEAD:refs/for/${branch}%topic=$1
+}
+# Push top develop with topic set to current branch
+gpbt() {
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    git push --no-thin gerrit HEAD:refs/for/develop%topic=${branch}
+}
+gpgdt() {
+    git push --no-thin gerrit HEAD:refs/for/develop%topic=$1
+}
+alias gpg!="gcan! && gpg"
+alias gpgd!="gcan! && gpgd"
+alias gpd!="gcan! && gpd"
+alias gpdd!="gcan! && gpdd"
+alias gsf="git submodule foreach"
+alias gsfb="gsf \"git branch | grep '\*.*' --color=always | grep -v develop || : && git status | egrep 'modified|deleted|new file' --color=always || :\" | sed 's/Entering//' | column"
+alias gsfgb="gsfb"
+alias gsfglr="gsf git pull --rebase"
+alias gsfglra="gsf git pull --rebase --autostash"
+alias gsfgco="gsf git checkout"
+alias gsfgcd="gsf git checkout develop"
 
-    alias ranger=" /upb/scratch/departments/pc2/groups/HPC-PRF-HDPADI/tap/ranger/ranger.py"
+#Parallel pull
+gsfglrp() {
+    git submodule foreach --recursive --quiet pwd | xargs -P10 -I{} zsh -c "cd {} && git pull --rebase"
+}
 
-    alias mine="ccsinfo -s --mine --fmt=\"%35N %7P %w %5v%D %60u\" | less"
+alias gstv="git status -vv"
 
-    q() {
-        watch -n 3 "squeue -o '%.10i %.40j %.8T %.8M %.6D %20R %S' && echo '' && sinfo -s"
-    }
-fi
+alias gs="git stash"
+alias gsp="git stash pop"
 
-alias master="cd ~/Documents/Masterarbeit && vim main.tex"
+unalias gcp
+unalias gl
+
+alias glr="git pull --rebase"
+alias glra="git pull --rebase --autostash"
+alias gc-="git checkout -" #Checkout previous branch
+alias gcp="git cherry-pick"
+
+# Checkout branch via fzf
+fgco() {
+ local branches branch
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+# Run git in another path
+alias gitc="git -C" 
+
+unalias grbi
+grbi () { git rebase -i HEAD~$1 }
+alias grbo='git rebase -i origin/develop'
+
+alias tiga='tig --all'
+alias tigs='tig status'
+
+# fasd & fzf change directory - jump using `fasd` if given argument, filter output of `fasd` using `fzf` else
+unalias z
+z() {
+    [ $# -gt 0 ] && fasd_cd -d "$*" && return
+    local dir
+    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" && ls || return 1
+}
+
+zle -N z
+bindkey '\ec' z
