@@ -1,0 +1,117 @@
+set expandtab
+
+set ignorecase
+set smartcase
+set clipboard=unnamed
+
+" use ~ with movement
+set tildeop
+
+" nmap <tab> <C-o>
+" nmap <S-tab> <C-i>
+nmap <tab> :back<CR>
+nmap <S-tab> :forward<CR>
+
+"Bug in FakeVim, need to add escape at the end
+nnoremap gg gg<Esc>
+
+noremap + <C-a>
+noremap - <C-x>
+
+noremap g0 ^
+
+"Write, build project and show compile output pane
+nmap <space>c :wa<CR>:build<CR>:comp<CR>
+
+"Need to add " at the end, because FakeVim interprets the last quote as start of a comment
+nmap <space>p "0p "
+nmap <space>P "0P "
+
+"Go to definition
+nmap gd :gd<CR> 
+"Go to definition in next split
+nmap gD :gD<CR> 
+"Go to header
+nmap gh :gh<CR> 
+"Find usages
+nmap gu :gu<CR>
+"Type hierarchy
+nmap gH :gH<CR>
+
+"Open in new window
+nmap <C-n> :window<CR>
+
+"Git blame
+nmap <space>gb :blame<CR>
+
+nmap <space>bd :q<CR>
+
+nmap <C-L> :next<CR>
+nmap <C-H> :prev<CR>
+
+nmap <space>d :wa<CR>:deploy<CR>:comp<CR>
+
+nmap <space>rr <space>c:run<CR>
+nmap <space>rt <space>c:runCurrentTest<CR>
+nmap <space>rs <A-T><A-r>
+nmap <space>rb :rebuild<CR>
+
+nmap <space>qq :qmake<CR>:comp<CR>
+
+nmap <space>l :clean<CR>
+
+"Open/close folds
+nmap <space><space> za 
+
+nmap <space>v :whitespace<CR>
+
+nmap <space>qv :source ~/.qtvimrc<CR>
+
+" Repeat last macro more ergonormically
+nmap <space>m @@
+
+""""""""""""""""""""""""""" Surround """"""""""""""""""""""""""""""""""
+
+" Easier surround
+nnoremap s ys
+nnoremap S yS
+
+"Surround with if-statement
+vmap Si cif ()<CR>{<CR>}<Esc>P=iBkkcib
+
+"Surround with for-loop
+vmap Sf cfor ()<CR>{<CR>}<Esc>P=iBkkcib
+
+"Surround with while-loop
+vmap Sw cwhile ()<CR>{<CR>}<Esc>P=iBkkcib
+
+"Surround with nullptr check
+vmap Sn cif ()<CR>{<CR>}<Esc>P=iBkkcibnullptr !=<Space>
+
+"Surround with static_cast<>
+vmap Sc cstatic_cast<>()<Esc>PF<a
+
+"Add one-line doxygen comment
+nmap sd yiwO/// <Esc>pa<Space>
+
+nmap sD O/*!
+
+" Delete surrounding function, i.e. change foo(bar) to bar
+nmap dsf dt(ldsb
+
+nmap dsF F(bdt(ldsb
+
+"Delete inside <>
+nmap dit di<
+nmap cit ci<
+nmap dat da<
+nmap cat ca<
+
+" Change parameter to const ref and go from .h to .cpp or vice-versa ("Fix argument")
+nmap <space>fa iconst<Space><Esc>Ea&<Esc>F(gd
+
+set commentary
+set exchange
+set replacewithregister
+set argtextobj
+set surround
