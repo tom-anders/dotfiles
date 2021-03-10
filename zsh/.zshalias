@@ -158,5 +158,9 @@ zle -N z
 bindkey '\ec' z
 
 makeadoc() {
-    echo $1 | entr zsh -c "asciidoctor-pdf --require asciidoctor-diagram $1"
+    cmd="asciidoctor-pdf --require asciidoctor-diagram $1";
+    eval "$cmd";
+    open "$(basename $1 .adoc).pdf" &;
+
+    echo $1 | entr zsh -c $cmd;
 }
