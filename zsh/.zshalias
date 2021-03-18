@@ -97,6 +97,9 @@ gpbt() {
 gpgdt() {
     git push --no-thin gerrit HEAD:refs/for/develop%topic=$1
 }
+gpddt() {
+    git push --no-thin gerrit HEAD:refs/drafts/develop%topic=$1
+}
 alias gpg!="gcan! && gpg"
 alias gpgd!="gcan! && gpgd"
 alias gpd!="gcan! && gpd"
@@ -142,6 +145,9 @@ alias gitc="git -C"
 unalias grbi
 grbi () { git rebase -i HEAD~$1 }
 alias grbo='git rebase -i origin/develop'
+alias grbt='git rebase -i $(tig-pick)'
+
+alias grt='git revert $(tig-pick)'
 
 alias tiga='tig --all'
 alias tigs='tig status'
