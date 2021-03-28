@@ -160,7 +160,7 @@ spacing = 4
 
 [module/spotify]
 type = custom/script
-exec = ~/.config/polybar/spotify.sh %artist% - %title%
+exec = ~/.config/polybar/spotify.py
 tail = true
 interval = 1
 
@@ -183,7 +183,7 @@ interval = 1
 [module/temperature]
 type = internal/temperature
 
-format <label> <ramp>
+;format <label> <ramp>
 
 label =  %temperature%
 label-padding=1
