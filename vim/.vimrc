@@ -1,22 +1,20 @@
 call plug#begin('~/.vim/plugged')
 Plug 'dracula/vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 Plug 'machakann/vim-highlightedyank'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
+Plug 'tommcdo/vim-fugitive-blame-ext'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/ReplaceWithRegister'
 
-Plug 'lervag/vimtex'
-let g:tex_flavor='latex'
-set conceallevel=2
-let g:tex_conceal='abdmg'
-Plug 'KeitaNakamura/tex-conceal.vim'
+" Coc plugins:
+" - coc-pairs
+" - coc-clangd
 
-" Plug 'tmsvg/pear-tree' <- Use coc-pairs instead to not break autocomplete
-
-" Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
@@ -26,8 +24,6 @@ Plug 'dylanaraps/wal'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
-" Plug 'wellle/targets.vim'
-Plug 'lazywei/vim-matlab'
 Plug 'justinmk/vim-sneak'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -35,32 +31,32 @@ Plug 'tommcdo/vim-exchange'
 Plug 'rafaqz/ranger.vim'
 Plug 'junegunn/vim-easy-align'
 
-Plug 'tommcdo/vim-express' "For g= to apply an expression onto a motion
-"Convert to title case inside a motion, needs pip install titlecase
-autocmd VimEnter * MapExpress gt system('titlecase ' . v:val)
-
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-set rtp+=/usr/local/opt/fzf "for mac
 Plug 'antoinemadec/coc-fzf'
 
 Plug 'liuchengxu/vista.vim'
 
 Plug 'mbbill/undotree'
 
+Plug 'habamax/vim-asciidoctor'
+Plug 'aklt/plantuml-syntax'
+
 "Text ojects
 Plug 'kana/vim-textobj-user'
-" Plug 'sgur/vim-textobj-parameter' "i, and a, for function parameters
 Plug 'https://github.com/vim-scripts/argtextobj.vim'
 Plug 'bps/vim-textobj-python'
 Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
+
+Plug 'triglav/vim-visual-increment'
+
+" :XtermColorTable
+Plug 'guns/xterm-color-table.vim'
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 set completeopt=noinsert,menuone,noselect
 
 let hostname=hostname()
-
-Plug 'jacoborus/tender.vim'
-Plug 'drewtempelmeyer/palenight.vim'
 
 call plug#end()
 
@@ -68,7 +64,8 @@ call plug#end()
 if hostname == "arch-laptop" || hostname == "tom-linux"
     color wal
 else
-    color elflord
+    " color solarized
+    color gruvbox
 endif
 
 let mapleader = ' '
@@ -266,7 +263,7 @@ map <leader>a za
 map <leader>uu :UndotreeToggle<cr>
 map <leader>uf :UndotreeFocus<cr>
 
-"Mappings for switiching buffers
+"Mappings for switching buffers
 map <leader>bn :bn<cr>
 map <leader>bv :bp<cr>
 map <leader>bd :bd<cr>
@@ -276,20 +273,17 @@ map <C-l> :bn<cr>
 map <C-h> :bp<cr>
 
 "Mappings for fzf.vim
-map <leader>f :GFiles<cr> 
+" map <leader>f :GFiles<cr> 
+map <silent> <leader>f :call fzf#run(fzf#wrap({'source': 'git ls-files --recurse-submodules'}))<cr>
 map <leader>zf :Files<cr>
 map <leader>zb :Buffers<cr>
 map <leader>zm :Marks<cr>
 map <leader>zl :Lines<cr>
 map <leader>zg :Rg<cr>
 
-nnoremap <silent> <Leader>tt :call vimtex#fzf#run('c')<CR>
-nnoremap <silent> <Leader>to :call vimtex#fzf#run('t')<CR>
-nnoremap <silent> <Leader>ta :call vimtex#fzf#run('ctl')<CR>
-
 " Fugitive mappings
 map <leader>gs :Gstatus<cr> 
-map <leader>gr :Gread<cr> 
+map <leader>gb :Gblame<cr> 
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -336,14 +330,6 @@ noremap - <C-x>
 nnoremap <tab> <C-o>
 nnoremap <s-tab> <C-i>
 
-"indent file
-"vim-express also defines this, so we have to override it after the plugins are sourced
-autocmd VimEnter * nnoremap g= gg=G``zz 
-
-"Make sure gnuplot syntax works
-source ~/.vim/syntax/gnuplot.vim
-au BufNewFile,BufRead *.plt set filetype=gnuplot
-
 "Matlab comments
 autocmd FileType matlab setlocal commentstring=%\ %s
 "Gnuplot comments
@@ -388,171 +374,57 @@ endif
 let g:airline_symbols.space = "\ua0"
 let g:airline#extensions#tabline#enabled=1
 
-"Make german keyboard layout better for programming
-imap ü \
-imap ä }
-imap ö {
-imap Ö [
-imap Ä ]
-nnoremap ä }
-nnoremap ö {
-
-
-"makes ci[ ci{ etc work again
-onoremap iä i}<Esc>a
-onoremap iö i}<Esc>a
-onoremap iÄ i]<Esc>a
-onoremap iÖ i[<Esc>a
-onoremap aä a}
-onoremap aö a}
-onoremap aÄ a]
-onoremap aÖ a[
-
-onoremap tä t}
-onoremap tö t}
-onoremap tÄ t]
-onoremap tÖ t[
-onoremap fä f}
-onoremap fö f}
-onoremap fÄ f]
-onoremap fÖ f[
-onoremap fü f\
-onoremap tü t\
-
 "map j to gj except when there is a count!
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
-"source gnuplot syntax file
-so ~/.vim/syntax/gnuplot.vim
-
 "yank to system clipboard (hopefully)
 set clipboard=unnamedplus 
 
-if hostname == "arch-laptop" || hostname == "tom-linux" 
+" asciidoctor ---------------------------------------------------------
+let g:asciidoctor_pdf_extensions = ['asciidoctor-diagram']
 
-    let g:surround_{char2nr('c')} = "\\\1command\1{\r}" "Surround with latex cmd
+let g:asciidoctor_folding = 1
+let g:asciidoctor_fold_options = 1
+autocmd FileType asciidoctor set foldlevel=99 "Open all folds by default
 
-    if hostname == "stefan-schumacher11.uni-paderborn.de" 
-    	set shell=/bin/zsh
-    else
-    	set shell=/usr/bin/zsh
-    endif
+let g:asciidoctor_fenced_languages = ['python', 'c', 'cpp', 'json', 'plantuml']
+let g:asciidoctor_syntax_conceal = 1
+autocmd FileType asciidoctor set conceallevel=2 
 
-    "Referencing with autocompletion
-    inoremap ,rf \autoref{fig:}<Esc>i<C-X><C-O>
-    inoremap ,re \autoref{eq:}<Esc>i<C-X><C-O>
-    inoremap ,rk \autoref{kap:}<Esc>i<C-X><C-O>
+autocmd FileType asciidoctor set textwidth=120
+autocmd FileType asciidoctor set wrap
+" Add indent for labeled lists (XY:: etc.)
+autocmd FileType asciidoctor set formatlistpat+=\\\|^.*::\\+\\s\\+
+" ---------------------------------------------------------------------------
 
-    "Folding
-    let g:Tex_FoldedMisc='preamble'
+highlight LspCxxHlSymParameter ctermfg=6
+highlight LspCxxHlSymField ctermfg=4
 
-    "Text object for LaTeX math $$
-    call textobj#user#plugin('latex', {
-                \  'dollar-math-a': {
-                \     '*pattern*': '[$][^$]*[$]',
-                \     'select': 'am',
-                \   },
-                \  'dollar-math-i': {
-                \     '*pattern*': '[$]\zs[^$]*\ze[$]',
-                \     'select': 'im',
-                \   },
-                \ })
+highlight LspCxxHlSymMethod ctermfg=White cterm=italic
+highlight LspCxxHlSymFunction ctermfg=White
 
-    "Enable transparency
-    autocmd FileType tex highlight Nontext ctermbg=none
-    autocmd FileType tex highlight Normal ctermbg=none
-    highlight Normal ctermbg=none
-    autocmd FileType tex highlight LineNr ctermbg=none
-    highlight LineNr ctermbg=none
-    autocmd FileType tex highlight Conceal cterm=none ctermbg=none 
+" highlight cStorageClass ctermfg=208 cterm=bold
 
-    "vimtex
-    if hostname != "stefan-schumacher11.uni-paderborn.de" 
-        let g:vimtex_view_method = 'zathura'
-    else 
-        let g:vimtex_view_method = 'skim'
-    endif
-    let g:vimtex_fold_enabled=1
-    let g:vimtex_fold_manual=1 "should give better performance
-    let g:vimtex_imaps_leader='´'
+" highlight LspCxxHlSymNamespace ctermfg=136 cterm=bold
+" highlight cppConstant ctermfg=64 cterm=bold
+" highlight cppBoolean ctermfg=64 cterm=bold
+" highlight cStorageClass ctermfg=64 cterm=bold
+" highlight cStatement ctermfg=64 cterm=bold
 
-    let  g:vimtex_fold_types = {
-           \ 'preamble' : {'enabled' : 0},
-           \ 'env_options' : {'enabled' : 1},
-           \ 'cmd_single_opt' : {'enabled' : 1},
-           \ 'envs' : {
-           \   'blacklist' : ['equation', 'eqbox', 'axis', 'groupplot'],
-           \ },
-           \}
+" highlight LspCxxHlSymPrimitive ctermfg=28 cterm=bold
+" highlight cType ctermfg=28 cterm=bold
+" highlight cppType ctermfg=28 cterm=bold
 
-    "Disable some warnings
-    let g:vimtex_quickfix_latexlog = {
-                \ 'overfull' : 0,
-                \ 'underfull' : 0,
-                \ 'Draft' : 0,
-                \ 'font' : 0,
-                \ 'packages' : {
-                \   'default' : 0,
-                \ },
-                \}
+" highlight LspCxxHlSymClass ctermfg=214 cterm=bold
+
+highlight LspCxxHlSymVariable ctermfg=9
+highlight LspCxxHlSymUnknownStaticField ctermfg=9
+highlight LspCxxHlSymStaticMethod ctermfg=9 cterm=italic
+
+map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 
-    let g:vimtex_matchparen_enabled=0 "better performance
-    autocmd FileType tex set lazyredraw "Better scrolling performance in latex,
-    if hostname == "arch-laptop" 
-        let g:vimtex_compiler_progname='~/.local/bin/nvr' "make vimtex work with nvim
-    else 
-        let g:vimtex_compiler_progname='/usr/bin/nvr' "make vimtex work with nvim
-    endif
 
-    "TeX Settings
-    autocmd FileType tex set encoding=utf-8
-    autocmd FileType tex set wrap linebreak
-    autocmd FileType tex set breakindent
-    autocmd FileType tex set sw=2
-    autocmd FileType tex set iskeyword+=:
-    set grepprg=grep\ -nH\ $*
-
-    let g:vimtex_compiler_latexmk = {
-                \ 'options' : [
-                \   '-pdf',
-                \   '-verbose',
-                \   '-file-line-error',
-                \   '-synctex=1',
-                \   '-interaction=nonstopmode',
-                \   '-shell-escape',
-                \   '-lualatex',
-                \ ],
-                \}
-
-    "Macros
-    let g:Tex_Leader='´'
-
-    " ===================================================================================================
-    " fzf-bibtex integration 
-    " ===================================================================================================
-    function! s:bibtex_cite_sink(lines)
-        execute ':normal! a\cite{' . split(a:lines[0])[-1] . '}'
-        call feedkeys('a') "Back to insert mode
-    endfunction
-    function! s:bibtex_cite_sink_single(lines)
-        execute ':normal!i' . trim(split(a:lines[0])[-1])
-        " execute ':normal!i'
-    endfunction
-
-    " autocmd FileType tex inoremap <C-c> <Esc> :call fzf#run({
-    "                         \ 'source': './bibtexToFzf.py',
-    "                         \ 'sink*': function('<sid>bibtex_cite_sink'),
-    "                         \ 'down': '40%',
-    "                         \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR>
-    imap ,c \cite{}<Esc>i<C-c>
-    autocmd FileType tex inoremap <C-c> <Esc> :call fzf#run({
-                            \ 'source': './bibtexToFzf.py',
-                            \ 'sink*': function('<sid>bibtex_cite_sink_single'),
-                            \ 'down': '40%',
-                            \ 'options': '--ansi --color hl+:255 --prompt "Cite> "'})<CR><CR>
-
-    " ===================================================================================================
-
-endif
