@@ -16,12 +16,17 @@ Plug 'KeitaNakamura/tex-conceal.vim'
 
 " Plug 'tmsvg/pear-tree' <- Use coc-pairs instead to not break autocomplete
 
-Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+
 Plug 'dylanaraps/wal'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
-Plug 'wellle/targets.vim'
+" Plug 'wellle/targets.vim'
 Plug 'lazywei/vim-matlab'
 Plug 'justinmk/vim-sneak'
 Plug 'SirVer/ultisnips'
@@ -36,12 +41,16 @@ autocmd VimEnter * MapExpress gt system('titlecase ' . v:val)
 
 Plug 'junegunn/fzf.vim'
 set rtp+=/usr/local/opt/fzf "for mac
+Plug 'antoinemadec/coc-fzf'
+
+Plug 'liuchengxu/vista.vim'
 
 Plug 'mbbill/undotree'
 
 "Text ojects
 Plug 'kana/vim-textobj-user'
-Plug 'sgur/vim-textobj-parameter' "i, and a, for function parameters
+" Plug 'sgur/vim-textobj-parameter' "i, and a, for function parameters
+Plug 'https://github.com/vim-scripts/argtextobj.vim'
 Plug 'bps/vim-textobj-python'
 Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
 
@@ -122,7 +131,8 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gu <Plug>(coc-references)
+nmap <silent> gs :CocFzfList symbols<CR>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -144,6 +154,8 @@ nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+autocmd FileType cpp nmap gh :CocCommand clangd.switchSourceHeader<CR>
 
 augroup mygroup
   autocmd!
@@ -213,9 +225,38 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 "--------------------------------------------------------------
 
+" Vista.vim config
+let g:vista_fzf_preview = ['right:50%']
 
-" Switch to header file and back
-map <leader>hh :e %:p:s,.hpp$,.X123X,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<CR><Paste>
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+set statusline+=%{NearestMethodOrFunction()}
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+let g:vista_executive_for = {
+  \ 'cpp': 'coc',
+  \ }
+
+map <leader>v :Vista!!<CR>
+map <leader>. :Vista finder<CR>
+"--------------------------------------------------------------
+
+" Quickfix mappings
+map <leader>cn :cnext<CR>
+map <leader>cp :cprev<CR>
+function! ToggleQuickFix()
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+        copen
+    else
+        cclose
+    endif
+endfunction
+nnoremap <silent> <leader>cc :call ToggleQuickFix()<cr>
+
+" Go up/down in quickfix and keep it focused
+autocmd FileType qf nnoremap <buffer> <Down> :cnext<CR><C-W><C-P>
+autocmd FileType qf nnoremap <buffer> <Up> :cprev<CR><C-W><C-P>
 
 "toggle folds
 map <leader><leader> za
