@@ -1,8 +1,5 @@
 alias gstv='git status -vv'
 
-alias tiga='tig --all'
-alias t='tiga'
-
 alias dot='cd ~/.dotfiles && git status'
 
 alias lst='lsa -t'
@@ -105,7 +102,7 @@ alias gpgd!="gcan! && gpgd"
 alias gpd!="gcan! && gpd"
 alias gpdd!="gcan! && gpdd"
 alias gsf="git submodule foreach"
-alias gsfb="gsf \"git branch | grep '\*.*' --color=always | grep -v develop || : && git status | egrep 'modified|deleted|new file' --color=always || :\" | sed 's/Entering//' | column"
+alias gsfb="gsf \"git branch | grep '\*.*' --color=always | grep -v develop | sed "s/from/$(printf "\033[35mfrom\033[0m")/g" || : && git status | egrep 'modified|deleted|new file' --color=always || :\" | sed 's/Entering//' | column"
 alias gsfgb="gsfb"
 alias gsfglr="gsf git pull --rebase"
 alias gsfglra="gsf git pull --rebase --autostash"
@@ -149,7 +146,7 @@ alias grbt='git rebase -i $(tig-pick)'
 
 alias grt='git revert $(tig-pick)'
 
-alias tiga='tig --all'
+alias tiga='tig --all --word-diff=plain'
 alias tigs='tig status'
 
 # fasd & fzf change directory - jump using `fasd` if given argument, filter output of `fasd` using `fzf` else

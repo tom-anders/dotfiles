@@ -22,6 +22,7 @@ noremap g0 ^
 
 "Write, build project and show compile output pane
 nmap <space>c :wa<CR>:build<CR>:comp<CR>
+nmap <space>m :wa<CR>:build<CR>:comp<CR>
 
 "Need to add " at the end, because FakeVim interprets the last quote as start of a comment
 nmap <space>p "0p "
@@ -68,7 +69,7 @@ nmap <space>v :whitespace<CR>
 nmap <space>qv :source ~/.qtvimrc<CR>
 
 " Repeat last macro more ergonormically
-nmap <space>m @@
+"nmap <space>m @@
 
 """"""""""""""""""""""""""" Surround """"""""""""""""""""""""""""""""""
 

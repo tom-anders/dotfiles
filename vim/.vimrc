@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/plugged')
-Plug 'dracula/vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
+
 Plug 'machakann/vim-highlightedyank'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -11,29 +11,42 @@ Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/ReplaceWithRegister'
 
+Plug 'termhn/i3-vim-nav'
+
+Plug 'junegunn/vim-peekaboo'
+
 " Coc plugins:
 " - coc-pairs
 " - coc-clangd
+" - coc-lists
+" - coc-ultisnips
+" - coc-explorer
+
+Plug 'mileszs/ack.vim'
+
+Plug 'peterhoeg/vim-qml'
+Plug 'arkbriar/vim-qmake'
 
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 
+Plug 'ryanoasis/vim-devicons'
+
 Plug 'dylanaraps/wal'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tommcdo/vim-exchange'
-Plug 'rafaqz/ranger.vim'
 Plug 'junegunn/vim-easy-align'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'antoinemadec/coc-fzf'
 
 Plug 'liuchengxu/vista.vim'
 
@@ -53,6 +66,9 @@ Plug 'triglav/vim-visual-increment'
 " :XtermColorTable
 Plug 'guns/xterm-color-table.vim'
 
+Plug 'Shougo/echodoc.vim'
+let g:echodoc_enable_at_startup = 1
+
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 set completeopt=noinsert,menuone,noselect
 
@@ -64,12 +80,15 @@ call plug#end()
 if hostname == "arch-laptop" || hostname == "tom-linux"
     color wal
 else
-    " color solarized
-    color gruvbox
+    color solarized
+    " color gruvbox
 endif
 
 let mapleader = ' '
 let maplocalleader = ' '
+
+set nowrap
+set scrolloff=2
 
 "coc.nvim config, mainly copied from https://github.com/neoclide/coc.nvim#example-vim-configuration
 "-----------------------------------------------------------------------------------------------
@@ -109,7 +128,7 @@ endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent><expr> <c-c> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
@@ -129,7 +148,28 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gu <Plug>(coc-references)
-nmap <silent> gs :CocFzfList symbols<CR>
+nmap <silent> <leader>sy :CocList --interactive --auto-preview symbols<CR>
+nmap <silent> <leader>. :CocList --auto-preview outline<CR>
+
+" grep word under cursor
+command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
+function! s:GrepArgs(...)
+  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
+        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
+  return join(list, "\n")
+endfunction
+nnoremap <silent> <Leader>cgw :exe 'CocList --auto-preview --normal --input='.expand('<cword>').' grep'<CR>
+
+" General grep
+nnoremap  <Leader>cgr :CocList --auto-preview --normal grep 
+
+" Use ripgrep with ack.vim
+let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
+" Any empty ack search will search for the work the cursor is on
+let g:ack_use_cword_for_empty_search = 1
+let g:ackhighlight = 1
+" Don't jump to first match
+nnoremap <Leader>/ :Ack!<Space>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -161,6 +201,10 @@ augroup mygroup
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+
+inoremap <silent> <C-s> <Esc>:call CocActionAsync('showSignatureHelp')<CR>a
+let g:coc_snippet_next="<tab>"
+let g:coc_snippet_prev="<S-tab>"
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
@@ -202,28 +246,11 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
 "--------------------------------------------------------------
 
 " Vista.vim config
 let g:vista_fzf_preview = ['right:50%']
+let g:vista_sidebar_width = 50
 
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
@@ -236,12 +263,11 @@ let g:vista_executive_for = {
   \ }
 
 map <leader>v :Vista!!<CR>
-map <leader>. :Vista finder<CR>
 "--------------------------------------------------------------
 
 " Quickfix mappings
-map <leader>cn :cnext<CR>
-map <leader>cp :cprev<CR>
+map <C-n> :cnext<CR>
+map <C-b> :cprev<CR>
 function! ToggleQuickFix()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
         copen
@@ -251,13 +277,16 @@ function! ToggleQuickFix()
 endfunction
 nnoremap <silent> <leader>cc :call ToggleQuickFix()<cr>
 
+map <C-M-n> :CocNext<CR>
+map <C-M-b> :CocPrev<CR>
+nnoremap <silent> <leader>co :CocListResume<CR>
+
 " Go up/down in quickfix and keep it focused
 autocmd FileType qf nnoremap <buffer> <Down> :cnext<CR><C-W><C-P>
 autocmd FileType qf nnoremap <buffer> <Up> :cprev<CR><C-W><C-P>
 
 "toggle folds
 map <leader><leader> za
-map <leader>a za
 
 "toggle undotree
 map <leader>uu :UndotreeToggle<cr>
@@ -269,21 +298,41 @@ map <leader>bv :bp<cr>
 map <leader>bd :bd<cr>
 nnoremap <leader>wq :w\|bd<cr>
 
-map <C-l> :bn<cr>
-map <C-h> :bp<cr>
+" i3 integration
+set title titlestring=nvim
+nmap <silent> <C-M-l> <C-l>
+nmap <silent> <C-M-h> <C-h>
+nmap <silent> <C-M-k> <C-k>
+nmap <silent> <C-M-j> <C-j>
+nnoremap <silent> <C-l> :call Focus('right', 'l')<CR>
+nnoremap <silent> <C-h> :call Focus('left', 'h')<CR>
+nnoremap <silent> <C-k> :call Focus('up', 'k')<CR>
+nnoremap <silent> <C-j> :call Focus('down', 'j')<CR>
+
+" CTRL-a CTRL-q to select all and build quickfix list (https://github.com/junegunn/fzf.vim/issues/185)
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 "Mappings for fzf.vim
-" map <leader>f :GFiles<cr> 
-map <silent> <leader>f :call fzf#run(fzf#wrap({'source': 'git ls-files --recurse-submodules'}))<cr>
-map <leader>zf :Files<cr>
-map <leader>zb :Buffers<cr>
-map <leader>zm :Marks<cr>
-map <leader>zl :Lines<cr>
-map <leader>zg :Rg<cr>
+map <silent> <leader>f :GFiles --recurse-submodules <cr> 
+map <silent> <leader>zf :Files<cr>
+map <silent> <leader>zb :Buffers<cr>
+map <silent> <leader>zm :Marks<cr>
+map <silent> <leader>zl :Lines<cr>
+map <silent> <leader>zg :Rg<cr>
 
 " Fugitive mappings
-map <leader>gs :Gstatus<cr> 
-map <leader>gb :Gblame<cr> 
+map <silent> <leader>gs :Gstatus<cr> 
+map <silent> <leader>gb :Gblame<cr> 
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -294,22 +343,10 @@ if hostname == "stefan-schumacher11.uni-paderborn.de"
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<tab>"
 else 
-    let g:UltiSnipsExpandTrigger="<F16>"
-    let g:UltiSnipsJumpForwardTrigger="<F16>"
+    let g:UltiSnipsExpandTrigger="<C-space>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 endif
-let g:UltiSnipsJumpBackwardTrigger="<c-y>"
-
-" For ranger.vim
-let g:ranger_terminal = 'urxvt -e'
-map <leader>rr :RangerEdit<cr>
-map <leader>rv :RangerVSplit<cr>
-map <leader>rs :RangerSplit<cr>
-map <leader>rt :RangerTab<cr>
-map <leader>ri :RangerInsert<cr>
-map <leader>ra :RangerAppend<cr>
-map <leader>rc :set operatorfunc=RangerChangeOperator<cr>g@
-map <leader>rd :RangerCD<cr>
-map <leader>rld :RangerLCD<cr>
 
 "Move vertically with f and t using the sneak plugin
 map f <Plug>Sneak_f
@@ -379,7 +416,7 @@ nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
 "yank to system clipboard (hopefully)
-set clipboard=unnamedplus 
+set clipboard^=unnamed,unnamedplus 
 
 " asciidoctor ---------------------------------------------------------
 let g:asciidoctor_pdf_extensions = ['asciidoctor-diagram']
@@ -398,33 +435,68 @@ autocmd FileType asciidoctor set wrap
 autocmd FileType asciidoctor set formatlistpat+=\\\|^.*::\\+\\s\\+
 " ---------------------------------------------------------------------------
 
-highlight LspCxxHlSymParameter ctermfg=6
+" Don't indent after C++ namespace start
+set cino=N-s
+
+highlight LspCxxHlSymParameter ctermfg=6 cterm=italic
 highlight LspCxxHlSymField ctermfg=4
 
-highlight LspCxxHlSymMethod ctermfg=White cterm=italic
-highlight LspCxxHlSymFunction ctermfg=White
+highlight LspCxxHlSymMethod ctermfg=7
+highlight LspCxxHlSymFunction ctermfg=7 cterm=italic
 
-" highlight cStorageClass ctermfg=208 cterm=bold
+"--------------------------------------------------------
+highlight cStorageClass ctermfg=208 cterm=bold
 
-" highlight LspCxxHlSymNamespace ctermfg=136 cterm=bold
-" highlight cppConstant ctermfg=64 cterm=bold
-" highlight cppBoolean ctermfg=64 cterm=bold
-" highlight cStorageClass ctermfg=64 cterm=bold
-" highlight cStatement ctermfg=64 cterm=bold
+highlight LspCxxHlSymNamespace ctermfg=136 
+highlight LspCxxHlSymClass ctermfg=136 cterm=bold
 
-" highlight LspCxxHlSymPrimitive ctermfg=28 cterm=bold
-" highlight cType ctermfg=28 cterm=bold
-" highlight cppType ctermfg=28 cterm=bold
+highlight cppConstant ctermfg=64 cterm=bold,italic
+highlight cConditional ctermfg=64 cterm=bold
+highlight cppBoolean ctermfg=64 cterm=bold
+highlight cppStatement ctermfg=64 cterm=bold,italic
+highlight cType ctermfg=64 cterm=bold
+highlight cppType ctermfg=64 cterm=bold
 
-" highlight LspCxxHlSymClass ctermfg=214 cterm=bold
+highlight cString ctermfg=9
+highlight cppNumber ctermfg=9
+
+highlight cStorageClass ctermfg=64 cterm=bold,italic
 
 highlight LspCxxHlSymVariable ctermfg=9
 highlight LspCxxHlSymUnknownStaticField ctermfg=9
 highlight LspCxxHlSymStaticMethod ctermfg=9 cterm=italic
 
+let g:lsp_cxx_hl_use_text_props=1
+
 map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+            \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
 
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+set autoread
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
+" vim-dispatch
+map <leader>cd :Copen<CR>/error:<CR>
+map <leader>m :wa<CR>:Make<CR>
+map <leader>M :wa<CR>:Make!<CR>
+
+" Toggle coc-explorer. <leader>n is a relict from my memonic for NERDTree
+nnoremap <silent> <leader>n :CocCommand explorer<CR>
+
+nnoremap <leader>so :so $MYVIMRC<CR>
+
+" Search for visual selection
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+if !empty(glob("~/.work.vim"))
+    source ~/.work.vim
+endif
