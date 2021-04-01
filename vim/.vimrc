@@ -500,3 +500,6 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 if !empty(glob("~/.work.vim"))
     source ~/.work.vim
 endif
+
+nnoremap [[ [[zz
+nnoremap ]] ]]zz

@@ -1,0 +1,16 @@
+{
+    "clangd.arguments": [
+        "--background-index",
+        "--clang-tidy",
+        "-j=4",
+        "--all-scopes-completion",
+        "--suggest-missing-includes",
+        "--completion-style=detailed"
+    ],
+
+    "clangd.semanticHighlighting": true,
+
+    "highlight": {
+      "lsRanges": true
+    },
+}
