@@ -194,6 +194,9 @@ nmap <leader>f  <Plug>(coc-format-selected)
 
 autocmd FileType cpp nmap gh :CocCommand clangd.switchSourceHeader<CR>
 
+autocmd FileType cpp,c set textwidth=120
+autocmd FileType cpp,c set colorcolumn=+1
+
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -444,23 +447,20 @@ highlight LspCxxHlSymField ctermfg=4
 highlight LspCxxHlSymMethod ctermfg=7
 highlight LspCxxHlSymFunction ctermfg=7 cterm=italic
 
-"--------------------------------------------------------
-highlight cStorageClass ctermfg=208 cterm=bold
-
 highlight LspCxxHlSymNamespace ctermfg=136 
 highlight LspCxxHlSymClass ctermfg=136 cterm=bold
+highlight LspCxxHlSymEnum ctermfg=136 cterm=bold,italic
 
-highlight cppConstant ctermfg=64 cterm=bold,italic
 highlight cConditional ctermfg=64 cterm=bold
-highlight cppBoolean ctermfg=64 cterm=bold
+highlight cRepeat ctermfg=64 cterm=bold
+highlight cStorageClass ctermfg=64 cterm=bold,italic
+highlight cppConstant ctermfg=64 cterm=bold,italic
 highlight cppStatement ctermfg=64 cterm=bold,italic
-highlight cType ctermfg=64 cterm=bold
-highlight cppType ctermfg=64 cterm=bold
+highlight cppBoolean ctermfg=64 cterm=bold,italic
+highlight type ctermfg=64 cterm=bold
 
 highlight cString ctermfg=9
 highlight cppNumber ctermfg=9
-
-highlight cStorageClass ctermfg=64 cterm=bold,italic
 
 highlight LspCxxHlSymVariable ctermfg=9
 highlight LspCxxHlSymUnknownStaticField ctermfg=9
