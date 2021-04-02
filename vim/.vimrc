@@ -66,12 +66,16 @@ Plug 'triglav/vim-visual-increment'
 " :XtermColorTable
 Plug 'guns/xterm-color-table.vim'
 
-Plug 'Shougo/echodoc.vim'
-let g:echodoc_enable_at_startup = 1
-
+" Disable duplicate linters
+let g:ale_linters_ignore = {
+      \   'cpp': ['ccls', 'clangcheck'],
+      \}
+let g:ale_cpp_clangtidy_checks=["-clang-diagnostic-*,modernize*,-modernize-use-trailing-return-type,bugprone*,performance*,readability*,cppcoreguidelines*,misc*"]
 let g:ale_disable_lsp = 1
+let g:ale_set_highlights=0
+
 let g:ale_virtualtext_cursor=1
-let g:ale_echo_cursor=0
+
 Plug 'dense-analysis/ale'
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -147,6 +151,8 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nnoremap <leader>ad :ALEDetail<cr>
 
 " Explicitly call ccls here (instead of just coc-definition),
 " because otherwise we'd also get duplicate results from clangd
@@ -426,6 +432,9 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.space = "\ua0"
 let g:airline#extensions#tabline#enabled=1
+
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
 
 "map j to gj except when there is a count!
 nnoremap <expr> j v:count ? 'j' : 'gj'
