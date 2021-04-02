@@ -69,6 +69,11 @@ Plug 'guns/xterm-color-table.vim'
 Plug 'Shougo/echodoc.vim'
 let g:echodoc_enable_at_startup = 1
 
+let g:ale_disable_lsp = 1
+let g:ale_virtualtext_cursor=1
+let g:ale_echo_cursor=0
+Plug 'dense-analysis/ale'
+
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 set completeopt=noinsert,menuone,noselect
 
@@ -155,6 +160,8 @@ nmap <silent> gi :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true
 
 nmap <silent> <leader>sy :CocList --interactive --auto-preview symbols<CR>
 nmap <silent> <leader>. :CocList --auto-preview outline<CR>
+
+nmap <silent> <leader>di :CocList --auto-preview --normal diagnostics<CR>
 
 " Not s
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -387,11 +394,6 @@ autocmd FileType matlab setlocal commentstring=%\ %s
 autocmd FileType gnuplot setlocal commentstring=#\ %s
 "C++ comments
 autocmd FileType cpp setlocal commentstring=//\ %s
-
-"Insert comment divider
-map <leader>d o<Esc>99A=<Esc>gcc
-"Comment box
-map <leader>bb O<Esc>O<Esc>100A=<Esc><CR>ix<CR><Esc>i<Esc>100a=<Esc>gc2kjcl
 
 set hidden
 set backspace=indent,eol,start

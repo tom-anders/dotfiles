@@ -14,8 +14,9 @@
             "disableDiagnostics": true
         }
     },
-    "diagnostic.virtualText": true,
-    "diagnostic.virtualTextCurrentLineOnly": false,
+    "diagnostic.displayByAle": true,
+
+    "list.maxPreviewHeight": 20,
 
     "clangd.arguments": [
         "--background-index",
@@ -25,5 +26,5 @@
         "--suggest-missing-includes",
         "--completion-style=detailed"
     ],
-    "clangd.semanticHighlighting": true,
+    "clangd.semanticHighlighting": true
 }
