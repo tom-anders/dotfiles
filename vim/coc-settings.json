@@ -1,4 +1,22 @@
 {
+    "languageserver": {
+        "ccls": {
+            "command": "ccls",
+            "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+            "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+            "initializationOptions": {
+                "cache": {
+                    "directory": "/tmp/ccls"
+                },
+                "highlight": {"lsRanges": true}
+            },
+            "disableCompletion": true,
+            "disableDiagnostics": true
+        }
+    },
+    "diagnostic.virtualText": true,
+    "diagnostic.virtualTextCurrentLineOnly": false,
+
     "clangd.arguments": [
         "--background-index",
         "--clang-tidy",
@@ -7,10 +25,5 @@
         "--suggest-missing-includes",
         "--completion-style=detailed"
     ],
-
     "clangd.semanticHighlighting": true,
-
-    "highlight": {
-      "lsRanges": true
-    },
 }

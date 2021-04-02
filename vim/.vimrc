@@ -143,13 +143,21 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gu <Plug>(coc-references)
+" Explicitly call ccls here (instead of just coc-definition),
+" because otherwise we'd also get duplicate results from clangd
+nmap <silent> gd :call CocLocations('ccls','textDocument/definition')<cr>
+" And same for find references
+nmap <silent> gu :call CocLocations('ccls','textDocument/references')<cr>
+" Go to base class definitions
+nmap <silent> gb :call CocLocations('ccls','$ccls/inheritance',{'levels':5})<cr>
+" Go to derived class definitions
+nmap <silent> gi :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true, 'levels':5})<cr>
+
 nmap <silent> <leader>sy :CocList --interactive --auto-preview symbols<CR>
 nmap <silent> <leader>. :CocList --auto-preview outline<CR>
+
+" Not s
+nmap <silent> gy <Plug>(coc-type-definition)
 
 " grep word under cursor
 command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
@@ -184,6 +192,10 @@ endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
+" Show signature help in insert mode on cursor hold
+autocmd CursorHoldI * silent call CocActionAsync('showSignatureHelp')
+" And also show it immediately when entering insert mode, very useful when editing parameters
+autocmd InsertEnter * silent call CocActionAsync('showSignatureHelp')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -205,7 +217,6 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-inoremap <silent> <C-s> <Esc>:call CocActionAsync('showSignatureHelp')<CR>a
 let g:coc_snippet_next="<tab>"
 let g:coc_snippet_prev="<S-tab>"
 
