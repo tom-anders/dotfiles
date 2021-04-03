@@ -540,8 +540,23 @@ autocmd Filetype cpp set comments^=:///
 let g:load_doxygen_syntax=1
 
 au BufEnter,BufNew *.hpp,*.h set foldmethod=expr
-au BufEnter,BufNew *.hpp,*.h set foldexpr=FoldDoxygen(v:lnum)
-au BufEnter,BufNew *.hpp,*.h set foldtext=DoxygenFoldText()
+au BufEnter,BufNew *.hpp,*.h set foldexpr=FoldCppHeader(v:lnum)
+au BufEnter,BufNew *.hpp,*.h set foldtext=HeaderFoldText()
+
+function HeaderFoldText()
+    let text = IncludeFoldText()
+    if text == ''
+        let text = DoxygenFoldText()
+    endif
+    return text
+endfunction
+
+function IncludeFoldText()
+    if getline(v:foldstart) =~ "#include"
+        return len(getline(v:foldstart, v:foldend)) . ' includes'
+    endif
+    return ''
+endfunction
 
 " adapted from https://github.com/brobeson/Tools/blob/master/vim/vim/ftplugin/cpp_doxygen.vim
 function DoxygenFoldText()
@@ -630,7 +645,7 @@ function DoxygenFoldText()
     return fold_text
 endfunction
 
-function! FoldDoxygen(lnum)
+function! FoldCppHeader(lnum)
     let line = getline(a:lnum)
 
     " cpp-style
@@ -647,6 +662,10 @@ function! FoldDoxygen(lnum)
     endif
     if line =~ '\v^\s*\*.*$'
         return '-1'
+    endif
+
+    if line =~ '#include'
+        return '1'
     endif
 
     return '0'
