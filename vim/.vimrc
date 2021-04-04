@@ -63,6 +63,8 @@ Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-
 
 Plug 'triglav/vim-visual-increment'
 
+Plug 'Konfekt/FastFold'
+
 " :XtermColorTable
 Plug 'guns/xterm-color-table.vim'
 
@@ -313,7 +315,7 @@ autocmd FileType qf nnoremap <buffer> <Down> :cnext<CR><C-W><C-P>
 autocmd FileType qf nnoremap <buffer> <Up> :cprev<CR><C-W><C-P>
 
 "toggle folds
-map <leader><leader> za
+map <leader><leader> zA
 
 "toggle undotree
 map <leader>uu :UndotreeToggle<cr>
@@ -528,7 +530,10 @@ nnoremap ]] ]]zz
 
 
 " In cpp files, use coc-nvim's folding to only fold methods
-au BufEnter,BufNew *.cpp set foldmethod=manual
+" au BufEnter,BufNew *.cpp set foldmethod=manual
+au BufEnter,BufNew *.cpp set foldmethod=expr
+au BufEnter,BufNew *.cpp set foldexpr=FoldCppSource(v:lnum)
+au BufEnter,BufNew *.cpp set foldtext=SourceFoldText()
 
 " Close folds
 nnoremap <leader>cf zM
@@ -543,8 +548,30 @@ au BufEnter,BufNew *.hpp,*.h set foldmethod=expr
 au BufEnter,BufNew *.hpp,*.h set foldexpr=FoldCppHeader(v:lnum)
 au BufEnter,BufNew *.hpp,*.h set foldtext=HeaderFoldText()
 
+function CppFunctionFoldText()
+    if getline(v:foldstart) == '{'
+        return '{...}'
+    endif
+    return ''
+endfunction
+
+function SourceFoldText()
+    let text = LicenseFoldText()
+    if text == ''
+        let text = IncludeFoldText()
+    endif
+    if text == ''
+        let text = CppFunctionFoldText()
+    endif
+    
+    return text
+endfunction
+
 function HeaderFoldText()
-    let text = IncludeFoldText()
+    let text = LicenseFoldText()
+    if text == ''
+        let text = IncludeFoldText()
+    endif
     if text == ''
         let text = DoxygenFoldText()
     endif
@@ -554,6 +581,13 @@ endfunction
 function IncludeFoldText()
     if getline(v:foldstart) =~ "#include"
         return len(getline(v:foldstart, v:foldend)) . ' includes'
+    endif
+    return ''
+endfunction
+
+function LicenseFoldText()
+    if v:foldstart == 1 && getline(v:foldstart) =~ '\v^/\*.*$'
+        return '/********* (License) *********/'
     endif
     return ''
 endfunction
@@ -645,28 +679,101 @@ function DoxygenFoldText()
     return fold_text
 endfunction
 
+function! FoldLicense(lnum)
+    let line = getline(a:lnum)
+    if a:lnum == 1 && line =~ '\v^/\*.*$' 
+        return '>2'
+    endif
+    return ''
+endfunction
+
+function! FoldInclude(line)
+    if a:line =~ '#include'
+        return '2'
+    endif
+endfunction
+
+function! FoldCStyleComment(line)
+    " start of c-style
+    if a:line =~ '\v^\s*/\*[\*!].*$'
+        return 'a1'
+    endif
+    " middle of c-style
+    if a:line =~ '\v^\s*\*.*$'
+        return '='
+    endif
+    " end of c-style
+    if a:line =~ '\v^\s*\*/.*$'
+        return 's1'
+    endif
+    return ''
+endfunction
+
+function! FoldCppFunction(line)
+    if a:line == '{'
+        return '>1'
+    endif
+
+    if a:line == '}'
+        return '<1'
+    endif
+    return ''
+endfunction
+
+function! FoldCppSource(lnum)
+    let line = getline(a:lnum)
+    
+    let level = FoldInclude(line)
+    if level != ''
+        return level
+    endif
+    " This line is not a include but the previous one was -> reset fold level
+    if FoldInclude(getline(a:lnum -1)) != ''
+        return '0'
+    endif
+
+    let level = FoldCppFunction(line)
+    if level != ''
+        return level
+    endif
+
+    let level = FoldLicense(a:lnum)
+    if level != ''
+        return level
+    endif
+    if line =~ '\v^\s*\*.*$'
+        return '='
+    endif
+    if line =~ '\v^\s*\*/\s*$'
+        return '<2'
+    endif
+    if getline(a:lnum-1) =~ '\v^\s*\*/\s*$'
+        return '0'
+    endif
+
+    return '-1'
+endfunction
+
 function! FoldCppHeader(lnum)
     let line = getline(a:lnum)
+
+    let foldlevel = FoldLicense(a:lnum)
+    if foldlevel != ''
+        return foldlevel
+    endif
+
+    let foldlevel = FoldInclude(line)
+    if foldlevel != ''
+        return foldlevel
+    endif
+
+    let foldlevel = FoldCStyleComment(line)
+    if foldlevel != ''
+        return foldlevel
+    endif
 
     " cpp-style
     if line =~ '\v^\s*//[!/].*$'
         return '1'
     endif
-    
-    " c-style
-    if line =~ '\v^\s*/\*[\*!].*$'
-        return '1'
-    endif
-    if line =~ '\v^\s*\*/.*$'
-        return '1'
-    endif
-    if line =~ '\v^\s*\*.*$'
-        return '-1'
-    endif
-
-    if line =~ '#include'
-        return '1'
-    endif
-
-    return '0'
 endfunction
