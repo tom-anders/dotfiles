@@ -1,5 +1,55 @@
+" {{{ General config
+
 let mapleader = ' '
 let maplocalleader = ' '
+
+set hidden
+set backspace=indent,eol,start
+
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
+set ignorecase
+set smartcase
+
+set nowrap
+set scrolloff=2
+
+set number
+set relativenumber
+syntax on
+
+"yank to system clipboard (hopefully)
+set clipboard^=unnamed,unnamedplus 
+
+" }}}
+
+" {{{ remaps
+
+"increment/decrement
+noremap + <C-a>
+noremap - <C-x>
+
+"traverse jump list
+nnoremap <tab> <C-o>
+nnoremap <s-tab> <C-i>
+
+"map j to gj except when there is a count
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
+
+" Search for visual selection
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+nnoremap [[ [[zz
+nnoremap ]] ]]zz
+
+nnoremap <leader>so :so $MYVIMRC<CR>
+
+" }}}
 
 call plug#begin('~/.vim/plugged')
 
@@ -30,21 +80,37 @@ let g:airline_symbols.space = "\ua0"
 let g:airline#extensions#tabline#enabled=1
 " }}}
 
-" vim-fugitive {{{
+" git {{{
 Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-fugitive-blame-ext'
+Plug 'airblade/vim-gitgutter'
 
 map <silent> <leader>gs :Gstatus<cr> 
 map <silent> <leader>gb :Gblame<cr> 
 " }}}
 
+" :Au to toggle autosave
 Plug 'vim-scripts/vim-auto-save'
+
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/ReplaceWithRegister'
-
-Plug 'termhn/i3-vim-nav'
-
 Plug 'junegunn/vim-peekaboo'
+Plug 'tommcdo/vim-exchange'
+Plug 'tpope/vim-repeat'
+Plug 'triglav/vim-visual-increment'
+
+" {{{ i3wm integration
+Plug 'termhn/i3-vim-nav'
+set title titlestring=nvim
+nmap <silent> <C-M-l> <C-l>
+nmap <silent> <C-M-h> <C-h>
+nmap <silent> <C-M-k> <C-k>
+nmap <silent> <C-M-j> <C-j>
+nnoremap <silent> <C-l> :call Focus('right', 'l')<CR>
+nnoremap <silent> <C-h> :call Focus('left', 'h')<CR>
+nnoremap <silent> <C-k> :call Focus('up', 'k')<CR>
+nnoremap <silent> <C-j> :call Focus('down', 'j')<CR>
+" }}}
 
 " {{{ ack.vim (Configured to use rg)
 Plug 'mileszs/ack.vim'
@@ -69,8 +135,6 @@ let g:cpp_class_decl_highlight = 1
 
 Plug 'ryanoasis/vim-devicons'
 
-Plug 'tpope/vim-repeat'
-
 " {{{ vim-commentary
 Plug 'tpope/vim-commentary'
 "Matlab comments
@@ -89,8 +153,6 @@ map <leader>m :wa<CR>:Make<CR>
 map <leader>M :wa<CR>:Make!<CR>
 " }}}
 
-Plug 'airblade/vim-gitgutter'
-
 " {{{ vim-sneak
 Plug 'justinmk/vim-sneak'
 map f <Plug>Sneak_f
@@ -106,8 +168,6 @@ let g:UltiSnipsExpandTrigger="<C-space>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 " }}}
-
-Plug 'tommcdo/vim-exchange'
 
 " {{{ vim-easy-align
 Plug 'junegunn/vim-easy-align'
@@ -140,6 +200,7 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 " }}}
 
 " {{{ Vista.vim
@@ -176,8 +237,6 @@ Plug 'https://github.com/vim-scripts/argtextobj.vim'
 Plug 'bps/vim-textobj-python'
 Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
 " }}}
-
-Plug 'triglav/vim-visual-increment'
 
 " {{{ Folding
 Plug 'Konfekt/FastFold'
@@ -270,7 +329,7 @@ nmap <silent> gb :call CocLocations('ccls','$ccls/inheritance',{'levels':5})<cr>
 " Go to derived class definitions
 nmap <silent> gi :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true, 'levels':5})<cr>
 
-nmap <silent> <leader>sy :CocList --interactive --auto-preview symbols<CR>
+nmap <silent> <C-k> :CocList --interactive --auto-preview symbols<CR>
 nmap <silent> <leader>. :CocList --auto-preview outline<CR>
 
 nmap <silent> <leader>di :CocList --auto-preview --normal diagnostics<CR>
@@ -279,12 +338,6 @@ nmap <silent> <leader>di :CocList --auto-preview --normal diagnostics<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 
 " grep word under cursor
-command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
-function! s:GrepArgs(...)
-  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
-        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
-  return join(list, "\n")
-endfunction
 nnoremap <silent> <Leader>cgw :exe 'CocList --auto-preview --normal --input='.expand('<cword>').' grep'<CR>
 
 " General grep
@@ -362,16 +415,14 @@ nnoremap <silent> <leader>n :CocCommand explorer<CR>
 
 call plug#end()
 
+" {{{ Set colorscheme based on hostname
 let hostname=hostname()
-"Colorscheme depending on computer 
 if hostname == "arch-laptop" || hostname == "tom-linux"
     color wal
 else
     color solarized
 endif
-
-set nowrap
-set scrolloff=2
+" }}}
 
 " {{{ Quickfix/CocList mappings
 map <C-n> :cnext<CR>
@@ -402,55 +453,7 @@ map <leader>bd :bd<cr>
 nnoremap <leader>wq :w\|bd<cr>
 " }}}
 
-" {{{ i3wm integration
-set title titlestring=nvim
-nmap <silent> <C-M-l> <C-l>
-nmap <silent> <C-M-h> <C-h>
-nmap <silent> <C-M-k> <C-k>
-nmap <silent> <C-M-j> <C-j>
-nnoremap <silent> <C-l> :call Focus('right', 'l')<CR>
-nnoremap <silent> <C-h> :call Focus('left', 'h')<CR>
-nnoremap <silent> <C-k> :call Focus('up', 'k')<CR>
-nnoremap <silent> <C-j> :call Focus('down', 'j')<CR>
-" }}}
-
-"Appeareance
-set number
-set relativenumber
-syntax on
-
-"increment/decrement
-noremap + <C-a>
-noremap - <C-x>
-
-"traverse jump list
-nnoremap <tab> <C-o>
-nnoremap <s-tab> <C-i>
-
-set hidden
-set backspace=indent,eol,start
-
-set tabstop=4
-" when indenting with '>', use 4 spaces width
-set shiftwidth=4
-" On pressing tab, insert 4 spaces
-set expandtab
-
-"Ignore case when searching
-set ignorecase
-set smartcase
-
-"Remap H and L
-noremap H 0
-noremap L g_
-
-"map j to gj except when there is a count!
-nnoremap <expr> j v:count ? 'j' : 'gj'
-nnoremap <expr> k v:count ? 'k' : 'gk'
-
-"yank to system clipboard (hopefully)
-set clipboard^=unnamed,unnamedplus 
-
+" {{{ Handling external file changes
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
@@ -462,14 +465,7 @@ set clipboard^=unnamed,unnamedplus
 set autoread
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
-
-nnoremap <leader>so :so $MYVIMRC<CR>
-
-" Search for visual selection
-vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
-
-nnoremap [[ [[zz
-nnoremap ]] ]]zz
+" }}}
 
 " {{{ Source work config
 if !empty(glob("~/.work.vim"))
