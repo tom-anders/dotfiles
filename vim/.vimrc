@@ -44,14 +44,32 @@ nnoremap <expr> k v:count ? 'k' : 'gk'
 " Search for visual selection
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
-nnoremap [[ [[zz
-nnoremap ]] ]]zz
+nnoremap <silent> [[ [[zz
+nnoremap <silent> ]] ]]zz
+
+nnoremap { <Nop>
+nnoremap } <Nop>
+
+nnoremap <silent> {q :cprev<CR>
+nnoremap <silent> }q :cnext<CR>
+nnoremap <silent> {Q :cfirst<CR>
+nnoremap <silent> }Q :clast<CR>
+
+nnoremap <silent> {c :CocPrev<CR>
+nnoremap <silent> }c :CocNext<CR>
+nnoremap <silent> {C :CocFirst<CR>
+nnoremap <silent> }C :CocLast<CR>
+
+nnoremap {b :bprev<CR>
+nnoremap }b :bnext<CR>
 
 nnoremap <leader>so :so $MYVIMRC<CR>
 
 " }}}
 
 call plug#begin('~/.vim/plugged')
+
+" And same for coc list
 
 " {{{ colorschemes
 Plug 'altercation/vim-colors-solarized'
@@ -181,7 +199,6 @@ nmap ga <Plug>(EasyAlign)
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-map <silent> <leader>f :GFiles --recurse-submodules <cr> 
 map <silent> <leader>zf :Files<cr>
 map <silent> <leader>zb :Buffers<cr>
 map <silent> <leader>zm :Marks<cr>
@@ -201,6 +218,20 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+
+function! s:gitFilesBasenameSink(file)
+    execute "edit ".split(a:file)[1]
+endfunction
+
+function! s:gitFilesBasename()
+    call fzf#run({'options': ['--with-nth=1', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}'], 'source': 'git ls-files --recurse-submodules | while read -r line ; do printf "%s %s\n" $(basename $line) $line; done', 'sink': function('s:gitFilesBasenameSink')})
+endfunction
+
+" Only git files and filter only by filename (not folder)
+nmap <leader>f :call <SID>gitFilesBasename()<cr> 
+
+map <silent> <leader>F :GFiles --recurse-submodules <cr> 
+
 " }}}
 
 " {{{ Vista.vim
@@ -258,6 +289,7 @@ let g:ale_cpp_clangtidy_checks=["-clang-diagnostic-*,modernize*,-modernize-use-t
 let g:ale_disable_lsp = 1
 let g:ale_set_highlights=0
 
+let g:ale_echo_cursor=0
 let g:ale_virtualtext_cursor=1
 let g:airline#extensions#ale#enabled = 1
 Plug 'dense-analysis/ale'
@@ -425,8 +457,6 @@ endif
 " }}}
 
 " {{{ Quickfix/CocList mappings
-map <C-n> :cnext<CR>
-map <C-b> :cprev<CR>
 function! ToggleQuickFix()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
         copen
@@ -436,13 +466,13 @@ function! ToggleQuickFix()
 endfunction
 nnoremap <silent> <leader>cc :call ToggleQuickFix()<cr>
 
-map <C-M-n> :CocNext<CR>
-map <C-M-b> :CocPrev<CR>
 nnoremap <silent> <leader>co :CocListResume<CR>
 
 " Go up/down in quickfix and keep it focused
-autocmd FileType qf nnoremap <buffer> <Down> :cnext<CR><C-W><C-P>
-autocmd FileType qf nnoremap <buffer> <Up> :cprev<CR><C-W><C-P>
+autocmd FileType qf nnoremap <silent> <buffer> J :cnext<CR><C-W><C-P>
+autocmd FileType qf nnoremap <silent> <buffer> K :cprev<CR><C-W><C-P>
+
+autocmd FileType qf nnoremap <silent> <buffer> q :cclose<CR>
 
 " }}}
 
