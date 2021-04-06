@@ -232,18 +232,19 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
+" fzf with git ls-files, but only display file name instead of full path
+" This works by piping both the filename and the fullpath to fzf and then
+" using --with-nth=1 to only display the filename. The sink function then
+" extracts the full path so that we can open it as usual
+function! s:gitFilesBasename()
+    call fzf#run(fzf#wrap({'options': ['--with-nth=1', '--preview', '~/.dotfiles/vim/previewSecondArg.sh {}'], 'source': 'git ls-files --recurse-submodules $(git rev-parse --show-toplevel) | while read -r line ; do printf "%s %s\n" $(basename $line) $line; done', 'sink': function('s:gitFilesBasenameSink')}))
+endfunction
 function! s:gitFilesBasenameSink(file)
     execute "edit ".split(a:file)[1]
 endfunction
+nmap <silent> <leader>f :call <SID>gitFilesBasename()<cr> 
 
-function! s:gitFilesBasename()
-    call fzf#run({'options': ['--with-nth=1', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}'], 'source': 'git ls-files --recurse-submodules | while read -r line ; do printf "%s %s\n" $(basename $line) $line; done', 'sink': function('s:gitFilesBasenameSink')})
-endfunction
-
-" Only git files and filter only by filename (not folder)
-nmap <leader>f :call <SID>gitFilesBasename()<cr> 
-
-map <silent> <leader>F :GFiles --recurse-submodules <cr> 
+nmap <silent> <leader>F :GFiles --recurse-submodules <cr> 
 
 " }}}
 
@@ -413,10 +414,6 @@ let g:coc_snippet_prev="<S-tab>"
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>F  <Plug>(coc-format-selected)
-nmap <leader>F  <Plug>(coc-format-selected)
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
