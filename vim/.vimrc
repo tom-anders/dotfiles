@@ -105,6 +105,8 @@ map <silent> <leader>gs :Gstatus<cr>
 map <silent> <leader>gb :Gblame<cr> 
 
 Plug 'airblade/vim-gitgutter'
+nmap {h <Plug>(GitGutterPrevHunk)
+nmap }h <Plug>(GitGutterNextHunk)
 
 Plug 'iberianpig/tig-explorer.vim'
 
@@ -115,14 +117,6 @@ nnoremap <silent> <leader>ta :Tig --all <CR>
 nnoremap <silent> <leader>tf :call tig_explorer#open(expand("%:p") . "--all")<cr>
 " Tig for current dir
 nnoremap <silent> <leader>T :call tig_explorer#open(expand("%:p:h") . " --all")<cr>
-
-" nnoremap <leader>T :TigOpenProjectRootDir --all <CR>
-
-" function! s:TigCurrentFile()
-"     execute "Tig " . expand("%:p")
-" endfunction
-" nnoremap <silent> <expr> <leader>t <sid>TigCurrentFile()
-
 
 " }}}
 
