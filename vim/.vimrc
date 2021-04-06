@@ -63,7 +63,7 @@ nnoremap <silent> }C :CocLast<CR>
 nnoremap {b :bprev<CR>
 nnoremap }b :bnext<CR>
 
-nnoremap <leader>so :so $MYVIMRC<CR>
+nnoremap <leader>so :w <CR> :so $MYVIMRC<CR>
 
 " }}}
 
@@ -101,10 +101,29 @@ let g:airline#extensions#tabline#enabled=1
 " git {{{
 Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-fugitive-blame-ext'
-Plug 'airblade/vim-gitgutter'
-
 map <silent> <leader>gs :Gstatus<cr> 
 map <silent> <leader>gb :Gblame<cr> 
+
+Plug 'airblade/vim-gitgutter'
+
+Plug 'iberianpig/tig-explorer.vim'
+
+nnoremap <silent> <leader>tt :Tig <CR>
+nnoremap <silent> <leader>ta :Tig --all <CR>
+
+" Tig for current file
+nnoremap <silent> <leader>tf :call tig_explorer#open(expand("%:p") . "--all")<cr>
+" Tig for current dir
+nnoremap <silent> <leader>T :call tig_explorer#open(expand("%:p:h") . " --all")<cr>
+
+" nnoremap <leader>T :TigOpenProjectRootDir --all <CR>
+
+" function! s:TigCurrentFile()
+"     execute "Tig " . expand("%:p")
+" endfunction
+" nnoremap <silent> <expr> <leader>t <sid>TigCurrentFile()
+
+
 " }}}
 
 " :Au to toggle autosave
