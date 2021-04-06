@@ -89,7 +89,7 @@ Plug 'vim-airline/vim-airline-themes'
 set laststatus=2
 set noshowmode
 let g:airline_powerline_fonts=1
-let g:ariline_symbols_ascii=1
+let g:airline_symbols_ascii=1
 set ttimeoutlen=10
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
