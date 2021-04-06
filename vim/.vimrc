@@ -237,7 +237,13 @@ let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 " using --with-nth=1 to only display the filename. The sink function then
 " extracts the full path so that we can open it as usual
 function! s:gitFilesBasename()
-    call fzf#run(fzf#wrap({'options': ['--with-nth=1', '--preview', '~/.dotfiles/vim/previewSecondArg.sh {}'], 'source': 'git ls-files --recurse-submodules $(git rev-parse --show-toplevel) | while read -r line ; do printf "%s %s\n" $(basename $line) $line; done', 'sink': function('s:gitFilesBasenameSink')}))
+    let base = fnamemodify(expand('%'), ':h:.:S')
+    let sortCmd = '|'
+    if base == '.'
+        let sortCmd = '| ~/.cargo/bin/proximity-sort ' . base . ' | '
+    endif
+
+    call fzf#run(fzf#wrap({'options': ['--with-nth=1', '--preview', '~/.dotfiles/vim/previewSecondArg.sh {}'], 'source': 'git ls-files --recurse-submodules $(git rev-parse --show-toplevel)' . sortCmd . 'while read -r line ; do printf "%s %s\n" $(basename $line) $line; done', 'sink': function('s:gitFilesBasenameSink')}))
 endfunction
 function! s:gitFilesBasenameSink(file)
     execute "edit ".split(a:file)[1]
