@@ -63,8 +63,6 @@ nnoremap <silent> }C :CocLast<CR>
 nnoremap {b :bprev<CR>
 nnoremap }b :bnext<CR>
 
-nnoremap <leader>so :w <CR> :so $MYVIMRC<CR>
-
 " }}}
 
 call plug#begin('~/.vim/plugged')
@@ -193,11 +191,14 @@ map T <Plug>Sneak_T
 " }}}
 
 " {{{ ultisnips
+" Put snippets into .vim/Ultisnips
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger="<C-space>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-M-J>"
+
+autocmd BufEnter,BufNew *.snippets setlocal foldmethod=marker
+
 " }}}
 
 " {{{ vim-easy-align
@@ -210,13 +211,14 @@ nmap ga <Plug>(EasyAlign)
 
 " {{{ fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'tom-anders/fzf.vim'
 
 map <silent> <leader>zf :Files<cr>
 map <silent> <leader>zb :Buffers<cr>
 map <silent> <leader>zm :Marks<cr>
 map <silent> <leader>zl :Lines<cr>
 map <silent> <leader>zg :Rg<cr>
+map <silent> <leader>zs :Snippets<cr>
 
 " CTRL-a CTRL-q to select all and build quickfix list (https://github.com/junegunn/fzf.vim/issues/185)
 function! s:build_quickfix_list(lines)

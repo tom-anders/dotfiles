@@ -1,0 +1,244 @@
+priority 1
+
+# {{{ smart pointers
+snippet qsp "QSharedPointer" b
+QSharedPointer<${1:T}> $2${3:= QSharedPointer<$1>::create(${4:args})}$0
+endsnippet
+
+snippet sup "std::unique_ptr" b
+std::unique_ptr<${1:T}> $2${3:= std::make_unique<$1>(${4:args})}$0
+endsnippet
+
+snippet ssp "std::shared_ptr" b
+std::shared_ptr<${1:T}> $2${3:= std::shared_ptr<$1>(${4:args})}$0
+endsnippet
+
+priority 0
+
+snippet qsp "QSharedPointer::create()" w
+QSharedPointer<${1:T}>::create(${2:args})$0
+endsnippet
+
+snippet sup "std::unique_ptr" w
+std::make_unique<${1:T}>(${2:args})
+endsnippet
+
+snippet ssp "std::shared_ptr" w
+std::make_shared<${1:T}>(${2:args})
+endsnippet
+
+snippet cr "const ref" w
+const ${1:T}& $0
+endsnippet
+
+snippet fstd "QString::fromStdString" w
+QString::fromStdString($0)
+endsnippet
+
+snippet rsn "reset(nullptr)" b
+$1.reset(nullptr);
+endsnippet
+
+snippet rs "reset(new )" b
+$1.reset(new $2($3));
+endsnippet
+
+# }}}
+
+# {{{ algorithms
+snippet sri "std::remove_if" b
+$1.erase(std::remove_if($1.begin(), $1.end(), 
+						[](const $2& $3) {
+							return $4;
+						}), $1.end());
+endsnippet
+
+snippet sao "std::all_of" b
+std::all_of($1.begin(), $1.end(), 
+			[](const $2& $3) {
+				return $4;
+			});
+endsnippet
+
+# }}}
+
+# {{{ loops
+snippet for "for loop"
+for (int $1 = 0; $1 < ${2:count}; $1++) 
+{
+	${VISUAL}$0
+}
+endsnippet
+
+snippet foru "for unsigned loop"
+for (unsigned $1 = 0; $1 < ${2:count}; $1++) 
+{
+	${VISUAL}$0
+}
+endsnippet
+
+snippet fors "for size_t loop"
+for (size_t $1 = 0; $1 < ${2:count}; $1++) 
+{
+	${VISUAL}$0
+}
+endsnippet
+
+snippet fore "for each loop"
+for (auto $1 : $2) 
+{
+	${VISUAL}$0
+}
+endsnippet
+# }}}
+
+# {{{ functions
+snippet fun "function"
+${1:void} $2($3) 
+{
+	$0
+}
+endsnippet
+
+snippet main "main function"
+int main(int argc, char **argv)
+{
+	$0
+	return 0;
+}
+endsnippet
+# }}}
+
+# {{{ if/else
+snippet if "if"
+if ($1) 
+{
+	${VISUAL}$0
+}
+endsnippet
+
+snippet elif "else if"
+else if ($1) 
+{
+	${VISUAL}$0
+}
+endsnippet
+
+snippet ifei "if else if"
+if ($1) 
+{
+	$2
+} 
+else if ($3) 
+{
+	$4
+}
+endsnippet
+# }}}
+
+# {{{ containers
+snippet qvec "QVector<T>" w
+QVector<${1:double}> $0
+endsnippet
+
+snippet vec "std::vector<T>" w
+std::vector<${1:double}> $0
+endsnippet
+
+snippet map "std::map<K, V>" w
+std::map<${1:K}, ${2:V}> $0
+endsnippet
+
+snippet qmap "QMap<K, V>" w
+QMap<${1:K}, ${2:V}> $0
+endsnippet
+
+snippet set "std::set<T>" w
+std::set<${1:K}, ${2:V}> $0
+endsnippet
+
+snippet qset "QSet<T>" w
+QSet<${1:K}, ${2:V}> $0
+endsnippet
+# }}}
+
+# {{{ types
+snippet us "unsigned" w
+unsigned 
+endsnippet
+
+snippet st "size_t" w
+size_t 
+endsnippet
+
+snippet str "string" w
+std::string
+endsnippet
+
+snippet "qst?r?l" "QStringLiteral" r
+QStringLiteral("$1")
+endsnippet
+
+# }}}
+
+# {{{ output
+snippet fmt "fmt::print"
+fmt::print("{} $2 \n", $3);
+endsnippet
+
+snippet nl "new line"
+fmt::print("$1\n");
+endsnippet
+# }}}
+
+# {{{ QTest framework
+global !p
+
+def new_row(snip, placeholder_offset, prefix):
+	row_len = int(''.join(s for s in snip.buffer[snip.line] if s.isdigit()))
+	old_spacing = snip.buffer[snip.line][:snip.buffer[snip.line].rfind('\t') + 1]
+
+	snip.buffer[snip.line] = ''
+	
+	final_str = old_spacing + prefix
+	final_str += " << ".join(['$' + str(j + placeholder_offset) for j in range(row_len)])
+	final_str += ";"
+
+	snip.expand_anon(final_str)
+
+endglobal
+
+pre_expand "new_row(snip, 2, 'QTest::newRow("$1") << ')"
+snippet "q(t?)nr(\d+)" "QTest::newRow of dimension ..." r
+endsnippet
+
+pre_expand "new_row(snip, 3, 'QTest::addRow("$1", $2) << ')"
+snippet "q(t?)ar(\d+)" "QTest::addRow of dimension ..." r
+endsnippet
+
+snippet "q(t?)nr" "QTest::newRow ..." r
+QTest::newRow("$1") << $0;
+endsnippet
+
+snippet "q(t?)ar" "QTest::addRow ..." r
+QTest::newRow("$1", $2) << $0;
+endsnippet
+
+snippet "q(t?)[an]c" "QTest::addColumn" r
+QTest::addColumn<$1>("$2");
+endsnippet
+
+snippet qcp "QCOMPARE" w
+QCOMPARE(${1:actual}, ${2:expected});
+endsnippet
+
+snippet qv "QVERIFY" w
+QVERIFY($1);
+endsnippet
+
+snippet qv2 "QVERIFY2" w
+QVERIFY2($1, "$2");
+endsnippet
+
+# }}}
+
