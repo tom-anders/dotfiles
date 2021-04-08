@@ -1,3 +1,61 @@
+# QTimer {{{
+snippet "(q)?tss" "QTimer::singleShot" br
+QTimer::singleShot(std::chrono::milliseconds($1), 
+				   ${2:this, [this$3]() {
+				       $4
+				   }});
+endsnippet
+# }}}
+
+global !p
+
+# {{{ QObject::connect
+# Goes up line until reaching the class of the method we're currently in
+def getClassOfMethod(snip):
+	current = int(vim.eval("getpos('.')[1]"))
+	for i in range(current - 1, 0, -1):
+		line = vim.eval(f'getline({i})')
+		if re.match(r".*\s[A-Za-z]+::", line):
+			return re.findall(r"[A-Za-z]+::", line)[0]
+	return ''
+	
+endglobal
+
+snippet co "QObject::connect" b
+connect($1, &$2::$3,
+		$4, &$5::$6);
+endsnippet
+
+snippet ct "connect this to something else" b
+connect(this, &`!p snip.rv = getClassOfMethod(snip)`$1, 
+        $2, &$3::$4);
+endsnippet
+
+snippet cot "connect to this" b
+connect($1, &$2::$3,
+        this, &`!p snip.rv = getClassOfMethod(snip)`$4);
+endsnippet
+
+snippet cs "connect self" b
+connect(this, &`!p snip.rv = getClassOfMethod(snip)`$1, 
+        this, &`!p snip.rv = getClassOfMethod(snip)`$2);
+endsnippet
+
+snippet col "connect to lambda" b
+connect($1, &$2::$3,
+        this, [this]() {
+			$4
+		});
+endsnippet
+
+snippet ctl "connect this to lambda" b
+connect(this, &`!p snip.rv = getClassOfMethod(snip)`$1, 
+        this, [this]() {
+			$1
+		});
+endsnippet
+# }}}
+
 priority 1
 
 # {{{ smart pointers
