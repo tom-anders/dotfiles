@@ -99,6 +99,7 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.space = "\ua0"
 let g:airline#extensions#tabline#enabled=1
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 " }}}
 
 " git {{{
@@ -325,7 +326,7 @@ let g:ale_virtualtext_cursor=1
 let g:airline#extensions#ale#enabled = 1
 Plug 'dense-analysis/ale'
 
-nnoremap <silent> {a :ALEPrev<CR>
+nnoremap <silent> {a :ALEPrevious<CR>
 nnoremap <silent> }a :ALENext<CR>
 nnoremap <silent> {A :ALEFirst<CR>
 nnoremap <silent> }A :ALELast<CR>

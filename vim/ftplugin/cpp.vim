@@ -33,6 +33,7 @@ call s:highlightColor('LspCxxHlSymMacro', g:terminal_color_5, 'bold')
 
 call s:highlightColor('cStorageClass', g:terminal_color_9, 'italic')
 call s:highlightColor('cppStorageClass', g:terminal_color_9, 'italic')
+call s:highlightColor('cppModifier', g:terminal_color_9, 'bold')
 
 call s:highlightColor('cString', g:terminal_color_2)
 
