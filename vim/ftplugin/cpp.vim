@@ -10,31 +10,35 @@ set textwidth=120
 set colorcolumn=+1
 
 " Highlighting {{{
-highlight LspCxxHlSymParameter ctermfg=6 cterm=italic
+function! s:highlightColor(key, color, ...)
+    let gui = get(a:, 1, '') == '' ? '' : ' gui='.get(a:, 1, '')
+    exe 'highlight '.a:key.' guifg='.a:color.gui
+endfunction
 
-highlight LspCxxHlSymField ctermfg=4
+call s:highlightColor('LspCxxHlSymClass', g:terminal_color_3)
+call s:highlightColor('LspCxxHlSymNamespace', g:terminal_color_8)
 
-highlight LspCxxHlSymMethod ctermfg=7
-highlight LspCxxHlSymFunction ctermfg=7 cterm=italic
+call s:highlightColor('LspCxxHlSymFunction', g:terminal_color_15, 'italic')
 
-highlight LspCxxHlSymNamespace ctermfg=136 
-highlight LspCxxHlSymClass ctermfg=136 cterm=bold
-highlight LspCxxHlSymEnum ctermfg=136 cterm=bold,italic
+call s:highlightColor('LspCxxHlSymParameter', g:terminal_color_14)
 
-highlight cConditional ctermfg=64 cterm=bold
-highlight cRepeat ctermfg=64 cterm=bold
-highlight cStorageClass ctermfg=64 cterm=bold,italic
-highlight cppConstant ctermfg=64 cterm=bold,italic
-highlight cppStatement ctermfg=64 cterm=bold,italic
-highlight cppBoolean ctermfg=64 cterm=bold,italic
-highlight type ctermfg=64 cterm=bold
+call s:highlightColor('LspCxxHlSymField', g:terminal_color_4)
+call s:highlightColor('LspCxxHlSymMethod', g:terminal_color_4, 'italic')
 
-highlight cString ctermfg=9
-highlight cppNumber ctermfg=9
+" Static -> orange
+call s:highlightColor('LspCxxHlSymStaticMethod', '#fe8019', 'bold') 
+call s:highlightColor('LspCxxHlSymUnknownStaticField', '#fe8019')
 
-highlight LspCxxHlSymVariable ctermfg=9
-highlight LspCxxHlSymUnknownStaticField ctermfg=9
-highlight LspCxxHlSymStaticMethod ctermfg=9 cterm=italic
+call s:highlightColor('LspCxxHlSymMacro', g:terminal_color_5, 'bold')
+
+call s:highlightColor('cStorageClass', g:terminal_color_9, 'italic')
+call s:highlightColor('cppStorageClass', g:terminal_color_9, 'italic')
+
+call s:highlightColor('cString', g:terminal_color_2)
+
+call s:highlightColor('cFloat', g:terminal_color_13, 'italic')
+
+call s:highlightColor('cppStatement', g:terminal_color_1, 'italic')
 
 let g:lsp_cxx_hl_use_text_props=1
 
@@ -46,7 +50,7 @@ map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 
 let g:load_doxygen_syntax=1
 
-set comments^=:///
+set foldlevel=1
 
 " Folding stuff {{{
 au BufEnter,BufNew *.cpp set foldmethod=expr

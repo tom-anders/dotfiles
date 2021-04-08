@@ -30,9 +30,9 @@ font xft:Source Code Pro for Powerline 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt -cd "`xcwd`"
+bindsym $mod+Return exec alacritty --working-directory $(xcwd)
 # start a terminal with ranger 
-bindsym $mod+Shift+Return exec --no-startup-id urxvt -e ranger
+bindsym $mod+Shift+Return exec --no-startup-id alacritty -e ranger
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -141,7 +141,7 @@ bindsym $mod+p scratchpad show
 
 # Start urxvt with ranger on scratchpad at startup
 for_window [instance="__scratchpad"] move scratchpad 
-exec --no-startup-id urxvt -name __scratchpad -e ranger
+exec --no-startup-id alacritty -t __scratchpad -e ranger
 
 bindsym $mod+shift+w exec "/home/tom/.dotfiles/i3/changeWallpaper.py"
 
