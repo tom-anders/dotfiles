@@ -67,6 +67,8 @@ nnoremap <silent> }C :CocLast<CR>
 
 nnoremap {b :bprev<CR>
 nnoremap }b :bnext<CR>
+map <leader>x :bd<cr>
+
 
 " }}}
 
@@ -157,7 +159,23 @@ let g:sandwich#magicchar#f#patterns = [
   \     'footer' : '',
   \   },
   \ ]
+nmap s ys
 " }}}
+
+Plug 'easymotion/vim-easymotion'
+" Keep <leader><leader> as default prefix (e.g. since <leader>f is already
+" :GFiles for me), but for letters that I have not yet remapped to something
+" else use easymotion
+map <leader><leader> <Plug>(easymotion-prefix)
+map <leader>j <Plug>(easymotion-j)
+map <leader>k <Plug>(easymotion-k)
+map <leader>e <Plug>(easymotion-e)
+map <leader>E <Plug>(easymotion-E)
+map <leader>b <Plug>(easymotion-b)
+map <leader>B <Plug>(easymotion-B)
+map <leader>w <Plug>(easymotion-w)
+map <leader>W <Plug>(easymotion-W)
+map <leader>s <Plug>(easymotion-s)
 
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'junegunn/vim-peekaboo'
@@ -217,14 +235,6 @@ Plug 'tpope/vim-dispatch'
 map <leader>cd :Copen<CR>/error:<CR>
 map <leader>m :wa<CR>:Make<CR>
 map <leader>M :wa<CR>:Make!<CR>
-" }}}
-
-" {{{ vim-sneak
-Plug 'justinmk/vim-sneak'
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
 " }}}
 
 " {{{ ultisnips
@@ -331,7 +341,7 @@ Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-
 " {{{ Folding
 Plug 'Konfekt/FastFold'
 "toggle folds
-map <leader><leader> zA
+map <C-a> zA
 
 autocmd Filetype vim set foldmethod=marker
 " }}}
@@ -464,8 +474,8 @@ nmap <leader>rn <Plug>(coc-rename)
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader>ca  <Plug>(coc-codeaction-selected)
+nmap <leader>ca  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
@@ -527,13 +537,6 @@ autocmd FileType qf nnoremap <silent> <buffer> q :cclose<CR>
 
 " For some reason, putting this into ftplugin/cpp.vim does not work
 autocmd FileType cpp set comments^=:///
-
-" {{{ Buffer management
-map <leader>bn :bn<cr>
-map <leader>bv :bp<cr>
-map <leader>bd :bd<cr>
-nnoremap <leader>wq :w\|bd<cr>
-" }}}
 
 " {{{ Handling external file changes
 " Triger `autoread` when files changes on disk
