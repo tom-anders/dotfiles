@@ -465,13 +465,11 @@ nnoremap <silent> <leader>n :CocCommand explorer<CR>
 
 call plug#end()
 
-" {{{ Set colorscheme based on hostname
-let hostname=hostname()
-if hostname == "arch-laptop" || hostname == "tom-linux"
-    color wal
-else
-    color solarized
-endif
+" {{{ gruvbox setup
+set termguicolors
+let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark='hard'
+color gruvbox
 " }}}
 
 " {{{ Quickfix/CocList mappings
@@ -493,6 +491,9 @@ autocmd FileType qf nnoremap <silent> <buffer> K :cprev<CR><C-W><C-P>
 autocmd FileType qf nnoremap <silent> <buffer> q :cclose<CR>
 
 " }}}
+
+" For some reason, putting this into ftplugin/cpp.vim does not work
+autocmd FileType cpp set comments^=:///
 
 " {{{ Buffer management
 map <leader>bn :bn<cr>
