@@ -50,6 +50,11 @@ nnoremap <silent> ]] ]]zz
 nnoremap { <Nop>
 nnoremap } <Nop>
 
+nnoremap <silent> {l :lprev<CR>
+nnoremap <silent> }l :lnext<CR>
+nnoremap <silent> {L :lfirst<CR>
+nnoremap <silent> }L :llast<CR>
+
 nnoremap <silent> {q :cprev<CR>
 nnoremap <silent> }q :cnext<CR>
 nnoremap <silent> {Q :cfirst<CR>
@@ -117,6 +122,10 @@ nnoremap <silent> <leader>tf :call tig_explorer#open(expand("%:p") . "--all")<cr
 nnoremap <silent> <leader>T :call tig_explorer#open(expand("%:p:h") . " --all")<cr>
 
 " }}}
+
+Plug 'Valloric/ListToggle'
+let g:lt_quickfix_list_toggle_map = '<leader>cc'
+let g:lt_location_list_toggle_map = '<leader>ll'
 
 " :Au to toggle autosave
 Plug 'vim-scripts/vim-auto-save'
@@ -315,6 +324,11 @@ let g:ale_echo_cursor=0
 let g:ale_virtualtext_cursor=1
 let g:airline#extensions#ale#enabled = 1
 Plug 'dense-analysis/ale'
+
+nnoremap <silent> {a :ALEPrev<CR>
+nnoremap <silent> }a :ALENext<CR>
+nnoremap <silent> {A :ALEFirst<CR>
+nnoremap <silent> }A :ALELast<CR>
 " }}}
 
 " {{{ coc-nvim (config adapted from https://github.com/neoclide/coc.nvim#example-vim-configuration)
@@ -475,15 +489,6 @@ endif
 " }}}
 
 " {{{ Quickfix/CocList mappings
-function! ToggleQuickFix()
-    if empty(filter(getwininfo(), 'v:val.quickfix'))
-        copen
-    else
-        cclose
-    endif
-endfunction
-nnoremap <silent> <leader>cc :call ToggleQuickFix()<cr>
-
 nnoremap <silent> <leader>co :CocListResume<CR>
 
 " Go up/down in quickfix and keep it focused
