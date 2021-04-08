@@ -131,7 +131,34 @@ let g:lt_location_list_toggle_map = '<leader>ll'
 " :Au to toggle autosave
 Plug 'vim-scripts/vim-auto-save'
 
-Plug 'tpope/vim-surround'
+" {{{ vim-sandwhich
+Plug 'machakann/vim-sandwich'
+" See https://github.com/machakann/vim-sandwich/issues/71
+" Normally, for something like "std::move(x)" "dsf" would result in 
+" "std::x". With this fix, we correctly get just "x" (But only if the cursor
+" is somewhere on "std")
+let g:sandwich#magicchar#f#patterns = [
+  \   {
+  \     'header' : '\h\k*::\h\k*::\h\k*',
+  \     'bra'    : '(',
+  \     'ket'    : ')',
+  \     'footer' : '',
+  \   },
+  \   {
+  \     'header' : '\h\k*::\h\k*',
+  \     'bra'    : '(',
+  \     'ket'    : ')',
+  \     'footer' : '',
+  \   },
+  \   {
+  \     'header' : '\h\k*',
+  \     'bra'    : '(',
+  \     'ket'    : ')',
+  \     'footer' : '',
+  \   },
+  \ ]
+" }}}
+
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'junegunn/vim-peekaboo'
 Plug 'tommcdo/vim-exchange'
@@ -476,6 +503,9 @@ nnoremap <silent> <leader>n :CocCommand explorer<CR>
 " }}}
 
 call plug#end()
+
+" Use vim-surround keymappings for vim-sandwich
+runtime macros/sandwich/keymap/surround.vim
 
 " {{{ gruvbox setup
 set termguicolors
