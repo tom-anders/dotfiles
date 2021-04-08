@@ -48,18 +48,20 @@ map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 
 " }}}
 
+let g:doxygen_javadoc_autobrief=0
 let g:load_doxygen_syntax=1
-
-set foldlevel=1
+set syntax=cpp.doxygen
 
 " Folding stuff {{{
 au BufEnter,BufNew *.cpp set foldmethod=expr
 au BufEnter,BufNew *.cpp set foldexpr=FoldCppSource(v:lnum)
 au BufEnter,BufNew *.cpp set foldtext=SourceFoldText()
+au BufEnter,BufNew *.cpp set foldlevel=1 " Don't fold function bodys by default
 
 au BufEnter,BufNew *.hpp,*.h set foldmethod=expr
 au BufEnter,BufNew *.hpp,*.h set foldexpr=FoldCppHeader(v:lnum)
 au BufEnter,BufNew *.hpp,*.h set foldtext=HeaderFoldText()
+au BufEnter,BufNew *.hpp,*.h set foldlevel=0 " Fold everything by default
 
 function CppFunctionFoldText()
     if getline(v:foldstart) == '{'
