@@ -512,6 +512,9 @@ nnoremap <silent> <leader>n :CocCommand explorer<CR>
 
 " }}}
 
+" Using this in ftplugin/cpp.vim for opening floating windows for QFETCH selection
+Plug 'kamykn/popup-menu.nvim'
+
 call plug#end()
 
 " Use vim-surround keymappings for vim-sandwich
