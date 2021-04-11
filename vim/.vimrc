@@ -186,7 +186,7 @@ Plug 'tpope/vim-repeat'
 Plug 'triglav/vim-visual-increment'
 
 call serverstart(tempname())
-let &titlestring="nvim %F " . v:servername
+let &titlestring="nvim %F [" . v:servername . "]"
 set title
 
 " {{{ i3wm integration
