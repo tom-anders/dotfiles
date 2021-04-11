@@ -357,3 +357,18 @@ endfunction
 nnoremap <C-f> :call <SID>makeTestDataPopup()<cr>
 inoremap <C-f> <esc>:call <SID>makeTestDataPopup()<cr>
 "}}}
+
+" coc-nvim config {{{
+" Explicitly call ccls here (instead of just coc-definition),
+" because otherwise we'd also get duplicate results from clangd
+nmap <silent> gd :call CocLocations('ccls','textDocument/definition')<cr>
+" And same for find references
+nmap <silent> gu :call CocLocations('ccls','textDocument/references')<cr>
+" Go to base class definitions
+nmap <silent> gb :call CocLocations('ccls','$ccls/inheritance',{'levels':5})<cr>
+" Go to derived class definitions
+nmap <silent> gi :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true, 'levels':5})<cr>
+
+" Show signature help when entering insert mode, very useful when editing parameters
+autocmd InsertEnter * silent call CocActionAsync('showSignatureHelp')
+" }}}

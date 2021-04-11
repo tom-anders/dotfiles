@@ -41,12 +41,11 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show run
 
 # Move focus using vim keys
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+h exec neovim-i3-navigator.py focus left
+bindsym $mod+j exec neovim-i3-navigator.py focus down
+bindsym $mod+k exec neovim-i3-navigator.py focus up
+bindsym $mod+l exec neovim-i3-navigator.py focus right
 
-# alternatively, you can use the cursor keys:
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -128,10 +127,10 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-bindsym $mod+Shift+Left resize shrink width 3 px or 3 ppt
-bindsym $mod+Shift+Down resize grow height 3 px or 3 ppt
-bindsym $mod+Shift+Up resize shrink height 3 px or 3 ppt
-bindsym $mod+Shift+Right resize grow width 3 px or 3 ppt
+bindsym $mod+Shift+Left  exec neovim-i3-navigator.py resize shrink width  5 10 5
+bindsym $mod+Shift+Down  exec neovim-i3-navigator.py resize shrink height 5 10 5
+bindsym $mod+Shift+Up    exec neovim-i3-navigator.py resize grow   height 5 10 5
+bindsym $mod+Shift+Right exec neovim-i3-navigator.py resize grow   width  5 10 5
 
 # Scratchpad
 # Move to scratchpad

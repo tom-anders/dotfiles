@@ -177,23 +177,28 @@ map <leader>w <Plug>(easymotion-w)
 map <leader>W <Plug>(easymotion-W)
 map <leader>s <Plug>(easymotion-s)
 
+let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
+
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'junegunn/vim-peekaboo'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-repeat'
 Plug 'triglav/vim-visual-increment'
 
+call serverstart(tempname())
+let &titlestring="nvim %F " . v:servername
+set title
+
 " {{{ i3wm integration
-Plug 'termhn/i3-vim-nav'
-set title titlestring=nvim
-nmap <silent> <C-M-l> <C-l>
-nmap <silent> <C-M-h> <C-h>
-nmap <silent> <C-M-k> <C-k>
-nmap <silent> <C-M-j> <C-j>
-nnoremap <silent> <C-l> :call Focus('right', 'l')<CR>
-nnoremap <silent> <C-h> :call Focus('left', 'h')<CR>
-nnoremap <silent> <C-k> :call Focus('up', 'k')<CR>
-nnoremap <silent> <C-j> :call Focus('down', 'j')<CR>
+" Plug 'termhn/i3-vim-nav'
+" nmap <silent> <C-M-l> <C-l>
+" nmap <silent> <C-M-h> <C-h>
+" nmap <silent> <C-M-k> <C-k>
+" nmap <silent> <C-M-j> <C-j>
+" nnoremap <silent> <C-l> :call Focus('right', 'l')<CR>
+" nnoremap <silent> <C-h> :call Focus('left', 'h')<CR>
+" nnoremap <silent> <C-k> :call Focus('up', 'k')<CR>
+" nnoremap <silent> <C-j> :call Focus('down', 'j')<CR>
 " }}}
 
 " {{{ ack.vim (Configured to use rg)
@@ -422,15 +427,10 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Explicitly call ccls here (instead of just coc-definition),
-" because otherwise we'd also get duplicate results from clangd
-nmap <silent> gd :call CocLocations('ccls','textDocument/definition')<cr>
-" And same for find references
-nmap <silent> gu :call CocLocations('ccls','textDocument/references')<cr>
-" Go to base class definitions
-nmap <silent> gb :call CocLocations('ccls','$ccls/inheritance',{'levels':5})<cr>
-" Go to derived class definitions
-nmap <silent> gi :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true, 'levels':5})<cr>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gu <Plug>(coc-references)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
 
 nmap <silent> <C-k> :CocList --interactive --auto-preview symbols<CR>
 nmap <silent> <leader>. :CocList --auto-preview outline<CR>
@@ -461,8 +461,6 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 " Show signature help in insert mode on cursor hold
 autocmd CursorHoldI * silent call CocActionAsync('showSignatureHelp')
-" And also show it immediately when entering insert mode, very useful when editing parameters
-autocmd InsertEnter * silent call CocActionAsync('showSignatureHelp')
 
 " Update signature help on jump placeholder.
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
