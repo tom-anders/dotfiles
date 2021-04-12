@@ -8,9 +8,9 @@
                 "cache": {
                     "directory": "/tmp/ccls"
                 },
-                "highlight": {"lsRanges": true}
+                "highlight": {"lsRanges": true},
+                "index": {"threads": 3}
             },
-            "disableCompletion": true,
             "disableDiagnostics": true
         }
     },
@@ -20,10 +20,9 @@
     "clangd.arguments": [
         "--background-index",
         "-j=4",
-        "--clang-tidy",
-        "--clang-tidy-checks='-clang-diagnostic-*,modernize*,-modernize-use-trailing-return-type,bugprone*,performance*,readability*,cppcoreguidelines*,misc*'",
         "--all-scopes-completion",
         "--suggest-missing-includes",
+        "--header-insertion=never",
         "--completion-style=detailed"
     ],
     "clangd.semanticHighlighting": true
