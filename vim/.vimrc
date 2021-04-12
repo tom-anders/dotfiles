@@ -215,6 +215,8 @@ let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
 " Any empty ack search will search for the work the cursor is on
 let g:ack_use_cword_for_empty_search = 1
 let g:ackhighlight = 1
+" Use vim-dispatch
+let g:ack_use_dispatch=1
 " The exclamation mark means don't jump to first match
 nnoremap <Leader>/ :Ack!<Space>
 "}}}
