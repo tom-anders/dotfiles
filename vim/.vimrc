@@ -69,6 +69,8 @@ nnoremap {b :bprev<CR>
 nnoremap }b :bnext<CR>
 map <leader>x :bd<cr>
 
+map <silent> <leader><leader>s :split<CR>
+map <silent> <leader><leader>v :vsplit<CR>
 
 " }}}
 
@@ -514,6 +516,8 @@ autocmd FileType qf nnoremap <silent> <buffer> J :cnext<CR><C-W><C-P>
 autocmd FileType qf nnoremap <silent> <buffer> K :cprev<CR><C-W><C-P>
 
 autocmd FileType qf nnoremap <silent> <buffer> q :cclose<CR>
+
+autocmd FileType qf nnoremap <silent> <buffer> <leader>n /error:<CR>
 
 " }}}
 
