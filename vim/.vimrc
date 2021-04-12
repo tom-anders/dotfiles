@@ -162,6 +162,7 @@ let g:sandwich#magicchar#f#patterns = [
 nmap s ys
 " }}}
 
+"{{{ vim-easymotion
 Plug 'easymotion/vim-easymotion'
 " Keep <leader><leader> as default prefix (e.g. since <leader>f is already
 " :GFiles for me), but for letters that I have not yet remapped to something
@@ -178,6 +179,7 @@ map <leader>W <Plug>(easymotion-W)
 map <leader>s <Plug>(easymotion-s)
 
 let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
+"}}}
 
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'junegunn/vim-peekaboo'
@@ -313,12 +315,6 @@ Plug 'liuchengxu/vista.vim'
 let g:vista_fzf_preview = ['right:50%']
 let g:vista_sidebar_width = 50
 
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-set statusline+=%{NearestMethodOrFunction()}
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
 let g:vista_executive_for = {
   \ 'cpp': 'coc',
   \ }
@@ -353,26 +349,6 @@ autocmd Filetype vim set foldmethod=marker
 
 " :XtermColorTable
 Plug 'guns/xterm-color-table.vim'
-
-" {{{ ale.vim
-" Disable duplicate linters
-let g:ale_linters_ignore = {
-      \   'cpp': ['ccls', 'clangcheck'],
-      \}
-let g:ale_cpp_clangtidy_checks=["-clang-diagnostic-*,modernize*,-modernize-use-trailing-return-type,bugprone*,performance*,readability*,cppcoreguidelines*,misc*"]
-let g:ale_disable_lsp = 1
-let g:ale_set_highlights=0
-
-let g:ale_echo_cursor=0
-let g:ale_virtualtext_cursor=1
-let g:airline#extensions#ale#enabled = 1
-Plug 'dense-analysis/ale'
-
-nnoremap <silent> {a :ALEPrevious<CR>
-nnoremap <silent> }a :ALENext<CR>
-nnoremap <silent> {A :ALEFirst<CR>
-nnoremap <silent> }A :ALELast<CR>
-" }}}
 
 " {{{ coc-nvim (config adapted from https://github.com/neoclide/coc.nvim#example-vim-configuration)
 " Coc plugins:
@@ -424,8 +400,8 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> {d <Plug>(coc-diagnostic-prev)
+nmap <silent> }d <Plug>(coc-diagnostic-next)
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gu <Plug>(coc-references)

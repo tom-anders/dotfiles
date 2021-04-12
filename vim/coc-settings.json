@@ -14,17 +14,17 @@
             "disableDiagnostics": true
         }
     },
-    "diagnostic.displayByAle": true,
 
     "list.maxPreviewHeight": 20,
 
     "clangd.arguments": [
         "--background-index",
         "-j=4",
+        "--clang-tidy",
+        "--clang-tidy-checks='-clang-diagnostic-*,modernize*,-modernize-use-trailing-return-type,bugprone*,performance*,readability*,cppcoreguidelines*,misc*'",
         "--all-scopes-completion",
         "--suggest-missing-includes",
         "--completion-style=detailed"
     ],
-    "clangd.semanticHighlighting": true,
-    "clangd.disableDiagnostics": true
+    "clangd.semanticHighlighting": true
 }
