@@ -9,7 +9,7 @@
                     "directory": "/tmp/ccls"
                 },
                 "highlight": {"lsRanges": true},
-                "index": {"threads": 3}
+                "index": {"threads": 1}
             },
             "disableDiagnostics": true
         }
