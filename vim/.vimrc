@@ -179,6 +179,9 @@ map <leader>W <Plug>(easymotion-W)
 map <leader>s <Plug>(easymotion-s)
 
 let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
+
+autocmd User EasyMotionPromptBegin silent! CocDisable
+autocmd User EasyMotionPromptEnd silent! CocEnable
 "}}}
 
 Plug 'vim-scripts/ReplaceWithRegister'
@@ -445,6 +448,8 @@ let g:coc_snippet_prev="<S-tab>"
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+
+nmap <silent> <leader>rs :CocRestart<cr>
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
