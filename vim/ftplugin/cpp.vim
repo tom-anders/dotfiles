@@ -396,9 +396,9 @@ nn xx x
 " Show signature help when entering insert mode, very useful when editing parameters
 autocmd InsertEnter * silent call CocActionAsync('showSignatureHelp')
 
-nn <silent><buffer> <C-l> :call CocLocations('ccls','$ccls/navigate',{'direction':'D'})<cr>
-nn <silent><buffer> <C-k> :call CocLocations('ccls','$ccls/navigate',{'direction':'L'})<cr>zz
-nn <silent><buffer> <C-j> :call CocLocations('ccls','$ccls/navigate',{'direction':'R'})<cr>zz
-nn <silent><buffer> <C-h> :call CocLocations('ccls','$ccls/navigate',{'direction':'U'})<cr>
+nn <silent><buffer> <C-M-l> :call CocLocations('ccls','$ccls/navigate',{'direction':'D'})<cr>
+nn <silent><buffer> <C-M-k> :call CocLocations('ccls','$ccls/navigate',{'direction':'L'})<cr>zz
+nn <silent><buffer> <C-M-j> :call CocLocations('ccls','$ccls/navigate',{'direction':'R'})<cr>zz
+nn <silent><buffer> <C-M-h> :call CocLocations('ccls','$ccls/navigate',{'direction':'U'})<cr>
 
 " }}}
