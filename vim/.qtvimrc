@@ -59,17 +59,21 @@ nmap <space>rb :rebuild<CR>
 
 nmap <space>qq :qmake<CR>:comp<CR>
 
+nmap <space>b :genDB<CR>
+
 nmap <space>l :clean<CR>
 
 "Open/close folds
 nmap <space><space> za 
 
-nmap <space>v :whitespace<CR>
+" nmap <space>v :whitespace<CR>
 
 nmap <space>qv :source ~/.qtvimrc<CR>
 
 " Repeat last macro more ergonormically
 "nmap <space>m @@
+
+nmap <space>v :editNvim<CR>
 
 """"""""""""""""""""""""""" Surround """"""""""""""""""""""""""""""""""
 

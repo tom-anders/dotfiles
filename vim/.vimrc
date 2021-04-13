@@ -192,7 +192,9 @@ Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-repeat'
 Plug 'triglav/vim-visual-increment'
 
-call serverstart(tempname())
+if v:servername == ''
+    call serverstart(tempname())
+endif
 let &titlestring="nvim %F [" . v:servername . "]"
 set title
 
