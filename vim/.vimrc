@@ -523,6 +523,9 @@ autocmd FileType qf nnoremap <silent> <buffer> q :cclose<CR>
 
 autocmd FileType qf nnoremap <silent> <buffer> <leader>n /error:<CR>
 
+" Open result in new split
+autocmd FileType qf nnoremap <silent> <buffer> <leader><CR> <C-w><Enter><C-w>L
+
 " }}}
 
 " For some reason, putting this into ftplugin/cpp.vim does not work
