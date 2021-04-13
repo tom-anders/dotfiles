@@ -17,6 +17,8 @@
     "clangd.arguments": [
         "--background-index",
         "-j=4",
+        "--clang-tidy",
+        "--clang-tidy-checks='-clang-diagnostic-*,modernize*,-modernize-use-trailing-return-type,-modernize-concat-nested-namespaces,bugprone*,performance*,readability*,-readability-named-parameter,cppcoreguidelines*,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,cppcoreguidelines-pro-type-reinterpret-cast,misc*'",
         "--all-scopes-completion",
         "--suggest-missing-includes",
         "--header-insertion=never",
