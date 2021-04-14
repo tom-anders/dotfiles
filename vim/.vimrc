@@ -67,7 +67,6 @@ nnoremap <silent> }C :CocLast<CR>
 
 nnoremap {b :bprev<CR>
 nnoremap }b :bnext<CR>
-map <leader>x :bd<cr>
 
 map <silent> <leader><leader>s :split<CR>
 map <silent> <leader><leader>v :vsplit<CR>
@@ -127,6 +126,10 @@ nnoremap <silent> <leader>tf :call tig_explorer#open(expand("%:p") . "--all")<cr
 nnoremap <silent> <leader>T :call tig_explorer#open(expand("%:p:h") . " --all")<cr>
 
 " }}}
+
+" Kill the current buffer without closing the split
+Plug 'qpkorr/vim-bufkill'
+map <leader>x :BD<cr>
 
 Plug 'Valloric/ListToggle'
 let g:lt_quickfix_list_toggle_map = '<leader>cc'
