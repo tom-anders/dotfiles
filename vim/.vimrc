@@ -183,7 +183,7 @@ map <leader>s <Plug>(easymotion-s)
 let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
 
 autocmd User EasyMotionPromptBegin silent! CocDisable
-autocmd User EasyMotionPromptEnd silent! CocEnable
+autocmd User EasyMotionPromptEnd silent! call timer_start(500, { tid -> execute('CocEnable')}) 
 "}}}
 
 Plug 'vim-scripts/ReplaceWithRegister'
