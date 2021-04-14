@@ -319,18 +319,6 @@ nmap <silent> <leader>F :GFiles --recurse-submodules <cr>
 
 " }}}
 
-" {{{ Vista.vim
-Plug 'liuchengxu/vista.vim'
-let g:vista_fzf_preview = ['right:50%']
-let g:vista_sidebar_width = 50
-
-let g:vista_executive_for = {
-  \ 'cpp': 'coc',
-  \ }
-
-map <leader>v :Vista!!<CR>
-" }}}
-
 " {{{ undotree
 Plug 'mbbill/undotree'
 "toggle undotree
