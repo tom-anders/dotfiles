@@ -53,6 +53,9 @@ let g:doxygen_javadoc_autobrief=0
 let g:load_doxygen_syntax=1
 set syntax=cpp.doxygen
 
+au BufEnter,BufNew *.cpp,*.c set foldmethod=manual
+au BufEnter,BufNew *.cpp,*.c set foldexpr=
+
 au BufEnter,BufNew *.hpp,*.h set foldmethod=expr
 au BufEnter,BufNew *.hpp,*.h set foldexpr=FoldCppHeader(v:lnum)
 au BufEnter,BufNew *.hpp,*.h set foldtext=HeaderFoldText()

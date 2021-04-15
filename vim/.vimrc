@@ -65,6 +65,14 @@ nnoremap <silent> }c :CocNext<CR>
 nnoremap <silent> {C :CocFirst<CR>
 nnoremap <silent> }C :CocLast<CR>
 
+nnoremap <silent> {t :tabprev<CR>
+nnoremap <silent> }t :tabnext<CR>
+nnoremap <silent> {T :tabfirst<CR>
+nnoremap <silent> }T :tablast<CR>
+
+nmap <silent> <leader>tx :tabclose<cr>
+nmap <silent> <leader>te :tabedit %<cr>
+
 nnoremap {b :bprev<CR>
 nnoremap }b :bnext<CR>
 
@@ -91,21 +99,36 @@ Plug 'machakann/vim-highlightedyank'
 map y <Plug>(highlightedyank)
 " }}}
 
-" {{{ vim-airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
+" {{{ vim-lightline
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 set laststatus=2
+set showtabline=2
 set noshowmode
-let g:airline_powerline_fonts=1
-let g:airline_symbols_ascii=1
-set ttimeoutlen=10
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-let g:airline#extensions#tabline#enabled=1
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+let g:lightline = {
+\ 'colorscheme': 'gruvbox',
+\ 'separator': { 'left': '', 'right': '' },
+\ 'subseparator': { 'left': '', 'right': '' },
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ],
+\             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ],
+\   'right' : [ ['lineinfo'], ['filetype'] ]
+\ },
+\ 'tabline': {
+\    'left': [ [ 'buffers' ] ],
+\    'right': [ [ 'tabs' ] ],
+\ },
+\ 'component_expand': {
+\   'buffers': 'lightline#bufferline#buffers'
+\ },
+\ 'component_type': {
+\   'buffers': 'tabsel'
+\ },
+\ 'component_function': {
+\   'cocstatus': 'coc#status',
+\   'gitbranch': 'FugitiveHead'
+\ },
+\ }
 " }}}
 
 " git {{{
@@ -131,6 +154,7 @@ nnoremap <silent> <leader>T :call tig_explorer#open(expand("%:p:h") . " --all")<
 " }}}
 
 Plug 'Valloric/ListToggle'
+set noshowmode
 let g:lt_quickfix_list_toggle_map = '<leader>cc'
 let g:lt_location_list_toggle_map = '<leader>ll'
 
@@ -279,7 +303,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tom-anders/fzf.vim'
 
 map <silent> <leader>zf :Files<cr>
-map <silent> <leader>zb :Buffers<cr>
+map <silent> <leader><leader>b :Buffers<cr>
 map <silent> <leader>zm :Marks<cr>
 map <silent> <leader>zl :Lines<cr>
 map <silent> <leader>zg :Rg<cr>
