@@ -8,7 +8,8 @@
                 "highlight": {"lsRanges": true},
                 "index": {"threads": 6}
             },
-            "disableDiagnostics": true
+            "disableDiagnostics": true,
+            "disableCompletion": true
         }
     },
 
