@@ -82,6 +82,9 @@ nmap <expr> <silent> <leader>x len(filter(range(1, bufnr('$')), 'buflisted(v:val
 map <silent> <leader><leader>s :split<CR>
 map <silent> <leader><leader>v :vsplit<CR>
 
+"Clear search highlight
+nnoremap <silent> <esc> :nohlsearch<CR>
+
 " }}}
 
 call plug#begin('~/.vim/plugged')
