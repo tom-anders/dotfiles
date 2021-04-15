@@ -53,12 +53,6 @@ let g:doxygen_javadoc_autobrief=0
 let g:load_doxygen_syntax=1
 set syntax=cpp.doxygen
 
-" Folding stuff {{{
-au BufEnter,BufNew *.cpp set foldmethod=expr
-au BufEnter,BufNew *.cpp set foldexpr=FoldCppSource(v:lnum)
-au BufEnter,BufNew *.cpp set foldtext=SourceFoldText()
-au BufEnter,BufNew *.cpp set foldlevel=1 " Don't fold function bodys by default
-
 au BufEnter,BufNew *.hpp,*.h set foldmethod=expr
 au BufEnter,BufNew *.hpp,*.h set foldexpr=FoldCppHeader(v:lnum)
 au BufEnter,BufNew *.hpp,*.h set foldtext=HeaderFoldText()
@@ -69,18 +63,6 @@ function CppFunctionFoldText()
         return '{...}'
     endif
     return ''
-endfunction
-
-function SourceFoldText()
-    let text = LicenseFoldText()
-    if text == ''
-        let text = IncludeFoldText()
-    endif
-    if text == ''
-        let text = CppFunctionFoldText()
-    endif
-    
-    return text
 endfunction
 
 function HeaderFoldText()
@@ -234,40 +216,6 @@ function! FoldCppFunction(line)
         return '<1'
     endif
     return ''
-endfunction
-
-function! FoldCppSource(lnum)
-    let line = getline(a:lnum)
-    
-    let level = FoldInclude(line)
-    if level != ''
-        return level
-    endif
-    " This line is not a include but the previous one was -> reset fold level
-    if FoldInclude(getline(a:lnum -1)) != ''
-        return '0'
-    endif
-
-    let level = FoldCppFunction(line)
-    if level != ''
-        return level
-    endif
-
-    let level = FoldLicense(a:lnum)
-    if level != ''
-        return level
-    endif
-    if line =~ '\v^\s*\*.*$'
-        return '='
-    endif
-    if line =~ '\v^\s*\*/\s*$'
-        return '<2'
-    endif
-    if getline(a:lnum-1) =~ '\v^\s*\*/\s*$'
-        return '0'
-    endif
-
-    return '-1'
 endfunction
 
 function! FoldCppHeader(lnum)
