@@ -251,8 +251,8 @@ endfunction
 function! s:getNameOfCurrentTest()
     for lnum in range(getpos('.')[1], 1, -1)
         let line = getline(lnum)
-        if line =~ '\v[A-Za-z]+::[A-Za-z]+()'
-            return matchstr(line, '\v(::)@<=[A-Za-z]+')
+        if line =~ '\v^void [A-Za-z]+::[A-Za-z_]+()'
+            return matchstr(line, '\v(::)@<=[A-Za-z_]+')
         endif
     endfor
     return ''
