@@ -22,5 +22,6 @@
         "--suggest-missing-includes",
         "--header-insertion=never",
         "--completion-style=detailed"
-    ]
+    ],
+    "clangd.semanticHighlighting": true
 }
