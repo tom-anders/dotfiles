@@ -73,15 +73,15 @@ endsnippet
 
 priority 0
 
-snippet qsp "QSharedPointer::create()" w
+snippet "qspc" "QSharedPointer::create()" wr
 QSharedPointer<${1:T}>::create(${2:args})$0
 endsnippet
 
-snippet sup "std::unique_ptr" w
+snippet smu "std::make_shared" w
 std::make_unique<${1:T}>(${2:args})
 endsnippet
 
-snippet ssp "std::shared_ptr" w
+snippet sms "std::make_shared" w
 std::make_shared<${1:T}>(${2:args})
 endsnippet
 
@@ -286,17 +286,20 @@ snippet "q(t?)[an]c" "QTest::addColumn" r
 QTest::addColumn<$1>("$2");
 endsnippet
 
-snippet qcp "QCOMPARE" w
+snippet "qcm?p?" "QCOMPARE" br
 QCOMPARE(${1:actual}, ${2:expected});
 endsnippet
 
-snippet qv "QVERIFY" w
+snippet qv "QVERIFY" b
 QVERIFY($1);
 endsnippet
 
-snippet qv2 "QVERIFY2" w
+snippet "qv(2|v)" "QVERIFY2" br
 QVERIFY2($1, "$2");
 endsnippet
 
 # }}}
 
+snippet qvc "qvariant_cast" w
+qvariant_cast<$1>($2)$0
+endsnippet
