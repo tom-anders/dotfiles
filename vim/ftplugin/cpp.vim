@@ -55,6 +55,7 @@ set syntax=cpp.doxygen
 
 au BufEnter,BufNew *.cpp,*.c set foldmethod=manual
 au BufEnter,BufNew *.cpp,*.c set foldexpr=
+au BufEnter,BufNew *.cpp,*.c set foldlevel=99
 
 au BufEnter,BufNew *.hpp,*.h set foldmethod=expr
 au BufEnter,BufNew *.hpp,*.h set foldexpr=FoldCppHeader(v:lnum)

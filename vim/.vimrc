@@ -137,12 +137,16 @@ let g:lightline = {
 " git {{{
 Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-fugitive-blame-ext'
-map <silent> <leader>gs :Gstatus<cr> 
-map <silent> <leader>gb :Gblame<cr> 
+nn <silent> <leader>gs :Gstatus<cr> 
+nn <silent> <leader>gb :Gblame<cr> 
+nn <silent> <leader>gd :Gdiff<cr> 
+nn <silent> <leader>gD :Git! diff<cr> 
 
-Plug 'airblade/vim-gitgutter'
-nmap {h <Plug>(GitGutterPrevHunk)
-nmap }h <Plug>(GitGutterNextHunk)
+Plug 'mhinz/vim-signify'
+nmap {h <Plug>(signify-prev-hunk)
+nmap }h <Plug>(signify-next-hunk)
+nmap <silent> <leader>ghd :SignifyHunkDiff<cr>
+nmap <silent> <leader>ghu :SignifyHunkUndo<cr>
 
 Plug 'iberianpig/tig-explorer.vim'
 
