@@ -6,6 +6,8 @@ let maplocalleader = ' '
 set hidden
 set backspace=indent,eol,start
 
+set mouse=a
+
 set tabstop=4
 " when indenting with '>', use 4 spaces width
 set shiftwidth=4
@@ -141,6 +143,7 @@ nn <silent> <leader>gs :Gstatus<cr>
 nn <silent> <leader>gb :Gblame<cr> 
 nn <silent> <leader>gd :Gdiff<cr> 
 nn <silent> <leader>gD :Git! diff<cr> 
+nn <silent> <leader><leader>g :Git 
 
 Plug 'mhinz/vim-signify'
 nmap {h <Plug>(signify-prev-hunk)
