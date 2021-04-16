@@ -17,11 +17,10 @@
 
     "clangd.arguments": [
         "--background-index",
-        "-j=4",
+        "-j=6",
         "--all-scopes-completion",
         "--suggest-missing-includes",
         "--header-insertion=never",
         "--completion-style=detailed"
-    ],
-    "clangd.semanticHighlighting": true
+    ]
 }
