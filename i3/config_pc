@@ -41,10 +41,10 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show run
 
 # Move focus using vim keys
-bindsym $mod+h exec neovim-i3-navigator.py focus left
-bindsym $mod+j exec neovim-i3-navigator.py focus down
-bindsym $mod+k exec neovim-i3-navigator.py focus up
-bindsym $mod+l exec neovim-i3-navigator.py focus right
+bindsym $mod+h exec --no-startup-id easy-i3-neovim-nav.py focus left
+bindsym $mod+j exec --no-startup-id easy-i3-neovim-nav.py focus down
+bindsym $mod+k exec --no-startup-id easy-i3-neovim-nav.py focus up
+bindsym $mod+l exec --no-startup-id easy-i3-neovim-nav.py focus right
 
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
@@ -127,10 +127,10 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-bindsym $mod+Shift+Left  exec neovim-i3-navigator.py resize shrink width  5 10 5
-bindsym $mod+Shift+Down  exec neovim-i3-navigator.py resize shrink height 5 10 5
-bindsym $mod+Shift+Up    exec neovim-i3-navigator.py resize grow   height 5 10 5
-bindsym $mod+Shift+Right exec neovim-i3-navigator.py resize grow   width  5 10 5
+bindsym $mod+Shift+Left  exec --no-startup-id easy-i3-neovim-nav.py resize shrink width  5 10 5
+bindsym $mod+Shift+Down  exec --no-startup-id easy-i3-neovim-nav.py resize shrink height 5 10 5
+bindsym $mod+Shift+Up    exec --no-startup-id easy-i3-neovim-nav.py resize grow   height 5 10 5
+bindsym $mod+Shift+Right exec --no-startup-id easy-i3-neovim-nav.py resize grow   width  5 10 5
 
 # Scratchpad
 # Move to scratchpad

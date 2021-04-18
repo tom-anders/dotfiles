@@ -231,7 +231,7 @@ Plug 'triglav/vim-visual-increment'
 if v:servername == ''
     call serverstart(tempname())
 endif
-let &titlestring="nvim %F [" . v:servername . "]"
+let &titlestring="nvim %F -- [" . v:servername . "]"
 set title
 
 " {{{ i3wm integration
