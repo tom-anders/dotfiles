@@ -91,8 +91,6 @@ nnoremap <silent> <esc> :nohlsearch<CR>
 
 call plug#begin('~/.vim/plugged')
 
-" And same for coc list
-
 " {{{ colorschemes
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
