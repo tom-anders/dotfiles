@@ -5,6 +5,10 @@ bind main B <git rebase -i %(commit) # Interactive rebase
 bind main b @git checkout -b %(prompt"Enter name for new branch: ") %(commit)
 bind main c @zsh -c "~/checkoutBranchOrCommit.sh %(commit)"
 bind main O @zsh -c "~/rebaseAgainstBranchOrCommitXours.sh %(commit)" # git rebase -Xours 
+
+# Edit commit under cursor
+bind main e !zsh -c "~/.dotfiles/tig/editCommit.sh %(commit)" 
+
 bind status	C !git commit -v
 
 bind diff 7 !git diff %(commit)^ %(commit)
