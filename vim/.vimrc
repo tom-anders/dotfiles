@@ -316,6 +316,7 @@ map <silent> <leader>zm :Marks<cr>
 map <silent> <leader>zl :Lines<cr>
 map <silent> <leader>zg :Rg<cr>
 map <silent> <leader>zs :Snippets<cr>
+map <silent> <leader>zh :History<cr>
 
 " CTRL-a CTRL-q to select all and build quickfix list (https://github.com/junegunn/fzf.vim/issues/185)
 function! s:build_quickfix_list(lines)
