@@ -310,13 +310,13 @@ nmap ga <Plug>(EasyAlign)
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tom-anders/fzf.vim'
 
-map <silent> <leader>zf :Files<cr>
-map <silent> <leader><leader>b :Buffers<cr>
-map <silent> <leader>zm :Marks<cr>
-map <silent> <leader>zl :Lines<cr>
-map <silent> <leader>zg :Rg<cr>
-map <silent> <leader>zs :Snippets<cr>
-map <silent> <leader>zh :History<cr>
+map <silent> <leader>FF :Files<cr>
+map <silent> <leader>fb :Buffers<cr>
+map <silent> <leader>fm :Marks<cr>
+map <silent> <leader>fl :Lines<cr>
+map <silent> <leader>fg :Rg<cr>
+map <silent> <leader>fs :Snippets<cr>
+map <silent> <leader>fh :History<cr>
 
 " CTRL-a CTRL-q to select all and build quickfix list (https://github.com/junegunn/fzf.vim/issues/185)
 function! s:build_quickfix_list(lines)
@@ -348,9 +348,9 @@ endfunction
 function! s:gitFilesBasenameSink(file)
     execute "edit ".split(a:file)[1]
 endfunction
-nmap <silent> <leader>f :call <SID>gitFilesBasename()<cr> 
+nmap <silent> <leader>ff :call <SID>gitFilesBasename()<cr> 
 
-nmap <silent> <leader>F :GFiles --recurse-submodules <cr> 
+nmap <silent> <leader><M-f> :GFiles --recurse-submodules <cr> 
 
 " }}}
 
