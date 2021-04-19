@@ -179,15 +179,15 @@ nmap }h <Plug>(signify-next-hunk)
 nmap <silent> <leader>ghd :SignifyHunkDiff<cr>
 nmap <silent> <leader>ghu :SignifyHunkUndo<cr>
 
-Plug 'codeindulgence/vim-tig'
-
-let g:tig_default_command = ''
+Plug 'iberianpig/tig-explorer.vim'
 
 nnoremap <silent> <leader>tt :Tig <CR>
 nnoremap <silent> <leader>ta :Tig --all <CR>
 
 " Tig for current file
-nnoremap <silent> <leader>tf :Tig!<CR>
+nnoremap <silent> <leader>tf :call tig_explorer#open(expand("%:p") . "--all")<cr>
+" Tig for current dir
+nnoremap <silent> <leader>T :call tig_explorer#open(expand("%:p:h") . " --all")<cr>
 
 " }}}
 
