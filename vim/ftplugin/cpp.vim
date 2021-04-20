@@ -1,7 +1,7 @@
 " Don't indent after C++ namespace start
 set cino=N-s
 
-nnoremap gh :CocCommand clangd.switchSourceHeader<CR>
+nnoremap <silent> gh :CocCommand clangd.switchSourceHeader<CR>
 
 " Redefine rg to only search relevant files for c++ projects
 command! -nargs=0 Rg :call fzf#vim#grep("rg -t cmake -t cpp -t qml -t qmake --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)<CR>

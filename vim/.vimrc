@@ -57,6 +57,8 @@ nnoremap <silent> }l :lnext<CR>
 nnoremap <silent> {L :lfirst<CR>
 nnoremap <silent> }L :llast<CR>
 
+nnoremap <silent> [q :colder<CR>
+nnoremap <silent> ]q :cnewer<CR>
 nnoremap <silent> {q :cprev<CR>
 nnoremap <silent> }q :cnext<CR>
 nnoremap <silent> {Q :cfirst<CR>
@@ -79,11 +81,18 @@ nnoremap <silent> }T :tablast<CR>
 nmap <silent> <leader>tx :tabclose<cr>
 nmap <silent> <leader>te :tabedit %<cr>
 
+" Substitute word under cursor
+nmap <leader>S :%s/\<<C-r><C-w>\>/
+
 nnoremap {b :bprev<CR>
 nnoremap }b :bnext<CR>
 
 " Close buffer without closing split
 nmap <expr> <silent> <leader>x len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1 ? ':bd<CR>' : ':bp<CR>:bd #<CR>'
+
+" Close all buffers except the current one 
+" https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one#comment86214068_42071865
+nmap <leader>o :%bd\|e#\|bd#<cr>
 
 map <silent> <leader><leader>s :split<CR>
 map <silent> <leader><leader>v :vsplit<CR>
@@ -369,7 +378,7 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
-let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all --bind ctrl-s:select'
 
 " fzf with git ls-files, but only display file name instead of full path
 " This works by piping both the filename and the fullpath to fzf and then
