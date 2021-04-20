@@ -242,6 +242,16 @@ autocmd User EasyMotionPromptEnd silent! call timer_start(500, { tid -> execute(
 
 Plug 'vim-scripts/ReplaceWithRegister'
 
+" {{{ vim-bookmarks
+Plug 'MattesGroeger/vim-bookmarks'
+let g:bookmark_no_default_key_mappings = 1
+
+nn <silent> <C-m>m :BookmarkToggle<CR>
+nn <C-m>a :BookmarkAnnotate 
+nn <silent> <leader>cm :BookmarkShowAll<CR>
+nnoremap <silent> <C-m>c :BookmarkClearAll<CR>
+" }}}
+
 " {{{ vim-peekaboo
 Plug 'junegunn/vim-peekaboo'
 " See https://github.com/junegunn/vim-peekaboo/issues/68#issuecomment-622601779
@@ -358,13 +368,18 @@ nmap ga <Plug>(EasyAlign)
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tom-anders/fzf.vim'
 
+Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+let $FZF_PREVIEW_PREVIEW_BAT_THEME = 'gruvbox-dark'
+
 map <silent> <leader>zf :Files<cr>
 map <silent> <leader><leader>b :Buffers<cr>
-map <silent> <leader>zm :Marks<cr>
+map <silent> <leader>zM :Marks<cr>
 map <silent> <leader>zl :Lines<cr>
 map <silent> <leader>zg :Rg<cr>
 map <silent> <leader>zs :Snippets<cr>
 map <silent> <leader>zh :History<cr>
+map <silent> <leader>zc :FzfPreviewQuickFixRpc<cr>
+map <silent> <leader>zm :FzfPreviewBookmarksRpc<cr>
 
 " CTRL-a CTRL-q to select all and build quickfix list (https://github.com/junegunn/fzf.vim/issues/185)
 function! s:build_quickfix_list(lines)
