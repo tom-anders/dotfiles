@@ -191,7 +191,7 @@ endfunction
 
 function! FoldInclude(line)
     if a:line =~ '#include'
-        return '2'
+        return '1'
     endif
 endfunction
 
