@@ -84,6 +84,12 @@ nmap <silent> <leader>te :tabedit %<cr>
 " Substitute word under cursor
 nmap <leader>S :%s/\<<C-r><C-w>\>/
 
+" Substitute word under cursor, use as backreference
+nmap <leader><C-S> :%s/\(<C-r><C-w>\)/
+
+" Substitute visual selection
+vmap <leader>S y:%s/<C-r>0/
+
 nnoremap {b :bprev<CR>
 nnoremap }b :bnext<CR>
 
