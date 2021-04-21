@@ -100,6 +100,10 @@ map <silent> <leader><leader>v :vsplit<CR>
 "Clear search highlight
 nnoremap <silent> <esc> :nohlsearch<CR>
 
+" Normal gu is already taken by coc-references
+nnoremap <silent> <leader>gu gu
+nnoremap <silent> <leader>gU gU
+
 " }}}
 
 call plug#begin('~/.vim/plugged')
