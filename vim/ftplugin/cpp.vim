@@ -53,14 +53,10 @@ let g:doxygen_javadoc_autobrief=0
 let g:load_doxygen_syntax=1
 set syntax=cpp.doxygen
 
-au BufEnter,BufNew *.cpp,*.c set foldmethod=manual
-au BufEnter,BufNew *.cpp,*.c set foldexpr=
-au BufEnter,BufNew *.cpp,*.c set foldlevel=99
-
-au BufEnter,BufNew *.hpp,*.h set foldmethod=expr
-au BufEnter,BufNew *.hpp,*.h set foldexpr=FoldCppHeader(v:lnum)
-au BufEnter,BufNew *.hpp,*.h set foldtext=HeaderFoldText()
-au BufEnter,BufNew *.hpp,*.h set foldlevel=0 " Fold everything by default
+set foldmethod=marker
+set foldmarker=/*,*/
+set foldtext=HeaderFoldText()
+set foldlevel=0 " Fold everything by default
 
 function CppFunctionFoldText()
     if getline(v:foldstart) == '{'
@@ -189,16 +185,10 @@ function! FoldLicense(lnum)
     return ''
 endfunction
 
-function! FoldInclude(line)
-    if a:line =~ '#include'
-        return '1'
-    endif
-endfunction
-
 function! FoldCStyleComment(line)
     " start of c-style
     if a:line =~ '\v^\s*/\*[\*!].*$'
-        return 'a1'
+        return '>1'
     endif
     " middle of c-style
     if a:line =~ '\v^\s*\*.*$'
@@ -206,7 +196,7 @@ function! FoldCStyleComment(line)
     endif
     " end of c-style
     if a:line =~ '\v^\s*\*/.*$'
-        return 's1'
+        return '<1'
     endif
     return ''
 endfunction
@@ -226,11 +216,6 @@ function! FoldCppHeader(lnum)
     let line = getline(a:lnum)
 
     let foldlevel = FoldLicense(a:lnum)
-    if foldlevel != ''
-        return foldlevel
-    endif
-
-    let foldlevel = FoldInclude(line)
     if foldlevel != ''
         return foldlevel
     endif
