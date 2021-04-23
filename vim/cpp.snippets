@@ -287,7 +287,7 @@ QTest::newRow("$1") << $0;
 endsnippet
 
 snippet "q(t?)ar" "QTest::addRow ..." r
-QTest::newRow("$1", $2) << $0;
+QTest::addRow("$1", $2) << $0;
 endsnippet
 
 snippet "q(t?)[an]c" "QTest::addColumn" r
