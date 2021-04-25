@@ -1,7 +1,7 @@
 " Don't indent after C++ namespace start
 set cino=N-s
 
-nnoremap <silent> gh :CocCommand clangd.switchSourceHeader<CR>
+" nnoremap <silent> gh :CocCommand clangd.switchSourceHeader<CR>
 
 " Redefine rg to only search relevant files for c++ projects
 command! -nargs=0 Rg :call fzf#vim#grep("rg -t cmake -t cpp -t qml -t qmake --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)<CR>
@@ -298,44 +298,44 @@ inoremap <C-f> <esc>:call <SID>makeTestDataPopup()<cr>
 " coc-nvim config {{{
 " Explicitly call ccls here (instead of just coc-definition),
 " because otherwise we'd also get duplicate results from clangd
-nmap <silent> gd :call CocLocations('ccls','textDocument/definition')<cr>
-" And same for find references
-nmap <silent> gu :call CocLocations('ccls','textDocument/references')<cr>
+" nmap <silent> gd :call CocLocations('ccls','textDocument/definition')<cr>
+" " And same for find references
+" nmap <silent> gu :call CocLocations('ccls','textDocument/references')<cr>
 
-" Mnemonic: x -> "cross reference"
-" bases
-nn <silent> xb :call CocLocations('ccls','$ccls/inheritance')<cr>
-" bases of up to 5 levels
-nn <silent> xB :call CocLocations('ccls','$ccls/inheritance',{'levels':5})<cr>
-" derived (mnemonic: i -> "implementation")
-nn <silent> xi :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true})<cr>
-" derived of up to 3 levels
-nn <silent> xI :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true,'levels':3})<cr>
+" " Mnemonic: x -> "cross reference"
+" " bases
+" nn <silent> xb :call CocLocations('ccls','$ccls/inheritance')<cr>
+" " bases of up to 5 levels
+" nn <silent> xB :call CocLocations('ccls','$ccls/inheritance',{'levels':5})<cr>
+" " derived (mnemonic: i -> "implementation")
+" nn <silent> xi :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true})<cr>
+" " derived of up to 3 levels
+" nn <silent> xI :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true,'levels':3})<cr>
 
-" caller
-nn <silent> xc :call CocLocations('ccls','$ccls/call')<cr>
-" callee
-nn <silent> xC :call CocLocations('ccls','$ccls/call',{'callee':v:true})<cr>
+" " caller
+" nn <silent> xc :call CocLocations('ccls','$ccls/call')<cr>
+" " callee
+" nn <silent> xC :call CocLocations('ccls','$ccls/call',{'callee':v:true})<cr>
 
-" member variables / variables in a namespace
-nn <silent> xm :call CocLocations('ccls','$ccls/member')<cr>
-" member functions / functions in a namespace
-nn <silent> xf :call CocLocations('ccls','$ccls/member',{'kind':3})<cr>
-" nested classes / types in a namespace
-nn <silent> xs :call CocLocations('ccls','$ccls/member',{'kind':2})<cr>
+" " member variables / variables in a namespace
+" nn <silent> xm :call CocLocations('ccls','$ccls/member')<cr>
+" " member functions / functions in a namespace
+" nn <silent> xf :call CocLocations('ccls','$ccls/member',{'kind':3})<cr>
+" " nested classes / types in a namespace
+" nn <silent> xs :call CocLocations('ccls','$ccls/member',{'kind':2})<cr>
 
-nmap <silent> xt <Plug>(coc-type-definition)<cr>
-nn <silent> xv :call CocLocations('ccls','$ccls/vars')<cr>
-nn <silent> xV :call CocLocations('ccls','$ccls/vars',{'kind':1})<cr>
+" nmap <silent> xt <Plug>(coc-type-definition)<cr>
+" nn <silent> xv :call CocLocations('ccls','$ccls/vars')<cr>
+" nn <silent> xV :call CocLocations('ccls','$ccls/vars',{'kind':1})<cr>
 
-nn xx x
+" nn xx x
 
-" Show signature help when entering insert mode, very useful when editing parameters
-autocmd InsertEnter * silent! call CocActionAsync('showSignatureHelp')
+" " Show signature help when entering insert mode, very useful when editing parameters
+" autocmd InsertEnter * silent! call CocActionAsync('showSignatureHelp')
 
-nn <silent><buffer> <C-M-l> :call CocLocations('ccls','$ccls/navigate',{'direction':'D'})<cr>
-nn <silent><buffer> <C-M-k> :call CocLocations('ccls','$ccls/navigate',{'direction':'L'})<cr>zz
-nn <silent><buffer> <C-M-j> :call CocLocations('ccls','$ccls/navigate',{'direction':'R'})<cr>zz
-nn <silent><buffer> <C-M-h> :call CocLocations('ccls','$ccls/navigate',{'direction':'U'})<cr>
+" nn <silent><buffer> <C-M-l> :call CocLocations('ccls','$ccls/navigate',{'direction':'D'})<cr>
+" nn <silent><buffer> <C-M-k> :call CocLocations('ccls','$ccls/navigate',{'direction':'L'})<cr>zz
+" nn <silent><buffer> <C-M-j> :call CocLocations('ccls','$ccls/navigate',{'direction':'R'})<cr>zz
+" nn <silent><buffer> <C-M-h> :call CocLocations('ccls','$ccls/navigate',{'direction':'U'})<cr>
 
 " }}}
