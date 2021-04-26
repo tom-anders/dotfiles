@@ -255,10 +255,12 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'MattesGroeger/vim-bookmarks'
 let g:bookmark_no_default_key_mappings = 1
 
-nn <silent> <C-m>m :BookmarkToggle<CR>
-nn <C-m>a :BookmarkAnnotate 
-nn <silent> <leader>cm :BookmarkShowAll<CR>
-nnoremap <silent> <C-m>c :BookmarkClearAll<CR>
+
+" TODO these are broken somehow
+" nn <silent> <C-m>m :BookmarkToggle<CR>
+" nn <C-m>a :BookmarkAnnotate 
+" nn <silent> <leader>cm :BookmarkShowAll<CR>
+" nnoremap <silent> <C-m>c :BookmarkClearAll<CR>
 " }}}
 
 " {{{ vim-peekaboo
@@ -466,17 +468,31 @@ map <C-a> zA
 autocmd Filetype vim set foldmethod=marker
 " }}}
 
+" {{{ telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+" }}}
+
 Plug 'neovim/nvim-lspconfig' 
-Plug 'nvim-lua/completion-nvim'
-Plug 'steelsojka/completion-buffers'
-let g:completion_enable_auto_paren=1
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
-set completeopt=noinsert,menuone
+
+Plug 'hrsh7th/vim-vsnip' " For lsp snippets
+imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+Plug 'cohama/lexima.vim' " Autoclose braces etc.
+Plug 'hrsh7th/nvim-compe'
+
+Plug 'ray-x/lsp_signature.nvim'
+
+" set completeopt=noinsert,menuone
+set completeopt=menuone,noselect
+" set completeopt=menuone
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 
 " :XtermColorTable
 Plug 'guns/xterm-color-table.vim'
@@ -656,4 +672,10 @@ autocmd FileChangedShellPost *
 if !empty(glob("~/.work.vim"))
     source ~/.work.vim
 endif
+" }}}
+
+" {{{ Expanding autocomplete
+let g:lexima_no_default_rules = v:true
+call lexima#set_default_rules()
+inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
 " }}}

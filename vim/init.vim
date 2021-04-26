@@ -37,3 +37,5 @@ EOF
 
 " lua require('lspConfig')
 luafile /home/tom/.config/nvim/lua/lspConfig.lua
+
+luafile /home/tom/.config/nvim/lua/telescopeConfig.lua
