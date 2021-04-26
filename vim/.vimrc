@@ -126,35 +126,37 @@ map y <Plug>(highlightedyank)
 " }}}
 
 " {{{ vim-lightline
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-set laststatus=2
-set showtabline=2
-set noshowmode
-let g:lightline = {
-\ 'colorscheme': 'gruvbox',
-\ 'separator': { 'left': '', 'right': '' },
-\ 'subseparator': { 'left': '', 'right': '' },
-\ 'active': {
-\   'left': [ [ 'mode', 'paste' ],
-\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-\   'right' : [ ['lineinfo'], ['filetype'] ]
-\ },
-\ 'tabline': {
-\    'left': [ [ 'buffers' ] ],
-\    'right': [ [ 'tabs' ] ],
-\ },
-\ 'component_expand': {
-\   'buffers': 'lightline#bufferline#buffers'
-\ },
-\ 'component_type': {
-\   'buffers': 'tabsel'
-\ },
-\ 'component_function': {
-\   'gitbranch': 'FugitiveHead'
-\ },
-\ }
+" Plug 'itchyny/lightline.vim'
+" Plug 'mengelbrecht/lightline-bufferline'
+" set laststatus=2
+" set showtabline=2
+" set noshowmode
+" let g:lightline = {
+" \ 'colorscheme': 'gruvbox',
+" \ 'separator': { 'left': '', 'right': '' },
+" \ 'subseparator': { 'left': '', 'right': '' },
+" \ 'active': {
+" \   'left': [ [ 'mode', 'paste' ],
+" \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+" \   'right' : [ ['lineinfo'], ['filetype'] ]
+" \ },
+" \ 'tabline': {
+" \    'left': [ [ 'buffers' ] ],
+" \    'right': [ [ 'tabs' ] ],
+" \ },
+" \ 'component_expand': {
+" \   'buffers': 'lightline#bufferline#buffers'
+" \ },
+" \ 'component_type': {
+" \   'buffers': 'tabsel'
+" \ },
+" \ 'component_function': {
+" \   'gitbranch': 'FugitiveHead'
+" \ },
+" \ }
 " }}}
+
+Plug 'hoob3rt/lualine.nvim'
 
 " git {{{
 Plug 'tpope/vim-fugitive'
@@ -478,6 +480,7 @@ Plug 'nvim-treesitter/playground'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 Plug 'neovim/nvim-lspconfig' 
+Plug 'nvim-lua/lsp-status.nvim'
 
 Plug 'hrsh7th/vim-vsnip' " For lsp snippets
 imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'

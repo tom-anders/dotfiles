@@ -36,8 +36,10 @@ EOF
 
 
 " lua require('lspConfig')
-luafile /home/tom/.config/nvim/lua/lspConfig.lua
+luafile ~/.config/nvim/lua/lspConfig.lua
 
-luafile /home/tom/.config/nvim/lua/telescopeConfig.lua
+luafile ~/.config/nvim/lua/telescopeConfig.lua
 
-luafile /home/tom/.config/nvim/lua/treesitterConfig.lua
+luafile ~/.config/nvim/lua/lualineConfig.lua
+
+luafile ~/.config/nvim/lua/treesitterConfig.lua

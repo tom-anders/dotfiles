@@ -1,32 +1,41 @@
-utils = require('telescope.utils')
-finders = require('telescope.finders')
+local utils = require('telescope.utils')
+local finders = require('telescope.finders')
+local pickers = require('telescope.pickers')
 local conf = require('telescope.config').values
+local make_entry = require('telescope.make_entry')
 
-telescopeCcls = function(opts)
-  opts.shorten_path = utils.get_default(opts.shorten_path, true)
+function telescopeLocations(server, command, title, params, opts)
+    opts = opts or {}
 
-  local params = vim.lsp.util.make_position_params()
-  params.context = { includeDeclaration = true }
+    params = params or vim.lsp.util.make_position_params()
 
-  local results_lsp = getServer('ccls').request_sync(0, "$ccls/inheritance", params, opts.timeout or 10)
-  local locations = {}
-  for _, server_results in pairs(results_lsp) do
-    if server_results.result then
-      vim.list_extend(locations, vim.lsp.util.locations_to_items(server_results.result) or {})
-    end
-  end
+    --FIXME This a workaround for initial_mode not working correctly (https://github.com/nvim-telescope/telescope.nvim/issues/750)
+    opts.on_complete = { function() vim.cmd"stopinsert" end }
 
-  if vim.tbl_isempty(locations) then
-    return
-  end
+    getServer(server).request(command, params, function(err, _, result)
+        if not result or #result == 0 then 
+            print("No results!")
+            return
+        end
 
-  pickers.new(opts, {
-    prompt_title = 'LSP References',
-    finder    = finders.new_table {
-      results = locations,
-      entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
-    },
-    previewer = conf.qflist_previewer(opts),
-    sorter = conf.generic_sorter(opts),
-  }):find()
+        if #result == 1 then
+            vim.lsp.util.jump_to_location(result[1])
+        else
+            local items = vim.lsp.util.locations_to_items(result);
+            vim.lsp.util.set_qflist(items);
+            -- vim.api.nvim_command("copen")
+
+            pickers.new(opts, {
+                prompt_title = title,
+                finder = finders.new_table {
+                    results = items,
+                    entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
+                },
+                previewer = conf.qflist_previewer(opts),
+                sorter = conf.generic_sorter(opts),
+            }):find()
+
+        end
+    end)
 end
+

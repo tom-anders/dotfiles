@@ -1,3 +1,6 @@
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
+
 local lspconfig = require('lspconfig')
 
 require'lsp_signature'.on_attach()
@@ -34,23 +37,17 @@ function getServer(name)
     end
 end
 
-function getClangd()
-    getServer('clangd')
-end
-
-function clangdRequest(req)
-    getClangd().request(req, vim.lsp.util.make_position_params())
-end
-
 function attachClangd(client, bufnr)
-    attachCommon(client, bufnr)
+    attachCommon(client)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gh', ':ClangdSwitchSourceHeader<CR>', { noremap=true, silent=true })
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', ':ClangdHover<CR>', { noremap=true, silent=true })
 end
 
 function attachCommon(client, bufnr)
+    lsp_status.on_attach(client, bufnr)
+
     -- require'completion'.on_attach(client)
-    setupLspMappings(bufnr)
+    setupLspMappings(client, bufnr)
 
     -- Set autocommands conditional on server_capabilities
     if client.resolved_capabilities.document_highlight then
@@ -67,7 +64,13 @@ function attachCommon(client, bufnr)
     end
 end
 
-function setupLspMappings(bufnr)
+function telescopeReferences(clientName)
+    local params = vim.lsp.util.make_position_params();
+    params.context = { includeDeclaration = false }
+    telescopeLocations(clientName, 'textDocument/references', 'References to symbol', params)
+end
+
+function setupLspMappings(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -76,8 +79,11 @@ function setupLspMappings(bufnr)
     buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
-    buf_set_keymap('n', 'gu', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    -- Don't do this for clangd, we already have ccls for that
+    if client.name ~= 'clangd' then
+        buf_set_keymap('n', 'gu', string.format('<cmd>call luaeval("telescopeReferences(_A)", "%s")<CR>', client.name), opts)
+        buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    end
 
     buf_set_keymap('n', '{d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', '}d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
@@ -87,7 +93,7 @@ end
 lspconfig.clangd.setup{
     on_attach=attachClangd,
     commands = {
-        ClangdHover = { function() clangdRequest('textDocument/hover') end },
+        ClangdHover = { function() getServer('clangd').request('textDocument/hover', vim.lsp.util.make_position_params()) end },
     },
     cmd = {                 
         "clangd", "--clang-tidy", 
@@ -102,50 +108,55 @@ lspconfig.clangd.setup{
                     snippetSupport = true,
                 }
             }
-        }
+        },
     }
 }
 
-function test()
-for k, v in pairs() do
-    print("k", k, "v", v)
-end
-end
-
--- -- Disable functionality that is already handled by clangd
-local cclsCapabilities = vim.lsp.protocol.make_client_capabilities()
--- cclsCapabilities.textDocument.completion = nil
-
-function cclsInheritance(derived, levels)
-    local params = vim.lsp.util.make_position_params()
+function cclsInheritance(derived, levels, title)
+    local params = vim.lsp.util.make_position_params();
     params.derived = derived;
     params.levels = levels;
-    getServer('ccls').request('$ccls/inheritance', params, function(err, _, result)
-        if not result or #result == 0 then return end
-        vim.lsp.util.set_qflist(vim.lsp.util.locations_to_items(result))
-        vim.api.nvim_command("copen")
-    end)
+    telescopeLocations('ccls', '$ccls/inheritance', title, params)
 end
 
 function attachCcls(client, bufnr)
     attachCommon(client, bufnr)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xi', ":lua cclsInheritance(true, 1)<CR>", { noremap=true, silent=true })
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xI', ":lua cclsInheritance(true, 5)<CR>", { noremap=true, silent=true })
 
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xb', ":lua cclsInheritance(false, 1)<CR>", { noremap=true, silent=true })
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xB', ":lua cclsInheritance(false, 5)<CR>", { noremap=true, silent=true })
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xi', ":lua cclsInheritance(true, 1, 'Implementations in derived classes')<CR>", { noremap=true, silent=true })
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xI', ":lua cclsInheritance(true, 5, 'Implementations in derived classes (5 levels)')<CR>", { noremap=true, silent=true })
 
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xb', ":lua cclsInheritance(false, 1, 'Base class implementation')<CR>", { noremap=true, silent=true })
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xB', ":lua cclsInheritance(false, 5, 'Base class implementations (5 levels)')<CR>", { noremap=true, silent=true })
 end
 
 lspconfig.ccls.setup {
+    cmd = {"ccls"},
+
     on_attach=attachCcls,
-    capabilities = cclsCapabilities,
     init_options = {
         highlight = {
             lsRanges = true
+        },
+        index = {
+            threads = 6
+        }
+    },
+    root_dir = function(fname)
+      return lspconfig.util.root_pattern("compile_commands.json")(fname) or lspconfig.util.path.dirname(fname)
+    end;
+    capabilities = {
+        textDocument = {
+            completion = {
+                completionItem = {
+                    snippetSupport = true,
+                }
+            }
+        },
+        window = {
+            workDoneProgress = true
         }
     },
     -- No need for diagnostics, will be provided by clangd
-    handlers = {["completionItem/resolve"] = function(...) return nil end}
+    handlers = {["textDocument/publishDiagnostics"] = function(...) return nil end}
 }
 
