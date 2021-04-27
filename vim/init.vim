@@ -39,3 +39,5 @@ EOF
 luafile /home/tom/.config/nvim/lua/lspConfig.lua
 
 luafile /home/tom/.config/nvim/lua/telescopeConfig.lua
+
+luafile /home/tom/.config/nvim/lua/treesitterConfig.lua

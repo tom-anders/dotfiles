@@ -16,14 +16,21 @@ function! s:highlightColor(key, color, ...)
 endfunction
 
 call s:highlightColor('LspCxxHlSymClass', g:terminal_color_3, 'bold')
+call s:highlightColor('TSType', g:terminal_color_3, 'bold')
 call s:highlightColor('LspCxxHlSymNamespace', g:terminal_color_8)
+call s:highlightColor('TSNamespace', g:terminal_color_8)
 
 call s:highlightColor('LspCxxHlSymFunction', g:terminal_color_15, 'italic')
+call s:highlightColor('TSFunction', g:terminal_color_15, 'italic')
 
 call s:highlightColor('LspCxxHlSymParameter', g:terminal_color_14)
 
 call s:highlightColor('LspCxxHlSymField', g:terminal_color_4)
+call s:highlightColor('TSField', g:terminal_color_4)
+call s:highlightColor('TSProperty', g:terminal_color_4)
+
 call s:highlightColor('LspCxxHlSymMethod', g:terminal_color_12)
+call s:highlightColor('TSMethod', g:terminal_color_12)
 
 " Static -> orange
 call s:highlightColor('LspCxxHlSymStaticMethod', '#fe8019', 'bold') 
