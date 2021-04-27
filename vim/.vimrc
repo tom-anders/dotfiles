@@ -455,7 +455,6 @@ autocmd FileType asciidoctor set formatlistpat+=\\\|^.*::\\+\\s\\+
 
 " {{{ Text ojects
 Plug 'kana/vim-textobj-user'
-Plug 'https://github.com/vim-scripts/argtextobj.vim'
 Plug 'bps/vim-textobj-python'
 Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
 " }}}
@@ -473,6 +472,10 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 " }}}
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 Plug 'neovim/nvim-lspconfig' 
 
