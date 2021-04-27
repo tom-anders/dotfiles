@@ -93,13 +93,6 @@ vmap <leader>S y:%s/<C-r>0/
 nnoremap {b :bprev<CR>
 nnoremap }b :bnext<CR>
 
-" Close buffer without closing split
-nmap <expr> <silent> <leader>x len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1 ? ':bd<CR>' : ':bp<CR>:bd #<CR>'
-
-" Close all buffers except the current one 
-" https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one#comment86214068_42071865
-nmap <leader>o :%bd\|e#\|bd#<cr>
-
 map <silent> <leader><leader>s :split<CR>
 map <silent> <leader><leader>v :vsplit<CR>
 
@@ -157,6 +150,16 @@ map y <Plug>(highlightedyank)
 " }}}
 
 Plug 'hoob3rt/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+
+Plug 'romgrk/barbar.nvim'
+let bufferline = get(g:, 'bufferline', {})
+let bufferline.semantic_letters = v:false
+let bufferline.animation = v:false
+let bufferline.letters = 'asdfjklghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP'
+nnoremap <silent> <leader>x :BufferClose<CR>
+nnoremap <silent> <leader>o :BufferCloseAllButCurrent<CR>
+nnoremap <silent> <leader>p :BufferPick<CR>
 
 " git {{{
 Plug 'tpope/vim-fugitive'
@@ -247,8 +250,7 @@ map <leader>s <Plug>(easymotion-s)
 
 let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
 
-" autocmd User EasyMotionPromptBegin silent! CocDisable
-" autocmd User EasyMotionPromptEnd silent! call timer_start(500, { tid -> execute('CocEnable')}) 
+autocmd User EasyMotionPromptEnd silent! LspCxxHighlight
 "}}}
 
 Plug 'vim-scripts/ReplaceWithRegister'
@@ -335,8 +337,6 @@ let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 " }}}
-
-Plug 'ryanoasis/vim-devicons'
 
 " {{{ vim-commentary
 Plug 'tpope/vim-commentary'
