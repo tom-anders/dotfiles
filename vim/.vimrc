@@ -481,7 +481,7 @@ imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l
 smap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 
 Plug 'cohama/lexima.vim' " Autoclose braces etc.
-Plug 'hrsh7th/nvim-compe'
+Plug 'tom-anders/nvim-compe'
 
 Plug 'ray-x/lsp_signature.nvim'
 
