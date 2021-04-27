@@ -686,4 +686,10 @@ endif
 let g:lexima_no_default_rules = v:true
 call lexima#set_default_rules()
 inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
+
+" Only autoclose "(" when there's a space or new line after the cursor
+call lexima#add_rule({'char': '(', 'input_after': ''}) "Override the default rule to do nothing
+call lexima#add_rule({'char': '(', 'at': '\%#\([^A-Za-z&]\)', 'input_after': ')'}) 
+call lexima#add_rule({'char': '(', 'at': '\%#$', 'input_after': ')'}) 
+
 " }}}
