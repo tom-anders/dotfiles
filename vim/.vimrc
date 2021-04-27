@@ -160,6 +160,8 @@ let bufferline.letters = 'asdfjklghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP'
 nnoremap <silent> <leader>x :BufferClose<CR>
 nnoremap <silent> <leader>o :BufferCloseAllButCurrent<CR>
 nnoremap <silent> <leader>p :BufferPick<CR>
+autocmd FileType qf set nobuflisted
+autocmd FileType fugitive set nobuflisted
 
 " git {{{
 Plug 'tpope/vim-fugitive'
