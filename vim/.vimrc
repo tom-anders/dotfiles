@@ -320,15 +320,18 @@ set title
 " nnoremap <silent> <C-j> :call Focus('down', 'j')<CR>
 " }}}
 
-" {{{ ack.vim (Configured to use rg)
-Plug 'mileszs/ack.vim'
-" Use ripgrep with ack.vim
-let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
-" Any empty ack search will search for the work the cursor is on
-let g:ack_use_cword_for_empty_search = 1
-let g:ackhighlight = 1
-" The exclamation mark means don't jump to first match
-nnoremap <Leader>/ :Ack!<Space>
+" {{{ vim-grepper
+Plug 'mhinz/vim-grepper'
+let g:grepper = {}
+let g:grepper.tools = ['rg']
+let g:grepper.rg = {
+        \ 'grepprg': 'rg -H --no-heading --vimgrep --smart-case',
+        \ }
+
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+
+nnoremap <Leader>/ :Grepper<CR>
 "}}}
 
 Plug 'peterhoeg/vim-qml'
