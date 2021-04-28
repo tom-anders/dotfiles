@@ -505,11 +505,8 @@ inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 " :XtermColorTable
 Plug 'guns/xterm-color-table.vim'
 
-
-" TextEdit might fail if hidden is not set.
-set hidden
-
-" Some servers have issues with backup files, see #649.
+" Some servers have issues with backup files, see #649. 
+" TODO this is a relict from coc.nvim, do I still need this?
 set nobackup
 set nowritebackup
 
@@ -518,115 +515,10 @@ set nowritebackup
 set updatetime=300
 
 set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              " \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-" nmap <silent> {d <Plug>(coc-diagnostic-prev)
-" nmap <silent> }d <Plug>(coc-diagnostic-next)
-
-" nmap <silent> gd <Plug>(coc-definition)
-" nmap <silent> gu <Plug>(coc-references)
-" nmap <silent> gy <Plug>(coc-type-definition)
-" nmap <silent> gi <Plug>(coc-implementation)
-
-" nmap <silent> <C-k> :CocList --interactive --auto-preview symbols<CR>
-" nmap <silent> <leader>. :CocList --auto-preview outline<CR>
-
-" nmap <silent> <leader>di :CocList --auto-preview --normal diagnostics<CR>
-
-" " Not s
-" nmap <silent> gy <Plug>(coc-type-definition)
-
-" " grep word under cursor
-" nnoremap <silent> <Leader>cgw :exe 'CocList --auto-preview --normal --input='.expand('<cword>').' grep'<CR>
-
-" " General grep
-" nnoremap  <Leader>cgr :CocList --auto-preview --normal grep 
-
-" " Use K to show documentation in preview window.
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" function! s:show_documentation()
-"   if (index(['vim','help'], &filetype) >= 0)
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocActionAsync('doHover')
-"   endif
-" endfunction
-
-" " Highlight the symbol and its references when holding the cursor.
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-" " Show signature help in insert mode on cursor hold
-" autocmd CursorHoldI * silent call CocActionAsync('showSignatureHelp')
-
-" " Update signature help on jump placeholder.
-" autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-" let g:coc_snippet_next="<tab>"
-" let g:coc_snippet_prev="<S-tab>"
-
-" " Symbol renaming.
-" nmap <leader>rn <Plug>(coc-rename)
-
-" nmap <silent> <leader>rs :CocRestart<cr>
-
-" " Applying codeAction to the selected region.
-" " Example: `<leader>aap` for current paragraph
-" xmap <leader>ca  <Plug>(coc-codeaction-selected)
-" nmap <leader>ca  <Plug>(coc-codeaction-selected)
-
-" " Remap keys for applying codeAction to the current buffer.
-" nmap <leader>ac  <Plug>(coc-codeaction)
-" " Apply AutoFix to problem on the current line.
-" nmap <leader>qf  <Plug>(coc-fix-current)
-
-" " Map function and class text objects
-" " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-" xmap if <Plug>(coc-funcobj-i)
-" omap if <Plug>(coc-funcobj-i)
-" xmap af <Plug>(coc-funcobj-a)
-" omap af <Plug>(coc-funcobj-a)
-" xmap ic <Plug>(coc-classobj-i)
-" omap ic <Plug>(coc-classobj-i)
-" xmap ac <Plug>(coc-classobj-a)
-" omap ac <Plug>(coc-classobj-a)
-
-" " Add `:Format` command to format current buffer.
-" command! -nargs=0 Format :call CocAction('format')
-
-" " Add `:Fold` command to fold current buffer.
-" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" " Add `:OR` command for organize imports of the current buffer.
-" command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" " Add (Neo)Vim's native statusline support.
-" " NOTE: Please see `:h coc-status` for integrations with external plugins that
-" " provide custom statusline: lightline.vim, vim-airline.
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" " Toggle coc-explorer. <leader>n is a relict from my memonic for NERDTree
-" nnoremap <silent> <leader>n :CocCommand explorer<CR>
-
 " }}}
+
+"TODO replace this with chadtree
+" nnoremap <silent> <leader>n :CocCommand explorer<CR>
 
 " Using this in ftplugin/cpp.vim for opening floating windows for QFETCH selection
 Plug 'kamykn/popup-menu.nvim'
