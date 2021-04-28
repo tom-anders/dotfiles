@@ -24,6 +24,7 @@ call s:highlightColor('LspCxxHlSymFunction', g:terminal_color_15, 'italic')
 call s:highlightColor('TSFunction', g:terminal_color_15, 'NONE')
 
 call s:highlightColor('LspCxxHlSymParameter', g:terminal_color_14)
+call s:highlightColor('TSParameter', g:terminal_color_14)
 
 call s:highlightColor('LspCxxHlSymField', g:terminal_color_4)
 call s:highlightColor('TSField', g:terminal_color_4)
