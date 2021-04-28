@@ -99,6 +99,9 @@ function setupLspMappings(client, bufnr)
     if client.name ~= 'ccls' then
         buf_set_keymap('n', 'gu', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = true})", "%s")<CR>', client.name), opts)
         buf_set_keymap('n', 'gU', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = false})", "%s")<CR>', client.name), opts)
+
+        buf_set_keymap('n', '<leader>.', string.format('<cmd>call luaeval("telescopeDocumentSymbols(_A)", "%s")<CR>', client.name), opts)
+        buf_set_keymap('n', '<C-k>', string.format('<cmd>call luaeval("telescopeWorkspaceSymbols(_A)", "%s")<CR>', client.name), opts)
     end
 
     buf_set_keymap('n', '{d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
@@ -166,7 +169,7 @@ lspconfig.ccls.setup {
                 completionItem = {
                     snippetSupport = true,
                 }
-            }
+            },
         },
         window = {
             workDoneProgress = true

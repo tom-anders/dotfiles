@@ -41,3 +41,60 @@ function telescopeLocationsOrQuickfix(server, command, title, params, opts)
     end)
 end
 
+function telescopeWorkspaceSymbols(server, opts)
+  local params = {query = opts.query or ''}
+
+  getServer(server).request("workspace/symbol", params, function(err, _, result)
+      if not result or #result == 0 then
+          print("No results from textDocument/workspaceSymbol")
+      end
+
+      local items = vim.lsp.util.symbols_to_items(result, 0)
+
+      opts = opts or {}
+      opts.ignore_filename = opts.ignore_filename or true
+      pickers.new(opts, {
+          prompt_title = 'LSP Workspace Symbols',
+          finder    = finders.new_table {
+              results = items,
+              -- TODO modified gen_from_lsp_symbols() to make width customizable
+              entry_maker = opts.entry_maker or make_entry.gen_from_lsp_symbols(opts)
+          },
+          previewer = conf.qflist_previewer(opts),
+          sorter = conf.prefilter_sorter{
+              tag = "symbol_type",
+              sorter = conf.generic_sorter(opts)
+          }
+      }):find()
+
+  end)
+end
+
+function telescopeDocumentSymbols(server, opts)
+  local params = vim.lsp.util.make_position_params()
+
+  getServer(server).request("textDocument/documentSymbol", params, function(err, _, result)
+      if not result or #result == 0 then
+          print("No results from textDocument/documentSymbol!")
+      end
+
+      local items = vim.lsp.util.symbols_to_items(result, 0)
+
+      opts = opts or {}
+      opts.ignore_filename = opts.ignore_filename or true
+      pickers.new(opts, {
+          prompt_title = 'LSP Document Symbols',
+          finder    = finders.new_table {
+              results = items,
+              -- TODO modified gen_from_lsp_symbols() to make width customizable
+              entry_maker = opts.entry_maker or make_entry.gen_from_lsp_symbols(opts)
+          },
+          previewer = conf.qflist_previewer(opts),
+          sorter = conf.prefilter_sorter{
+              tag = "symbol_type",
+              sorter = conf.generic_sorter(opts)
+          }
+      }):find()
+
+  end)
+end
