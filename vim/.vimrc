@@ -90,9 +90,6 @@ nmap <leader><C-S> :%s/\(<C-r><C-w>\)/
 " Substitute visual selection
 vmap <leader>S y:%s/<C-r>0/
 
-nnoremap {b :bprev<CR>
-nnoremap }b :bnext<CR>
-
 map <silent> <leader><leader>s :split<CR>
 map <silent> <leader><leader>v :vsplit<CR>
 
@@ -157,6 +154,10 @@ let bufferline = get(g:, 'bufferline', {})
 let bufferline.semantic_letters = v:false
 let bufferline.animation = v:false
 let bufferline.letters = 'asdfjklghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP'
+
+nnoremap {b :BufferPrevious<CR>
+nnoremap }b :BufferNext<CR>
+
 nnoremap <silent> <leader>x :BufferClose<CR>
 nnoremap <silent> <leader>o :BufferCloseAllButCurrent<CR>
 nnoremap <silent> <leader>p :BufferPick<CR>
