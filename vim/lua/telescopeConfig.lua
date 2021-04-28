@@ -4,8 +4,8 @@ local pickers = require('telescope.pickers')
 local conf = require('telescope.config').values
 local make_entry = require('telescope.make_entry')
 
-function telescopeLocations(server, command, title, params, opts)
-    opts = opts or {}
+function telescopeLocationsOrQuickfix(server, command, title, params, opts)
+    opts = opts or {openTelescope = true}
 
     params = params or vim.lsp.util.make_position_params()
 
@@ -23,18 +23,20 @@ function telescopeLocations(server, command, title, params, opts)
         else
             local items = vim.lsp.util.locations_to_items(result);
             vim.lsp.util.set_qflist(items);
-            -- vim.api.nvim_command("copen")
 
-            pickers.new(opts, {
-                prompt_title = title,
-                finder = finders.new_table {
-                    results = items,
-                    entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
-                },
-                previewer = conf.qflist_previewer(opts),
-                sorter = conf.generic_sorter(opts),
-            }):find()
-
+            if opts.openTelescope then
+                pickers.new(opts, {
+                    prompt_title = title,
+                    finder = finders.new_table {
+                        results = items,
+                        entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
+                    },
+                    previewer = conf.qflist_previewer(opts),
+                    sorter = conf.generic_sorter(opts),
+                }):find()
+            else
+                vim.api.nvim_command("copen")
+            end
         end
     end)
 end

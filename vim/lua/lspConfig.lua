@@ -64,10 +64,19 @@ function attachCommon(client, bufnr)
     end
 end
 
-function telescopeReferences(clientName)
+function telescopeReferences(clientName, opts)
     local params = vim.lsp.util.make_position_params();
     params.context = { includeDeclaration = false }
-    telescopeLocations(clientName, 'textDocument/references', 'References to symbol', params)
+    telescopeLocationsOrQuickfix(clientName, 'textDocument/references', 'References to symbol', params, opts)
+end
+
+function goToDefinition(split)
+    if split then
+        vim.api.nvim_command("vsplit")
+        vim.api.nvim_command("wincmd l")
+    end
+    --TODO go back when definition not found? Can we detect this somehow?
+    vim.lsp.buf.definition() 
 end
 
 function setupLspMappings(client, bufnr)
@@ -81,8 +90,12 @@ function setupLspMappings(client, bufnr)
 
     -- Don't do this for clangd, we already have ccls for that
     if client.name ~= 'clangd' then
-        buf_set_keymap('n', 'gu', string.format('<cmd>call luaeval("telescopeReferences(_A)", "%s")<CR>', client.name), opts)
-        buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+        buf_set_keymap('n', 'gd', '<cmd>lua goToDefinition(false)<CR>', opts)
+        buf_set_keymap('n', 'gD', '<cmd>lua goToDefinition(true)<CR>', opts)
+    end
+    if client.name ~= 'ccls' then
+        buf_set_keymap('n', 'gu', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = true})", "%s")<CR>', client.name), opts)
+        buf_set_keymap('n', 'gU', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = false})", "%s")<CR>', client.name), opts)
     end
 
     buf_set_keymap('n', '{d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
@@ -116,7 +129,7 @@ function cclsInheritance(derived, levels, title)
     local params = vim.lsp.util.make_position_params();
     params.derived = derived;
     params.levels = levels;
-    telescopeLocations('ccls', '$ccls/inheritance', title, params)
+    telescopeLocationsOrQuickfix('ccls', '$ccls/inheritance', title, params)
 end
 
 function attachCcls(client, bufnr)
