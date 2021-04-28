@@ -16,12 +16,12 @@ function! s:highlightColor(key, color, ...)
 endfunction
 
 call s:highlightColor('LspCxxHlSymClass', g:terminal_color_3, 'bold')
-call s:highlightColor('TSType', g:terminal_color_3, 'bold')
+call s:highlightColor('TSType', g:terminal_color_3, 'NONE')
 call s:highlightColor('LspCxxHlSymNamespace', g:terminal_color_8)
 call s:highlightColor('TSNamespace', g:terminal_color_8)
 
 call s:highlightColor('LspCxxHlSymFunction', g:terminal_color_15, 'italic')
-call s:highlightColor('TSFunction', g:terminal_color_15, 'italic')
+call s:highlightColor('TSFunction', g:terminal_color_15, 'NONE')
 
 call s:highlightColor('LspCxxHlSymParameter', g:terminal_color_14)
 
@@ -41,6 +41,7 @@ call s:highlightColor('LspCxxHlSymMacro', g:terminal_color_5, 'bold')
 call s:highlightColor('cStorageClass', g:terminal_color_9, 'italic')
 call s:highlightColor('cppStorageClass', g:terminal_color_9, 'italic')
 call s:highlightColor('cppModifier', g:terminal_color_9, 'bold')
+call s:highlightColor('TSKeyword', g:terminal_color_9, 'bold')
 
 call s:highlightColor('cString', g:terminal_color_2)
 
