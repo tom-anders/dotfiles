@@ -42,6 +42,7 @@ function telescopeLocationsOrQuickfix(server, command, title, params, opts)
 end
 
 function telescopeWorkspaceSymbols(server, opts)
+  opts = opts or {}
   local params = {query = opts.query or ''}
 
   getServer(server).request("workspace/symbol", params, function(err, _, result)
