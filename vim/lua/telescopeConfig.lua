@@ -3,6 +3,9 @@ local finders = require('telescope.finders')
 local pickers = require('telescope.pickers')
 local conf = require('telescope.config').values
 local make_entry = require('telescope.make_entry')
+local async_lib = require('plenary.async_lib')
+local async, await = async_lib.async, async_lib.await
+local channel = async_lib.util.channel
 
 function telescopeLocationsOrQuickfix(server, command, title, params, opts)
     opts = opts or {openTelescope = true}
@@ -41,35 +44,50 @@ function telescopeLocationsOrQuickfix(server, command, title, params, opts)
     end)
 end
 
-function telescopeWorkspaceSymbols(server, opts)
-  opts = opts or {}
-  local params = {query = opts.query or ''}
+-- {{{ Dynamic workspace symbols, adapted from telescope code to only use a single server
+local function get_workspace_symbols_requester(serverName)
+    local id = nil
 
-  getServer(server).request("workspace/symbol", params, function(err, _, result)
-      if not result or #result == 0 then
-          print("No results from textDocument/workspaceSymbol")
-      end
+    local server = getServer(serverName)
 
-      local items = vim.lsp.util.symbols_to_items(result, 0)
+    return async(function(prompt)
+        local tx, rx = channel.oneshot()
+        if id then
+            server.cancel_request(id)
+        end
 
-      opts = opts or {}
-      opts.ignore_filename = opts.ignore_filename or true
-      pickers.new(opts, {
-          prompt_title = 'LSP Workspace Symbols',
-          finder    = finders.new_table {
-              results = items,
-              -- TODO modified gen_from_lsp_symbols() to make width customizable
-              entry_maker = opts.entry_maker or make_entry.gen_from_lsp_symbols(opts)
-          },
-          previewer = conf.qflist_previewer(opts),
-          sorter = conf.prefilter_sorter{
-              tag = "symbol_type",
-              sorter = conf.generic_sorter(opts)
-          }
-      }):find()
+        -- If there's more than one word, the first one is assumend to be the filter for symbol_type
+        words = {}
+        for word in prompt:gmatch("%w+") do table.insert(words, word) end
 
-  end)
+        _, id = server.request("workspace/symbol", {query = words[2] or words[1]}, tx)
+
+        local err, _, results_lsp = await(rx())
+        assert(not err, err)
+
+        local locations = vim.lsp.util.symbols_to_items(results_lsp or {}, 0) or {}
+        return locations
+    end)
 end
+
+function telescopeWorkspaceSymbols(server, opts)
+    local curr_bufnr = vim.api.nvim_get_current_buf()
+    opts = opts or {}
+
+    pickers.new(opts, {
+        prompt_title = 'LSP Dynamic Workspace Symbols',
+        finder    = finders.new_dynamic {
+            entry_maker = opts.entry_maker or make_entry.gen_from_lsp_symbols(opts),
+            fn = get_workspace_symbols_requester(server),
+        },
+        previewer = conf.qflist_previewer(opts),
+        sorter = conf.prefilter_sorter{
+            tag = "symbol_type",
+            sorter = conf.generic_sorter(opts)
+        }
+    }):find()
+end
+-- }}}
 
 function telescopeDocumentSymbols(server, opts)
   local params = vim.lsp.util.make_position_params()
