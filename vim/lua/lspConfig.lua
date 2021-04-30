@@ -43,7 +43,6 @@ end
 function attachClangd(client, bufnr)
     attachCommon(client)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gh', ':ClangdSwitchSourceHeader<CR>', { noremap=true, silent=true })
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', ':ClangdHover<CR>', { noremap=true, silent=true })
 end
 
 function attachCommon(client, bufnr)
@@ -98,6 +97,7 @@ function setupLspMappings(client, bufnr)
 
         buf_set_keymap('n', 'gu', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = true})", "%s")<CR>', client.name), opts)
         buf_set_keymap('n', 'gU', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = false})", "%s")<CR>', client.name), opts)
+        buf_set_keymap('n', 'K', string.format('<cmd>call luaeval("getServer(_A[1]).request(_A[2], vim.lsp.util.make_position_params())", ["%s", "%s"])<CR>', client.name, "textDocument/hover"), opts)
     end
     if client.name ~= 'ccls' then
         buf_set_keymap('n', '<leader>.', string.format('<cmd>call luaeval("telescopeDocumentSymbols(_A)", "%s")<CR>', client.name), opts)
@@ -111,9 +111,6 @@ end
 
 lspconfig.clangd.setup{
     on_attach=attachClangd,
-    commands = {
-        ClangdHover = { function() getServer('clangd').request('textDocument/hover', vim.lsp.util.make_position_params()) end },
-    },
     cmd = {                 
         "clangd", "--clang-tidy", 
         "--background-index", "-j=4", "--all-scopes-completion",                 
