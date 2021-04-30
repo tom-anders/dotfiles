@@ -95,11 +95,11 @@ function setupLspMappings(client, bufnr)
     if client.name ~= 'clangd' then
         buf_set_keymap('n', 'gd', '<cmd>lua goToDefinition(false)<CR>', opts)
         buf_set_keymap('n', 'gD', '<cmd>lua goToDefinition(true)<CR>', opts)
-    end
-    if client.name ~= 'ccls' then
+
         buf_set_keymap('n', 'gu', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = true})", "%s")<CR>', client.name), opts)
         buf_set_keymap('n', 'gU', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = false})", "%s")<CR>', client.name), opts)
-
+    end
+    if client.name ~= 'ccls' then
         buf_set_keymap('n', '<leader>.', string.format('<cmd>call luaeval("telescopeDocumentSymbols(_A)", "%s")<CR>', client.name), opts)
         buf_set_keymap('n', '<C-k>', string.format('<cmd>call luaeval("telescopeWorkspaceSymbols(_A)", "%s")<CR>', client.name), opts)
     end
