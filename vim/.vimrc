@@ -64,6 +64,10 @@ nnoremap <silent> }q :cnext<CR>
 nnoremap <silent> {Q :cfirst<CR>
 nnoremap <silent> }Q :clast<CR>
 
+" Add line above or below current line
+nnoremap <silent>{<space> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent>}<space> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+
 " Next/prev error in quickfix
 nnoremap <silent> {e <C-w>j/error:<CR>N<CR>
 nnoremap <silent> }e <C-W>j/error:<CR>n<CR>
