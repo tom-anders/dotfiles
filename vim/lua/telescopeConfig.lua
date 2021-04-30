@@ -41,7 +41,7 @@ function telescopeLocationsOrQuickfix(server, command, title, params, opts)
                 vim.api.nvim_command("copen")
             end
         end
-    end)
+    end, 0)
 end
 
 -- {{{ Dynamic workspace symbols, adapted from telescope code to only use a single server
@@ -60,7 +60,7 @@ local function get_workspace_symbols_requester(serverName)
         words = {}
         for word in prompt:gmatch("%w+") do table.insert(words, word) end
 
-        _, id = server.request("workspace/symbol", {query = words[2] or words[1]}, tx)
+        _, id = server.request("workspace/symbol", {query = words[2] or words[1]}, tx, 0)
 
         local err, _, results_lsp = await(rx())
         assert(not err, err)
@@ -115,5 +115,5 @@ function telescopeDocumentSymbols(server, opts)
           }
       }):find()
 
-  end)
+  end, 0)
 end
