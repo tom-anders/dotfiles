@@ -66,12 +66,6 @@ function attachCommon(client, bufnr)
     end
 end
 
-function telescopeReferences(clientName, opts)
-    local params = vim.lsp.util.make_position_params();
-    params.context = { includeDeclaration = false }
-    telescopeLocationsOrQuickfix(clientName, 'textDocument/references', 'References to symbol', params, opts)
-end
-
 function goToDefinition(split)
     if split then
         vim.api.nvim_command("vsplit")
@@ -93,8 +87,9 @@ function setupLspMappings(client, bufnr)
     buf_set_keymap('n', 'gd', '<cmd>lua goToDefinition(false)<CR>', opts)
     buf_set_keymap('n', 'gD', '<cmd>lua goToDefinition(true)<CR>', opts)
 
-    buf_set_keymap('n', 'gu', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = true})", "%s")<CR>', client.name), opts)
-    buf_set_keymap('n', 'gU', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = false})", "%s")<CR>', client.name), opts)
+    buf_set_keymap('n', 'gu','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", {openTelescope = true})<CR>', opts)
+    buf_set_keymap('n', 'gU','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", {openTelescope = false})<CR>', opts)
+
     buf_set_keymap('n', 'K', string.format('<cmd>call luaeval("getServer(_A[1]).request(_A[2], vim.lsp.util.make_position_params())", ["%s", "%s"])<CR>', client.name, "textDocument/hover"), opts)
     buf_set_keymap('n', '<leader>.', string.format('<cmd>call luaeval("telescopeDocumentSymbols(_A)", "%s")<CR>', client.name), opts)
     buf_set_keymap('n', '<C-k>', string.format('<cmd>call luaeval("telescopeWorkspaceSymbols(_A)", "%s")<CR>', client.name), opts)

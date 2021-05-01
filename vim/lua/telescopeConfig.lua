@@ -7,41 +7,46 @@ local async_lib = require('plenary.async_lib')
 local async, await = async_lib.async, async_lib.await
 local channel = async_lib.util.channel
 
-function telescopeLocationsOrQuickfix(server, command, title, params, opts)
+function telescopeLocationsOrQuickfix(command, title, opts)
     opts = opts or {openTelescope = true}
 
-    params = params or vim.lsp.util.make_position_params()
+    params = vim.lsp.util.make_position_params()
+    params.context = { includeDeclaration = false }
 
     --FIXME This a workaround for initial_mode not working correctly (https://github.com/nvim-telescope/telescope.nvim/issues/750)
     opts.on_complete = { function() vim.cmd"stopinsert" end }
 
-    getServer(server).request(command, params, function(err, _, result)
-        if not result or #result == 0 then 
-            print("No results!")
-            return
+    local results_lsp = vim.lsp.buf_request_sync(0, "textDocument/references", params, opts.timeout or 1000)
+    local locations = {}
+    for _, server_results in pairs(results_lsp) do
+        if server_results.result then
+            vim.list_extend(locations, server_results.result or {})
         end
+    end
 
-        if #result == 1 then
-            vim.lsp.util.jump_to_location(result[1])
+    if #locations == 0 then
+        print("No results for textDocument/references")
+        return
+    elseif #locations == 1 then
+        vim.lsp.util.jump_to_location(locations[1])
+    else
+        local items = vim.lsp.util.locations_to_items(locations)
+        vim.lsp.util.set_qflist(items);
+
+        if opts.openTelescope then
+            pickers.new(opts, {
+                prompt_title = title,
+                finder = finders.new_table {
+                    results = items,
+                    entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
+                },
+                previewer = conf.qflist_previewer(opts),
+                sorter = conf.generic_sorter(opts),
+            }):find()
         else
-            local items = vim.lsp.util.locations_to_items(result);
-            vim.lsp.util.set_qflist(items);
-
-            if opts.openTelescope then
-                pickers.new(opts, {
-                    prompt_title = title,
-                    finder = finders.new_table {
-                        results = items,
-                        entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
-                    },
-                    previewer = conf.qflist_previewer(opts),
-                    sorter = conf.generic_sorter(opts),
-                }):find()
-            else
-                vim.api.nvim_command("copen")
-            end
+            vim.api.nvim_command("copen")
         end
-    end, 0)
+    end
 end
 
 -- {{{ Dynamic workspace symbols, adapted from telescope code to only use a single server
