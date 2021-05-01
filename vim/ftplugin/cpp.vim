@@ -22,12 +22,17 @@ call s:highlightColor('ClangdNamespace', g:terminal_color_8)
 call s:highlightColor('ClangdFunction', g:terminal_color_15, 'italic')
 
 call s:highlightColor('ClangdParameter', g:terminal_color_14)
+call s:highlightColor('TSParameter', g:terminal_color_14)
 
 call s:highlightColor('ClangdField', g:terminal_color_4)
+call s:highlightColor('TSField', g:terminal_color_4)
+call s:highlightColor('TSProperty', g:terminal_color_4)
 
 call s:highlightColor('ClangdLocalVariable', g:terminal_color_7)
 
 call s:highlightColor('ClangdMemberFunction', g:terminal_color_12)
+call s:highlightColor('TSMethod', g:terminal_color_12)
+call s:highlightColor('TSFunction', g:terminal_color_12)
 
 " Static -> orange
 call s:highlightColor('ClangdStaticMemberFunction', '#fe8019', 'bold') 
