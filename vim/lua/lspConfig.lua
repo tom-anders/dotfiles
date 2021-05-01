@@ -90,19 +90,14 @@ function setupLspMappings(client, bufnr)
     buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
-    -- Don't do this for clangd, we already have ccls for that
-    if client.name ~= 'clangd' then
-        buf_set_keymap('n', 'gd', '<cmd>lua goToDefinition(false)<CR>', opts)
-        buf_set_keymap('n', 'gD', '<cmd>lua goToDefinition(true)<CR>', opts)
+    buf_set_keymap('n', 'gd', '<cmd>lua goToDefinition(false)<CR>', opts)
+    buf_set_keymap('n', 'gD', '<cmd>lua goToDefinition(true)<CR>', opts)
 
-        buf_set_keymap('n', 'gu', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = true})", "%s")<CR>', client.name), opts)
-        buf_set_keymap('n', 'gU', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = false})", "%s")<CR>', client.name), opts)
-        buf_set_keymap('n', 'K', string.format('<cmd>call luaeval("getServer(_A[1]).request(_A[2], vim.lsp.util.make_position_params())", ["%s", "%s"])<CR>', client.name, "textDocument/hover"), opts)
-    end
-    if client.name ~= 'ccls' then
-        buf_set_keymap('n', '<leader>.', string.format('<cmd>call luaeval("telescopeDocumentSymbols(_A)", "%s")<CR>', client.name), opts)
-        buf_set_keymap('n', '<C-k>', string.format('<cmd>call luaeval("telescopeWorkspaceSymbols(_A)", "%s")<CR>', client.name), opts)
-    end
+    buf_set_keymap('n', 'gu', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = true})", "%s")<CR>', client.name), opts)
+    buf_set_keymap('n', 'gU', string.format('<cmd>call luaeval("telescopeReferences(_A, {openTelescope = false})", "%s")<CR>', client.name), opts)
+    buf_set_keymap('n', 'K', string.format('<cmd>call luaeval("getServer(_A[1]).request(_A[2], vim.lsp.util.make_position_params())", ["%s", "%s"])<CR>', client.name, "textDocument/hover"), opts)
+    buf_set_keymap('n', '<leader>.', string.format('<cmd>call luaeval("telescopeDocumentSymbols(_A)", "%s")<CR>', client.name), opts)
+    buf_set_keymap('n', '<C-k>', string.format('<cmd>call luaeval("telescopeWorkspaceSymbols(_A)", "%s")<CR>', client.name), opts)
 
     buf_set_keymap('n', '{d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', '}d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
@@ -111,9 +106,13 @@ end
 
 lspconfig.clangd.setup{
     on_attach=attachClangd,
+    handlers = lsp_status.extensions.clangd.setup(),
+    init_options = {
+        clangdFileStatus = true
+    },
     cmd = {                 
         "clangd", "--clang-tidy", 
-        "--background-index", "-j=4", "--all-scopes-completion",                 
+        "--background-index", "-j=6", "--all-scopes-completion",                 
         "--completion-style=detailed", "--cross-file-rename",
         "--header-insertion=never",
     },
@@ -125,6 +124,9 @@ lspconfig.clangd.setup{
                 }
             }
         },
+        window = {
+            workDoneProgress = true
+        }
     }
 }
 
@@ -134,45 +136,4 @@ function cclsInheritance(derived, levels, title)
     params.levels = levels;
     telescopeLocationsOrQuickfix('ccls', '$ccls/inheritance', title, params)
 end
-
-function attachCcls(client, bufnr)
-    attachCommon(client, bufnr)
-
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xi', ":lua cclsInheritance(true, 1, 'Implementations in derived classes')<CR>", { noremap=true, silent=true })
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xI', ":lua cclsInheritance(true, 5, 'Implementations in derived classes (5 levels)')<CR>", { noremap=true, silent=true })
-
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xb', ":lua cclsInheritance(false, 1, 'Base class implementation')<CR>", { noremap=true, silent=true })
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'xB', ":lua cclsInheritance(false, 5, 'Base class implementations (5 levels)')<CR>", { noremap=true, silent=true })
-end
-
-lspconfig.ccls.setup {
-    cmd = {"ccls"},
-
-    on_attach=attachCcls,
-    init_options = {
-        highlight = {
-            lsRanges = true
-        },
-        index = {
-            threads = 6
-        }
-    },
-    root_dir = function(fname)
-      return lspconfig.util.root_pattern("compile_commands.json")(fname) or lspconfig.util.path.dirname(fname)
-    end;
-    capabilities = {
-        textDocument = {
-            completion = {
-                completionItem = {
-                    snippetSupport = true,
-                }
-            },
-        },
-        window = {
-            workDoneProgress = true
-        }
-    },
-    -- No need for diagnostics, will be provided by clangd
-    handlers = {["textDocument/publishDiagnostics"] = function(...) return nil end}
-}
 
