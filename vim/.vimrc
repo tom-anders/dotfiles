@@ -268,10 +268,10 @@ let g:bookmark_no_default_key_mappings = 1
 
 
 " TODO these are broken somehow
-" nn <silent> <C-m>m :BookmarkToggle<CR>
-" nn <C-m>a :BookmarkAnnotate 
-" nn <silent> <leader>cm :BookmarkShowAll<CR>
-" nnoremap <silent> <C-m>c :BookmarkClearAll<CR>
+nn <silent> <C-b>b :BookmarkToggle<CR>
+nn <silent> <C-b>a :BookmarkAnnotate<CR>
+nn <silent> <leader>cm :BookmarkShowAll<CR>
+nn <silent> <C-b>c :BookmarkClearAll<CR>
 " }}}
 
 " {{{ vim-peekaboo
