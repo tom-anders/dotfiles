@@ -267,7 +267,6 @@ Plug 'MattesGroeger/vim-bookmarks'
 let g:bookmark_no_default_key_mappings = 1
 
 
-" TODO these are broken somehow
 nn <silent> <C-b>b :BookmarkToggle<CR>
 nn <silent> <C-b>a :BookmarkAnnotate<CR>
 nn <silent> <leader>cm :BookmarkShowAll<CR>
@@ -390,18 +389,17 @@ nmap ga <Plug>(EasyAlign)
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tom-anders/fzf.vim'
 
-Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
-let $FZF_PREVIEW_PREVIEW_BAT_THEME = 'gruvbox-dark'
-
-map <silent> <leader>zf :Files<cr>
-map <silent> <leader><leader>b :Buffers<cr>
-map <silent> <leader>zM :Marks<cr>
+map <silent> <leader>zf :Telescope find_files<cr>
+map <silent> <leader><leader>b :Telescope buffers<cr>
+map <silent> <leader>zM :Telescope marks<cr>
 map <silent> <leader>zl :Lines<cr>
 map <silent> <leader>zg :Rg<cr>
-map <silent> <leader>zs :Snippets<cr>
-map <silent> <leader>zh :History<cr>
-map <silent> <leader>zc :FzfPreviewQuickFixRpc<cr>
-map <silent> <leader>zm :FzfPreviewBookmarksRpc<cr>
+map <silent> <leader>zs :Telescope ultisnips ultisnips<cr>
+map <silent> <leader>zh :Telescope oldfiles<cr>
+map <silent> <leader>zc :Telescope quickfix<cr>
+
+" Writing an actual picker for this would be much cleaner, but this works well enough
+map <silent> <leader>zm :BookmarkShowAll<cr> :cclose<CR> :Telescope quickfix<cr>
 
 " CTRL-a CTRL-q to select all and build quickfix list (https://github.com/junegunn/fzf.vim/issues/185)
 function! s:build_quickfix_list(lines)
@@ -483,7 +481,9 @@ autocmd Filetype vim set foldmethod=marker
 " {{{ telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'tom-anders/telescope.nvim'
+Plug 'fhill2/telescope-ultisnips.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " }}}
 
 Plug 'famiu/nvim-reload'
