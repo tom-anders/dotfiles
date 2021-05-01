@@ -70,6 +70,9 @@ function goToDefinition(split)
     if split then
         vim.api.nvim_command("vsplit")
         vim.api.nvim_command("wincmd l")
+    else
+        -- Set mark to add this to the jump list even if we didn't switch buffers
+        vim.api.nvim_command("normal m\'") 
     end
     --TODO go back when definition not found? Can we detect this somehow?
     vim.lsp.buf.definition() 
@@ -83,6 +86,11 @@ function setupLspMappings(client, bufnr)
 
     buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+
+    buf_set_keymap('n', 'xi','<cmd>lua telescopeLocationsOrQuickfix("textDocument/implementation", {openTelescope = true})<CR>', opts)
+    buf_set_keymap('n', 'xI','<cmd>lua telescopeLocationsOrQuickfix("textDocument/implementation", {openTelescope = false})<CR>', opts)
+    -- For clangd, textDocument/definition when the cursor is placed over the override keyword goes to the base class definition 
+    buf_set_keymap('n', 'xb','<cmd>call search("override", "", line(".")) | lua vim.lsp.buf.definition() <CR>', opts)
 
     buf_set_keymap('n', 'gd', '<cmd>lua goToDefinition(false)<CR>', opts)
     buf_set_keymap('n', 'gD', '<cmd>lua goToDefinition(true)<CR>', opts)
@@ -128,11 +136,4 @@ lspconfig.clangd.setup{
         }
     }
 }
-
-function cclsInheritance(derived, levels, title)
-    local params = vim.lsp.util.make_position_params();
-    params.derived = derived;
-    params.levels = levels;
-    telescopeLocationsOrQuickfix('ccls', '$ccls/inheritance', title, params)
-end
 

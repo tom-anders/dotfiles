@@ -16,7 +16,7 @@ function telescopeLocationsOrQuickfix(command, title, opts)
     --FIXME This a workaround for initial_mode not working correctly (https://github.com/nvim-telescope/telescope.nvim/issues/750)
     opts.on_complete = { function() vim.cmd"stopinsert" end }
 
-    local results_lsp = vim.lsp.buf_request_sync(0, "textDocument/references", params, opts.timeout or 1000)
+    local results_lsp = vim.lsp.buf_request_sync(0, command, params, opts.timeout or 1000)
     local locations = {}
     for _, server_results in pairs(results_lsp) do
         if server_results.result then
@@ -25,7 +25,7 @@ function telescopeLocationsOrQuickfix(command, title, opts)
     end
 
     if #locations == 0 then
-        print("No results for textDocument/references")
+        print("No results for", command)
         return
     elseif #locations == 1 then
         vim.lsp.util.jump_to_location(locations[1])
