@@ -343,6 +343,7 @@ Plug 'arkbriar/vim-qmake'
 
 " {{{ vim-lsp-cxx-highlight
 Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'tom-anders/clangd-nvim'
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1

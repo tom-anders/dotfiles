@@ -106,6 +106,7 @@ end
 
 lspconfig.clangd.setup{
     on_attach=attachClangd,
+    on_init = require'clangd_nvim'.on_init, -- Sets up semantic highlighting
     handlers = lsp_status.extensions.clangd.setup(),
     init_options = {
         clangdFileStatus = true
@@ -122,6 +123,9 @@ lspconfig.clangd.setup{
                 completionItem = {
                     snippetSupport = true,
                 }
+            },
+            semanticHighlightingCapabilities = {
+                semanticHighlighting = true
             }
         },
         window = {
