@@ -385,58 +385,6 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 " }}}
 
-" {{{ fzf
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'tom-anders/fzf.vim'
-
-map <silent> <leader>zf :Telescope find_files<cr>
-map <silent> <leader><leader>b :Telescope buffers<cr>
-map <silent> <leader>zM :Telescope marks<cr>
-map <silent> <leader>zl :Lines<cr>
-map <silent> <leader>zg :Rg<cr>
-map <silent> <leader>zs :Telescope ultisnips ultisnips<cr>
-map <silent> <leader>zh :Telescope oldfiles<cr>
-map <silent> <leader>zc :Telescope quickfix<cr>
-
-" Writing an actual picker for this would be much cleaner, but this works well enough
-map <silent> <leader>zm :BookmarkShowAll<cr> :cclose<CR> :Telescope quickfix<cr>
-
-" CTRL-a CTRL-q to select all and build quickfix list (https://github.com/junegunn/fzf.vim/issues/185)
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
-
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all --bind ctrl-s:select'
-
-" fzf with git ls-files, but only display file name instead of full path
-" This works by piping both the filename and the fullpath to fzf and then
-" using --with-nth=1 to only display the filename. The sink function then
-" extracts the full path so that we can open it as usual
-function! s:gitFilesBasename()
-    let base = fnamemodify(expand('%'), ':h:.:S')
-    let sortCmd = '|'
-    if base == '.'
-        let sortCmd = '| ~/.cargo/bin/proximity-sort ' . base . ' | '
-    endif
-
-    call fzf#run(fzf#wrap({'options': ['--with-nth=1', '--preview', '~/.dotfiles/vim/previewSecondArg.sh {}'], 'source': 'git ls-files --recurse-submodules $(git rev-parse --show-toplevel)' . sortCmd . 'while read -r line ; do printf "%s %s\n" $(basename $line) $line; done', 'sink': function('s:gitFilesBasenameSink')}))
-endfunction
-function! s:gitFilesBasenameSink(file)
-    execute "edit ".split(a:file)[1]
-endfunction
-nmap <silent> <leader>f :call <SID>gitFilesBasename()<cr> 
-
-nmap <silent> <leader><M-f> :GFiles --recurse-submodules <cr> 
-
-" }}}
-
 " {{{ undotree
 Plug 'mbbill/undotree'
 "toggle undotree
@@ -484,6 +432,19 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'tom-anders/telescope.nvim'
 Plug 'fhill2/telescope-ultisnips.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+map <silent> <leader>zf :Telescope find_files<cr>
+map <silent> <leader><leader>b :Telescope buffers<cr>
+map <silent> <leader>zM :Telescope marks<cr>
+map <silent> <leader>zg :Telescope live_grep<cr>
+map <silent> <leader>zs :Telescope ultisnips ultisnips<cr>
+map <silent> <leader>zh :Telescope oldfiles<cr>
+map <silent> <leader>zc :Telescope quickfix<cr>
+
+nmap <silent> <leader>f :lua gitFilesProximitySort({})<CR>
+
+" Writing an actual picker for this would be much cleaner, but this works well enough
+map <silent> <leader>zm :BookmarkShowAll<cr> :cclose<CR> :Telescope quickfix<cr>
 " }}}
 
 Plug 'famiu/nvim-reload'

@@ -123,6 +123,34 @@ function telescopeDocumentSymbols(server, opts)
   end, 0)
 end
 
+-- Adapted from builtin.git_files
+function gitFilesProximitySort(opts)
+  local show_untracked = utils.get_default(opts.show_untracked, true)
+  local recurse_submodules = utils.get_default(opts.recurse_submodules, false)
+  if show_untracked and recurse_submodules then
+    error("Git does not support both --others and --recurse-submodules")
+  end
+
+  -- By creating the entry maker after the cwd options,
+  -- we ensure the maker uses the cwd options when being created.
+  opts.entry_maker = opts.entry_maker or make_entry.gen_from_file(opts)
+
+  local home = vim.api.nvim_eval("expand('$HOME')")
+  local base = vim.api.nvim_eval("fnamemodify(expand('%'), ':h:.:S')")
+
+  pickers.new(opts, {
+    prompt_title = 'Git Files',
+    finder = finders.new_oneshot_job(
+      vim.tbl_flatten( {
+        home .. "/.dotfiles/scripts/gitLsProximitySort.sh", base
+      } ),
+      opts
+    ),
+    previewer = conf.file_previewer(opts),
+    sorter = conf.file_sorter(opts),
+  }):find()
+end
+
 require('telescope').setup {
     extensions = {
         fzf = {
