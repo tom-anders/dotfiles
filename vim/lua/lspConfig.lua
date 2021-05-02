@@ -17,11 +17,7 @@ function getServer(name)
     end
 end
 
-function attachClangd(client, bufnr)
-    attachCommon(client)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gh', ':ClangdSwitchSourceHeader<CR>', { noremap=true, silent=true })
-end
-
+--- {{{ mappings
 function attachCommon(client, bufnr)
     lsp_status.on_attach(client, bufnr)
 
@@ -83,6 +79,13 @@ function setupLspMappings(client, bufnr)
     buf_set_keymap('n', '}d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>di', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
+-- }}}
+
+-- {{{ clangd setup
+function attachClangd(client, bufnr)
+    attachCommon(client, bufnr)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gh', ':ClangdSwitchSourceHeader<CR>', { noremap=true, silent=true })
+end
 
 lspconfig.clangd.setup{
     on_attach=attachClangd,
@@ -113,4 +116,6 @@ lspconfig.clangd.setup{
         }
     }
 }
+-- }}}
 
+-- vim: foldmarker={{{,}}} foldmethod=marker
