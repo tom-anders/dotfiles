@@ -236,7 +236,6 @@ let g:sandwich#magicchar#f#patterns = [
   \     'footer' : '',
   \   },
   \ ]
-nmap s ys
 " }}}
 
 "{{{ vim-easymotion
@@ -258,6 +257,16 @@ map <leader>s <Plug>(easymotion-s)
 let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
 
 autocmd User EasyMotionPromptEnd silent! LspCxxHighlight
+"}}}
+
+"{{{ vim-sneak
+Plug 'justinmk/vim-sneak'
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+let g:sneak#label = 1
+let g:sneak#target_labels = "sftunqxSFGHLTUNRMQZ0"
 "}}}
 
 Plug 'vim-scripts/ReplaceWithRegister'
