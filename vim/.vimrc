@@ -473,7 +473,7 @@ Plug 'hrsh7th/vim-vsnip' " For lsp snippets
 imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 smap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 
-Plug 'cohama/lexima.vim' " Autoclose braces etc.
+Plug 'windwp/nvim-autopairs' 
 Plug 'tom-anders/nvim-compe'
 
 Plug 'ray-x/lsp_signature.nvim'
@@ -559,14 +559,3 @@ if !empty(glob("~/.work.vim"))
 endif
 " }}}
 
-" {{{ Expanding autocomplete
-let g:lexima_no_default_rules = v:true
-call lexima#set_default_rules()
-inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
-
-" Only autoclose "(" when there's a space or new line after the cursor
-call lexima#add_rule({'char': '(', 'input_after': ''}) "Override the default rule to do nothing
-call lexima#add_rule({'char': '(', 'at': '\%#\([^A-Za-z&]\)', 'input_after': ')'}) 
-call lexima#add_rule({'char': '(', 'at': '\%#$', 'input_after': ')'}) 
-
-" }}}

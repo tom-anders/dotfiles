@@ -21,6 +21,31 @@ require'compe'.setup {
   };
 }
 
+-- {{{ get compe and autopairs to work nicely together (taken from autopairs's readme)
+local remap = vim.api.nvim_set_keymap
+local npairs = require('nvim-autopairs')
+npairs.setup()
+
+-- skip it, if you use another global object
+_G.MUtils= {}
+
+vim.g.completion_confirm_key = ""
+MUtils.completion_confirm=function()
+  if vim.fn.pumvisible() ~= 0  then
+    if vim.fn.complete_info()["selected"] ~= -1 then
+      return vim.fn["compe#confirm"](npairs.esc("<cr>"))
+    else
+      return npairs.esc("<cr>")
+    end
+  else
+    return npairs.autopairs_cr()
+  end
+end
+
+
+remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+-- }}}
+
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -57,3 +82,5 @@ vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+
+-- vim: foldmethod=marker
