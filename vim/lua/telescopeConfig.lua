@@ -7,6 +7,9 @@ local async_lib = require('plenary.async_lib')
 local async, await = async_lib.async, async_lib.await
 local channel = async_lib.util.channel
 
+-- {{{ locations or quickfix
+-- Open up results of command either in quickfix (openTelescope=false) or telescope
+-- If there's only one result, directly jump to it
 function telescopeLocationsOrQuickfix(command, title, opts)
     opts = opts or {openTelescope = true}
 
@@ -48,6 +51,7 @@ function telescopeLocationsOrQuickfix(command, title, opts)
         end
     end
 end
+--- }}}
 
 -- {{{ Dynamic workspace symbols, adapted from telescope code to only use a single server
 local function get_workspace_symbols_requester(serverName)
@@ -94,6 +98,7 @@ function telescopeWorkspaceSymbols(server, opts)
 end
 -- }}}
 
+-- {{{ Document symbols
 function telescopeDocumentSymbols(server, opts)
   local params = vim.lsp.util.make_position_params()
 
@@ -122,7 +127,36 @@ function telescopeDocumentSymbols(server, opts)
 
   end, 0)
 end
+-- }}}
 
+-- {{{ Custom dropdown theme
+function dropdownTheme(opts)
+  opts = opts or {}
+
+  local theme_opts = {
+    -- WIP: Decide on keeping these names or not.
+    theme = "dropdown",
+
+    sorting_strategy = "ascending",
+    layout_strategy = "center",
+    results_title = false,
+    preview_title = "Preview",
+    preview_cutoff = 1, -- Preview should always show (unless previewer = false)
+    width = 180,
+    results_height = 30,
+    borderchars = {
+      { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+      prompt = {"─", "│", " ", "│", "╭", "╮", "│", "│"},
+      results = {"─", "│", "─", "│", "├", "┤", "╯", "╰"},
+      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+    },
+  }
+
+  return vim.tbl_deep_extend("force", theme_opts, opts)
+end
+-- }}}
+
+-- {{{ git files
 -- Adapted from builtin.git_files
 function gitFilesProximitySort(opts)
   local show_untracked = utils.get_default(opts.show_untracked, true)
@@ -150,6 +184,7 @@ function gitFilesProximitySort(opts)
     sorter = conf.file_sorter(opts),
   }):find()
 end
+-- }}}
 
 require('telescope').setup {
     extensions = {
@@ -162,3 +197,5 @@ require('telescope').setup {
 }
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('ultisnips')
+
+-- vim: foldmarker={{{,}}} foldmethod=marker

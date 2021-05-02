@@ -442,6 +442,7 @@ map <silent> <leader>zh :Telescope oldfiles<cr>
 map <silent> <leader>zc :Telescope quickfix<cr>
 
 nmap <silent> <leader>f :lua gitFilesProximitySort({})<CR>
+nmap <silent> <leader>F :lua gitFilesProximitySort(dropdownTheme{previewer=false})<CR>
 
 " Writing an actual picker for this would be much cleaner, but this works well enough
 map <silent> <leader>zm :BookmarkShowAll<cr> :cclose<CR> :Telescope quickfix<cr>
