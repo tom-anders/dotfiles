@@ -45,10 +45,26 @@ function goToDefinition(split)
         vim.api.nvim_command("wincmd l")
     else
         -- Set mark to add this to the jump list even if we didn't switch buffers
-        vim.api.nvim_command("normal m\'") 
+        vim.api.nvim_command("normal m\'") --TODO this actually a bug in nvim, see https://github.com/neovim/neovim/commit/993ca90c9b53033216d4973e2f995b995ed5740e
     end
     --TODO go back when definition not found? Can we detect this somehow?
     vim.lsp.buf.definition() 
+end
+
+function peekDefinition()
+    local params = vim.lsp.util.make_position_params()
+    vim.lsp.buf_request(0, 'textDocument/definition', params, function(_, _, result)
+        if not result or not result[1] then
+            print("No result for textDocument/definition")
+            return
+        end
+
+        -- Give some context
+        result[1].range["start"].line = math.max(0, result[1].range["start"].line - 4)
+        result[1].range["end"].line = result[1].range["end"].line + 7
+
+        vim.lsp.util.preview_location(result[1])
+    end)
 end
 
 function setupLspMappings(client, bufnr)
@@ -57,7 +73,7 @@ function setupLspMappings(client, bufnr)
 
     local opts = { noremap=true, silent=true }
 
-    buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    buf_set_keymap('n', '<leader>ca', '<cmd>Telescope lsp_code_actions<CR>', opts)
     buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
     buf_set_keymap('n', 'xi','<cmd>lua telescopeLocationsOrQuickfix("textDocument/implementation", {openTelescope = true})<CR>', opts)
@@ -67,6 +83,8 @@ function setupLspMappings(client, bufnr)
 
     buf_set_keymap('n', 'gd', '<cmd>lua goToDefinition(false)<CR>', opts)
     buf_set_keymap('n', 'gD', '<cmd>lua goToDefinition(true)<CR>', opts)
+
+    buf_set_keymap('n', 'gp', '<cmd>lua peekDefinition()<CR>', opts)
 
     buf_set_keymap('n', 'gu','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", {openTelescope = true})<CR>', opts)
     buf_set_keymap('n', 'gU','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", {openTelescope = false})<CR>', opts)
