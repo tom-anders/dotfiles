@@ -93,6 +93,9 @@ function setupLspMappings(client, bufnr)
     buf_set_keymap('n', '<leader>.', string.format('<cmd>call luaeval("telescopeDocumentSymbols(_A)", "%s")<CR>', client.name), opts)
     buf_set_keymap('n', '<C-k>', string.format('<cmd>call luaeval("telescopeWorkspaceSymbols(_A)", "%s")<CR>', client.name), opts)
 
+    buf_set_keymap('n', '<leader>.', '<cmd>lua require"telescope.builtin".lsp_document_symbols{symbol_width=40}<CR>', opts)
+    buf_set_keymap('n', '<C-k>', '<cmd>lua require"telescope.builtin".lsp_dynamic_workspace_symbols{symbol_width=40}<CR>', opts)
+
     buf_set_keymap('n', '{d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', '}d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>di', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
@@ -113,8 +116,8 @@ lspconfig.clangd.setup{
         clangdFileStatus = true
     },
     cmd = {                 
-        "clangd", "--clang-tidy", 
-        "--background-index", "-j=6", "--all-scopes-completion",                 
+        "clangd-12", "--clang-tidy", 
+        "--background-index", "-j=8", "--all-scopes-completion",                 
         "--completion-style=detailed", "--cross-file-rename",
         "--header-insertion=never",
     },
