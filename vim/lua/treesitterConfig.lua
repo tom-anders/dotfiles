@@ -1,8 +1,9 @@
 require'nvim-treesitter.configs'.setup {
     ensure_installed = "maintained", 
-}
-
-require'nvim-treesitter.configs'.setup {
+    highlight = {
+        enable = true,              
+        disable = { "c", "cpp" }, -- Using clangd semantic highlighting for those
+    },
   textobjects = {
     select = {
       enable = true,
