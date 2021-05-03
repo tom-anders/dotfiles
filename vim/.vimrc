@@ -466,7 +466,7 @@ Plug 'nvim-treesitter/playground'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 Plug 'neovim/nvim-lspconfig' 
-nn <silent> <leader>rs :LspRestart<CR>
+nn <silent> <leader>rs :LspRestart<CR> :lua require'clangd_nvim'.reload()<CR>
 Plug 'nvim-lua/lsp-status.nvim'
 
 Plug 'hrsh7th/vim-vsnip' " For lsp snippets
