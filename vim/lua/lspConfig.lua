@@ -61,7 +61,7 @@ function peekDefinition()
 
         -- Give some context
         result[1].range["start"].line = math.max(0, result[1].range["start"].line - 4)
-        result[1].range["end"].line = result[1].range["end"].line + 7
+        result[1].range["end"].line = result[1].range["end"].line + 20
 
         vim.lsp.util.preview_location(result[1])
     end)
