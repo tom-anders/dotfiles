@@ -72,15 +72,20 @@ nnoremap <silent>}<space> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent> {e <C-w>j/error:<CR>N<CR>
 nnoremap <silent> }e <C-W>j/error:<CR>n<CR>
 
-" nnoremap <silent> {c :CocPrev<CR>
-" nnoremap <silent> }c :CocNext<CR>
-" nnoremap <silent> {C :CocFirst<CR>
-" nnoremap <silent> }C :CocLast<CR>
-
 nnoremap <silent> {t :tabprev<CR>
 nnoremap <silent> }t :tabnext<CR>
 nnoremap <silent> {T :tabfirst<CR>
 nnoremap <silent> }T :tablast<CR>
+
+function! NextWithWrap()
+    execute 'try | next | catch | first | echo("At end of arglist, wrapping around") | endtry'
+endfunction
+function! PrevWithWrap()
+    execute 'try | prev | catch | last | echo("At start of arglist, wrapping around") | endtry'
+endfunction
+
+nnoremap <silent> }a :call NextWithWrap()<CR>
+nnoremap <silent> {a :call PrevWithWrap()<CR>
 
 nmap <silent> <leader>tx :tabclose<cr>
 nmap <silent> <leader>te :tabedit %<cr>
@@ -159,8 +164,8 @@ let bufferline.semantic_letters = v:false
 let bufferline.animation = v:false
 let bufferline.letters = 'asdfjklghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP'
 
-nnoremap {b :BufferPrevious<CR>
-nnoremap }b :BufferNext<CR>
+nnoremap <silent> {b :BufferPrevious<CR>
+nnoremap <silent> }b :BufferNext<CR>
 
 nnoremap <silent> <leader>x :BufferClose<CR>
 nnoremap <silent> <leader>o :BufferCloseAllButCurrent<CR>
