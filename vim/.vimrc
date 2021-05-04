@@ -124,37 +124,6 @@ Plug 'machakann/vim-highlightedyank'
 map y <Plug>(highlightedyank)
 " }}}
 
-" {{{ vim-lightline
-" Plug 'itchyny/lightline.vim'
-" Plug 'mengelbrecht/lightline-bufferline'
-" set laststatus=2
-" set showtabline=2
-" set noshowmode
-" let g:lightline = {
-" \ 'colorscheme': 'gruvbox',
-" \ 'separator': { 'left': '', 'right': '' },
-" \ 'subseparator': { 'left': '', 'right': '' },
-" \ 'active': {
-" \   'left': [ [ 'mode', 'paste' ],
-" \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-" \   'right' : [ ['lineinfo'], ['filetype'] ]
-" \ },
-" \ 'tabline': {
-" \    'left': [ [ 'buffers' ] ],
-" \    'right': [ [ 'tabs' ] ],
-" \ },
-" \ 'component_expand': {
-" \   'buffers': 'lightline#bufferline#buffers'
-" \ },
-" \ 'component_type': {
-" \   'buffers': 'tabsel'
-" \ },
-" \ 'component_function': {
-" \   'gitbranch': 'FugitiveHead'
-" \ },
-" \ }
-" }}}
-
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
@@ -314,6 +283,8 @@ function! CreateCenteredFloatingWindow()
 endfunction
 let g:peekaboo_window="call CreateCenteredFloatingWindow()"
 " }}}
+
+Plug 'inside/vim-search-pulse'
 
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-repeat'
@@ -523,6 +494,7 @@ set termguicolors
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark='hard'
 color gruvbox
+highlight Search gui=underline,bold
 " }}}
 
 " {{{ Quickfix/CocList mappings
