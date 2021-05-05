@@ -511,6 +511,18 @@ autocmd FileType qf nnoremap <silent> <buffer> <leader>n /error:<CR>
 " Open result in new split
 autocmd FileType qf nnoremap <silent> <buffer> <leader><CR> <C-w><Enter><C-w>L
 
+function! RemoveQfItem()
+    let idx = line('.') - 1
+    let qflist = getqflist()
+    call remove(qflist, idx)
+    call setqflist(qflist, 'r')
+
+    execute "copen"
+    " Go back to the idx we started at
+    execute "normal " . idx . "j"
+endfunction
+autocmd FileType qf nnoremap <silent> <buffer> dd :call RemoveQfItem()<CR>
+
 " }}}
 
 " For some reason, putting this into ftplugin/cpp.vim does not work
