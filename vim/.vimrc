@@ -425,6 +425,7 @@ map <silent> <leader>zg :Telescope live_grep<cr>
 map <silent> <leader>zs :Telescope ultisnips ultisnips<cr>
 map <silent> <leader>zh :Telescope oldfiles<cr>
 map <silent> <leader>zc :Telescope quickfix<cr>
+map <silent> <leader>zl :Telescope current_buffer_fuzzy_find<cr>
 
 nmap <silent> <leader>f :lua gitFilesProximitySort({})<CR>
 nmap <silent> <leader>F :lua gitFilesProximitySort(dropdownTheme{previewer=false})<CR>
@@ -444,6 +445,10 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'neovim/nvim-lspconfig' 
 nn <silent> <leader>rs :LspRestart<CR> :lua require'clangd_nvim'.reload()<CR>
 Plug 'nvim-lua/lsp-status.nvim'
+
+Plug 'folke/lsp-trouble.nvim'
+nn <silent> <leader>q :LspTroubleToggle quickfix<CR>
+nn <silent> <leader>di :LspTroubleToggle lsp_document_diagnostics<CR>
 
 Plug 'hrsh7th/vim-vsnip' " For lsp snippets
 imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'

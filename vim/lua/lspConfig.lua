@@ -76,8 +76,8 @@ function setupLspMappings(client, bufnr)
     buf_set_keymap('n', '<leader>ca', '<cmd>Telescope lsp_code_actions<CR>', opts)
     buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
-    buf_set_keymap('n', 'xi','<cmd>lua telescopeLocationsOrQuickfix("textDocument/implementation", {openTelescope = true})<CR>', opts)
-    buf_set_keymap('n', 'xI','<cmd>lua telescopeLocationsOrQuickfix("textDocument/implementation", {openTelescope = false})<CR>', opts)
+    buf_set_keymap('n', 'xi','<cmd>lua telescopeLocationsOrQuickfix("textDocument/implementation", "LSP Implementations", {openTelescope = false})<CR>', opts)
+    buf_set_keymap('n', 'xI','<cmd>lua telescopeLocationsOrQuickfix("textDocument/implementation", "LSP implementations", {openTelescope = true})<CR>', opts)
     -- For clangd, textDocument/definition when the cursor is placed over the override keyword goes to the base class definition 
     buf_set_keymap('n', 'xb','<cmd>call search("override", "", line(".")) | lua vim.lsp.buf.definition() <CR>', opts)
 
@@ -86,8 +86,8 @@ function setupLspMappings(client, bufnr)
 
     buf_set_keymap('n', 'gp', '<cmd>lua peekDefinition()<CR>', opts)
 
-    buf_set_keymap('n', 'gu','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", {openTelescope = true})<CR>', opts)
-    buf_set_keymap('n', 'gU','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", {openTelescope = false})<CR>', opts)
+    buf_set_keymap('n', 'gu','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", "LSP References", {openTelescope = false})<CR>', opts)
+    buf_set_keymap('n', 'gU','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", "LSP References", {openTelescope = true})<CR>', opts)
 
     buf_set_keymap('n', 'K', string.format('<cmd>call luaeval("getServer(_A[1]).request(_A[2], vim.lsp.util.make_position_params())", ["%s", "%s"])<CR>', client.name, "textDocument/hover"), opts)
     buf_set_keymap('n', '<leader>.', string.format('<cmd>call luaeval("telescopeDocumentSymbols(_A)", "%s")<CR>', client.name), opts)
@@ -98,7 +98,6 @@ function setupLspMappings(client, bufnr)
 
     buf_set_keymap('n', '{d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', '}d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>di', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 -- }}}
 

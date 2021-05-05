@@ -47,7 +47,7 @@ function telescopeLocationsOrQuickfix(command, title, opts)
                 sorter = conf.generic_sorter(opts),
             }):find()
         else
-            vim.api.nvim_command("copen")
+            vim.api.nvim_command("LspTrouble quickfix")
         end
     end
 end
