@@ -447,7 +447,7 @@ nn <silent> <leader>rs :LspRestart<CR> :lua require'clangd_nvim'.reload()<CR>
 Plug 'nvim-lua/lsp-status.nvim'
 
 Plug 'folke/lsp-trouble.nvim'
-nn <silent> <leader>q :LspTroubleToggle quickfix<CR>
+nn <silent> <leader>q :cclose<CR> :LspTroubleToggle quickfix<CR>
 nn <silent> <leader>di :LspTroubleToggle lsp_document_diagnostics<CR>
 
 Plug 'hrsh7th/vim-vsnip' " For lsp snippets
