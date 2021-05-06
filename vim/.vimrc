@@ -151,6 +151,11 @@ nn <silent> <leader>gd :Gdiff<cr>
 nn <silent> <leader>gw :Gwrite<cr> 
 nn <silent> <leader>gD :Git! diff<cr> 
 nn <silent> <leader><leader>g :Git 
+nn <leader>gp :Git push<CR>
+nn <leader>gf :Git fetch<CR>
+nn <leader>gl :Git pull<CR>
+
+nn <leader>gc :Telescope git_branches
 
 nnoremap <silent> <leader>dh :diffget //2 <CR> :diffup<CR>
 nnoremap <silent> <leader>dl :diffget //3 <CR> :diffup<CR>
