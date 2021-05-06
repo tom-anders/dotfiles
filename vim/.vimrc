@@ -145,7 +145,7 @@ autocmd FileType fugitive set nobuflisted
 " git {{{
 Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-fugitive-blame-ext'
-nn <silent> <leader>gs :Gstatus<cr> 
+nn <silent> <leader>gs :Gstatus<cr>))
 nn <silent> <leader>gb :Gblame<cr> 
 nn <silent> <leader>gd :Gdiff<cr> 
 nn <silent> <leader>gw :Gwrite<cr> 
