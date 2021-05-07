@@ -259,6 +259,9 @@ nn <silent> <C-b>b :BookmarkToggle<CR>
 nn <silent> <C-b>a :BookmarkAnnotate<CR>
 nn <silent> <leader>cm :BookmarkShowAll<cr> :cclose<CR> :LspTrouble quickfix<cr>
 nn <silent> <C-b>c :BookmarkClearAll<CR>
+
+nn <silent> {b :BookmarkNext<CR>
+nn <silent> }b :BookmarkPrev<CR>
 " }}}
 
 " {{{ vim-peekaboo
