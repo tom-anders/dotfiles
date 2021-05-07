@@ -257,7 +257,7 @@ let g:bookmark_no_default_key_mappings = 1
 
 nn <silent> <C-b>b :BookmarkToggle<CR>
 nn <silent> <C-b>a :BookmarkAnnotate<CR>
-nn <silent> <leader>cm :BookmarkShowAll<CR>
+nn <silent> <leader>cm :BookmarkShowAll<cr> :cclose<CR> :LspTrouble quickfix<cr>
 nn <silent> <C-b>c :BookmarkClearAll<CR>
 " }}}
 
