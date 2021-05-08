@@ -209,4 +209,6 @@ require('telescope').setup {
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('ultisnips')
 
+require('telescope').load_extension('vim_bookmarks')
+
 -- vim: foldmarker={{{,}}} foldmethod=marker

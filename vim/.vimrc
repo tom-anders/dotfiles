@@ -409,6 +409,7 @@ autocmd FileType asciidoctor set formatlistpat+=\\\|^.*::\\+\\s\\+
 Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python'
 Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
+Plug 'kana/vim-textobj-indent'
 " }}}
 
 " {{{ Folding
@@ -425,6 +426,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'tom-anders/telescope.nvim'
 Plug 'fhill2/telescope-ultisnips.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 
 map <silent> <leader>zf :Telescope find_files<cr>
 map <silent> <leader><leader>b :Telescope buffers<cr>
@@ -434,12 +436,10 @@ map <silent> <leader>zs :Telescope ultisnips ultisnips<cr>
 map <silent> <leader>zh :Telescope oldfiles<cr>
 map <silent> <leader>zc :Telescope quickfix<cr>
 map <silent> <leader>zl :Telescope current_buffer_fuzzy_find<cr>
+map <silent> <leader>zb :Telescope vim_bookmarks all<CR>
 
 nmap <silent> <leader>f :lua gitFilesProximitySort({})<CR>
 nmap <silent> <leader>F :lua gitFilesProximitySort(dropdownTheme{previewer=false})<CR>
-
-" Writing an actual picker for this would be much cleaner, but this works well enough
-map <silent> <leader>zm :BookmarkShowAll<cr> :cclose<CR> :Telescope quickfix<cr>
 " }}}
 
 Plug 'famiu/nvim-reload'
