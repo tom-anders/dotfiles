@@ -109,6 +109,34 @@ nnoremap <silent> <esc> :nohlsearch<CR>
 nnoremap <silent> <leader>gu gu
 nnoremap <silent> <leader>gU gU
 
+" {{{ Add C-d and C-u to the jump list, but only if pressed the first time
+" https://vi.stackexchange.com/a/31212/34922
+function! SaveJump(motion)
+  if exists('#SaveJump#CursorMoved')
+    autocmd! SaveJump
+    echo("No jump!")
+  else
+    echo("Set jump!")
+    normal! m'
+  endif
+  let m = a:motion
+  if v:count
+    let m = v:count.m
+  endif
+  execute 'normal!' m
+endfunction
+
+function! SetJump()
+  augroup SaveJump
+    autocmd!
+    autocmd CursorMoved * autocmd! SaveJump
+  augroup END
+endfunction
+
+nnoremap <silent> <C-u> :<C-u>call SaveJump("\<lt>C-u>")<CR>:call SetJump()<CR>
+nnoremap <silent> <C-d> :<C-u>call SaveJump("\<lt>C-d>")<CR>:call SetJump()<CR>
+" }}} 
+
 " }}}
 
 call plug#begin('~/.vim/plugged')
