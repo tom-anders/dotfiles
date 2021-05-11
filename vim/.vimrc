@@ -183,7 +183,7 @@ nn <leader>gp :Git push<CR>
 nn <leader>gf :Git fetch<CR>
 nn <leader>gl :Git pull<CR>
 
-nn <leader>gc :Telescope git_branches<CR>
+nn <leader>gc :Telescope git_branches previewer=false<CR>
 
 nnoremap <silent> <leader>dh :diffget //2 <CR> :diffup<CR>
 nnoremap <silent> <leader>dl :diffget //3 <CR> :diffup<CR>
