@@ -114,9 +114,7 @@ nnoremap <silent> <leader>gU gU
 function! SaveJump(motion)
   if exists('#SaveJump#CursorMoved')
     autocmd! SaveJump
-    echo("No jump!")
   else
-    echo("Set jump!")
     normal! m'
   endif
   let m = a:motion
