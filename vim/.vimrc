@@ -243,25 +243,11 @@ let g:sandwich#magicchar#f#patterns = [
   \ ]
 " }}}
 
-"{{{ vim-easymotion
-Plug 'easymotion/vim-easymotion'
-" Keep <leader><leader> as default prefix (e.g. since <leader>f is already
-" :GFiles for me), but for letters that I have not yet remapped to something
-" else use easymotion
-map <leader><leader> <Plug>(easymotion-prefix)
-map <leader>j <Plug>(easymotion-j)
-map <leader>k <Plug>(easymotion-k)
-map <leader>e <Plug>(easymotion-e)
-map <leader>E <Plug>(easymotion-E)
-map <leader>b <Plug>(easymotion-b)
-map <leader>B <Plug>(easymotion-B)
-map <leader>w <Plug>(easymotion-w)
-map <leader>W <Plug>(easymotion-W)
-map <leader>s <Plug>(easymotion-s)
-
-let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
-
-autocmd User EasyMotionPromptEnd silent! LspCxxHighlight
+"{{{ hop.nvim
+Plug 'phaazon/hop.nvim'
+nn <leader>w :HopWord<CR>
+nn <leader>j :HopLine<CR>
+nn s :HopChar2<CR>
 "}}}
 
 "{{{ vim-sneak
@@ -270,8 +256,6 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
-let g:sneak#label = 1
-let g:sneak#target_labels = "sftunqxSFGHLTUNRMQZ0"
 "}}}
 
 Plug 'vim-scripts/ReplaceWithRegister'
@@ -455,7 +439,7 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 
 map <silent> <leader>zf :Telescope find_files<cr>
-map <silent> <leader><leader>b :Telescope buffers<cr>
+map <silent> <leader>b :Telescope buffers<cr>
 map <silent> <leader>zM :Telescope marks<cr>
 map <silent> <leader>zg :Telescope live_grep<cr>
 map <silent> <leader>zs :Telescope ultisnips ultisnips<cr>
@@ -534,6 +518,12 @@ let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark='hard'
 color gruvbox
 highlight Search gui=underline,bold
+
+execute 'hi HopNextKey gui=underline,bold guifg=' . g:terminal_color_9
+
+execute 'hi HopNextKey1 gui=bold guifg=' . g:terminal_color_11
+execute 'hi HopNextKey2 gui=bold guifg=' . g:terminal_color_9
+hi! link HopUnmatched Comment
 " }}}
 
 " {{{ Quickfix/CocList mappings
