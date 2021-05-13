@@ -447,6 +447,7 @@ map <silent> <leader>zh :Telescope oldfiles<cr>
 map <silent> <leader>zc :Telescope quickfix<cr>
 map <silent> <leader>zl :Telescope current_buffer_fuzzy_find<cr>
 map <silent> <leader>zb :Telescope vim_bookmarks all<CR>
+map <silent> <leader>za :Telescope arglist<CR>
 
 nmap <silent> <leader>f :lua gitFilesProximitySort({})<CR>
 nmap <silent> <leader>F :lua gitFilesProximitySort(dropdownTheme{previewer=false})<CR>

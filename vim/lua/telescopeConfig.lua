@@ -192,9 +192,11 @@ require('telescope').setup {
         mappings = {
             i = {
                 ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+                ["<C-a>"] = actions.add_selected_to_arglist,
             },
             n = {
                 ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+                ["<C-a>"] = actions.add_selected_to_arglist,
             }
         }
     },
@@ -210,5 +212,16 @@ require('telescope').load_extension('fzf')
 require('telescope').load_extension('ultisnips')
 
 require('telescope').load_extension('vim_bookmarks')
+
+function test() 
+    require('telescope.builtin').arglist({
+        attach_mappings = function(_, map)
+            map('n', 'dd', actions.remove_selected_from_arglist)
+
+            return true
+        end,
+    }) 
+end
+vim.cmd("nn <leader>a :lua test()<CR>")
 
 -- vim: foldmarker={{{,}}} foldmethod=marker
