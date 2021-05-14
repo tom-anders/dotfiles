@@ -260,7 +260,7 @@ let g:sandwich#magicchar#f#patterns = [
 Plug 'phaazon/hop.nvim'
 nn <leader>w :HopWord<CR>
 nn <leader>j :HopLine<CR>
-nn s :HopChar2<CR>
+nn <leader>f :HopChar1<CR>
 "}}}
 
 "{{{ vim-sneak
