@@ -477,6 +477,8 @@ smap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l
 
 Plug 'windwp/nvim-autopairs' 
 Plug 'tom-anders/nvim-compe'
+inoremap <silent><expr> <C-u> compe#scroll({ 'delta': -4 })
+inoremap <silent><expr> <C-d> compe#scroll({ 'delta': +4 })
 
 Plug 'ray-x/lsp_signature.nvim'
 
