@@ -181,7 +181,20 @@ nn <leader>gp :Git push<CR>
 nn <leader>gf :Git fetch<CR>
 nn <leader>gl :Git pull<CR>
 
-nn <leader>gc :Telescope git_branches previewer=false<CR>
+lua << EOF
+function telescope_git_branches()
+    require('telescope.builtin').git_branches {
+        attach_mappings = function(_, map)
+            map('i', '<CR>', require('telescope.actions').git_switch_branch)
+            map('n', '<CR>', require('telescope.actions').git_switch_branch)
+
+            return true
+        end,
+        previewer = false,
+    }
+end
+EOF
+nn <leader>gc :lua telescope_git_branches() <CR>
 
 nnoremap <silent> <leader>dh :diffget //2 <CR> :diffup<CR>
 nnoremap <silent> <leader>dl :diffget //3 <CR> :diffup<CR>
