@@ -538,7 +538,7 @@ nnoremap <silent> <leader>co :CocListResume<CR>
 autocmd FileType qf nnoremap <silent> <buffer> J :cnext<CR><C-W><C-P>
 autocmd FileType qf nnoremap <silent> <buffer> K :cprev<CR><C-W><C-P>
 
-autocmd FileType qf nnoremap <silent> <buffer> q :cclose<CR>
+autocmd FileType qf nnoremap <silent> <buffer> q :cclose<CR>:lclose<CR>
 
 autocmd FileType qf nnoremap <silent> <buffer> <leader>n /error:<CR>
 
