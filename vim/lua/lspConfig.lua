@@ -138,4 +138,25 @@ lspconfig.clangd.setup{
 }
 -- }}}
 
+-- rust_analyzer {{{
+lspconfig.rust_analyzer.setup{
+    on_attach=attachCommon,
+    capabilities = {
+        textDocument = {
+            completion = {
+                completionItem = {
+                    snippetSupport = true,
+                }
+            },
+            semanticHighlightingCapabilities = {
+                semanticHighlighting = true
+            }
+        },
+        window = {
+            workDoneProgress = true
+        }
+    }
+}
+-- }}}
+
 -- vim: foldmarker={{{,}}} foldmethod=marker
