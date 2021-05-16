@@ -1,7 +1,38 @@
-imap ö {
-imap ä }
-imap Ö [
-imap Ä ]
-imap ü \ 
+let mapleader = ' '
+let maplocalleader = ' '
 
-set ignorecase smartcase
+:set number
+:set relativenumber
+set scrolloff=2
+
+set ignorecase
+set smartcase
+
+:map <leader>c :action BuildProject<CR>
+:map <leader>r :action RenameElement<CR>
+
+:map gu :action FindUsages<CR>
+:map gh :action CIDR.Lang.SwitchHeaderSource<CR>
+:map xi :action GotoImplementation<CR>
+:map xb :action GotoSuperMethod<CR>
+
+:map {b :tabprevious<CR>
+:map }b :tabnext<CR>
+
+nnoremap <tab> :action Back<CR>
+nnoremap <s-tab> :action Forward<CR>
+
+nnoremap <leader>x :q<CR>
+
+nnoremap - <C-x>
+nnoremap + <C-a>
+
+set surround
+set commentary
+set ReplaceWithRegister
+set argtextobj
+set exchange
+set highlightedyank
+
+set ideajoin
+
