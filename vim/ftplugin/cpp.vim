@@ -17,6 +17,7 @@ endfunction
 
 call s:highlightColor('ClangdTemplateParameter', g:terminal_color_3, 'bold,italic')
 call s:highlightColor('ClangdClass', g:terminal_color_3, 'bold')
+call s:highlightColor('TSType', g:terminal_color_3, 'bold')
 call s:highlightColor('ClangdNamespace', g:terminal_color_8)
 
 call s:highlightColor('ClangdFunction', g:terminal_color_15, 'italic')
