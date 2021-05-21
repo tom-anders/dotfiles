@@ -54,7 +54,9 @@ nmap <space>d :wa<CR>:deploy<CR>:comp<CR>
 
 nmap <space>rr <space>c:run<CR>
 nmap <space>rt <space>c:runCurrentTest<CR>
-nmap <space>rs <A-T><A-r>
+nmap <space>rc <space>c:runTestUnderCursor<CR>
+" nmap <space>rs <A-T><A-r>
+nmap <space>rs :runSelectedTests<CR>
 nmap <space>rb :rebuild<CR>
 
 nmap <space>qq :qmake<CR>:comp<CR>
