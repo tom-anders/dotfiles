@@ -155,4 +155,19 @@ lspconfig.rust_analyzer.setup{
 }
 -- }}}
 
+lspconfig.pyls.setup{
+    capabilities = {
+        textDocument = {
+            completion = {
+                completionItem = {
+                    snippetSupport = true,
+                }
+            },
+        },
+        window = {
+            workDoneProgress = true
+        }
+    }
+}
+
 -- vim: foldmarker={{{,}}} foldmethod=marker
