@@ -490,6 +490,7 @@ smap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l
 
 Plug 'windwp/nvim-autopairs' 
 Plug 'tom-anders/nvim-compe'
+Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
 
 Plug 'ray-x/lsp_signature.nvim'
 
