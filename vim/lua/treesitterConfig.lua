@@ -5,15 +5,6 @@ require'nvim-treesitter.configs'.setup {
         -- disable = { "c", "cpp" }, -- Using clangd semantic highlighting for those
     },
   textobjects = {
-    select = {
-      enable = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["aa"] = "@parameter.outer",
-        ["ia"] = "@parameter.inner",
-      },
-    },
     move = {
         enable = true,
         set_jumps = true,

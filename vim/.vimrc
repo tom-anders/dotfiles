@@ -433,6 +433,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python'
 Plug 'glts/vim-textobj-comment' "ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
 Plug 'kana/vim-textobj-indent'
+Plug 'vim-scripts/argtextobj.vim'
 " }}}
 
 " {{{ Folding
