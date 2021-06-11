@@ -180,6 +180,8 @@ nn <silent> <leader><leader>g :Git
 nn <leader>gp :Git push<CR>
 nn <leader>gf :Git fetch<CR>
 nn <leader>gl :Git pull<CR>
+"Ignore whitespace changes in diff
+set diffopt+=iwhite 
 
 lua << EOF
 function telescope_git_branches()
