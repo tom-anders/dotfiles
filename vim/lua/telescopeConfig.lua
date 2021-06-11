@@ -7,9 +7,8 @@ local async_lib = require('plenary.async_lib')
 local async, await = async_lib.async, async_lib.await
 local channel = async_lib.util.channel
 
--- {{{ locations or quickfix
--- Open up results of command either in quickfix (openTelescope=false) or telescope
--- If there's only one result, directly jump to it
+-- {{{ lsp locations
+-- If there's only one result, directly jump to it. Otherwise open in telescope and set quickfix list
 function telescopeLocationsOrQuickfix(command, title, opts)
     opts = opts or {openTelescope = true}
 
@@ -36,19 +35,15 @@ function telescopeLocationsOrQuickfix(command, title, opts)
         local items = vim.lsp.util.locations_to_items(locations)
         vim.lsp.util.set_qflist(items);
 
-        if opts.openTelescope then
-            pickers.new(opts, {
-                prompt_title = title,
-                finder = finders.new_table {
-                    results = items,
-                    entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
-                },
-                previewer = conf.qflist_previewer(opts),
-                sorter = conf.generic_sorter(opts),
-            }):find()
-        else
-            vim.api.nvim_command("LspTrouble quickfix")
-        end
+        pickers.new(opts, {
+            prompt_title = title,
+            finder = finders.new_table {
+                results = items,
+                entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
+            },
+            previewer = conf.qflist_previewer(opts),
+            sorter = conf.generic_sorter(opts),
+        }):find()
     end
 end
 --- }}}

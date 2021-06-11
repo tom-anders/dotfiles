@@ -47,8 +47,7 @@ function goToDefinition(split)
         -- Set mark to add this to the jump list even if we didn't switch buffers
         vim.api.nvim_command("normal m\'") --TODO this actually a bug in nvim, see https://github.com/neovim/neovim/commit/993ca90c9b53033216d4973e2f995b995ed5740e
     end
-    --TODO go back when definition not found? Can we detect this somehow?
-    vim.lsp.buf.definition() 
+    vim.lsp.buf.definition()
 end
 
 function peekDefinition()
@@ -76,8 +75,8 @@ function setupLspMappings(client, bufnr)
     buf_set_keymap('n', '<leader>ca', '<cmd>Telescope lsp_code_actions<CR>', opts)
     buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
-    buf_set_keymap('n', 'xi','<cmd>lua telescopeLocationsOrQuickfix("textDocument/implementation", "LSP Implementations", {openTelescope = false})<CR>', opts)
-    buf_set_keymap('n', 'xI','<cmd>lua telescopeLocationsOrQuickfix("textDocument/implementation", "LSP implementations", {openTelescope = true})<CR>', opts)
+    buf_set_keymap('n', 'xi','<cmd>LspTrouble lsp_implementations<CR>', opts)
+    buf_set_keymap('n', 'xI','<cmd>lua telescopeLocationsOrQuickfix("textDocument/implementation", "LSP implementations", {})<CR>', opts)
     -- For clangd, textDocument/definition when the cursor is placed over the override keyword goes to the base class definition 
     buf_set_keymap('n', 'xb','<cmd>call search("override", "", line(".")) | lua vim.lsp.buf.definition() <CR>', opts)
 
@@ -86,8 +85,8 @@ function setupLspMappings(client, bufnr)
 
     buf_set_keymap('n', 'gp', '<cmd>lua peekDefinition()<CR>', opts)
 
-    buf_set_keymap('n', 'gu','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", "LSP References", {openTelescope = false})<CR>', opts)
-    buf_set_keymap('n', 'gU','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", "LSP References", {openTelescope = true})<CR>', opts)
+    buf_set_keymap('n', 'gu','<cmd>LspTrouble lsp_references<CR>', opts)
+    buf_set_keymap('n', 'gU','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", "LSP References", {})<CR>', opts)
 
     buf_set_keymap('n', 'K', string.format('<cmd>call luaeval("getServer(_A[1]).request(_A[2], vim.lsp.util.make_position_params())", ["%s", "%s"])<CR>', client.name, "textDocument/hover"), opts)
     buf_set_keymap('n', '<leader>.', string.format('<cmd>call luaeval("telescopeDocumentSymbols(_A)", "%s")<CR>', client.name), opts)
