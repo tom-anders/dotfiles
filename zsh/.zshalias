@@ -108,6 +108,7 @@ alias gsfglr="gsf git pull --rebase"
 alias gsfglra="gsf git pull --rebase --autostash"
 alias gsfgco="gsf git checkout"
 alias gsfgcd="gsf git checkout develop"
+alias gct="git checkout --track"
 
 #Parallel pull
 gsfglrp() {
