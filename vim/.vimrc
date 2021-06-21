@@ -266,11 +266,7 @@ nn <leader>f :HopChar1<CR>
 "}}}
 
 "{{{ vim-sneak
-Plug 'justinmk/vim-sneak'
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
+Plug 'ggandor/lightspeed.nvim'
 "}}}
 
 Plug 'vim-scripts/ReplaceWithRegister'
@@ -469,7 +465,7 @@ nmap <silent> <leader>f :lua gitFilesProximitySort(dropdownTheme{previewer=false
 " }}}
 
 Plug 'famiu/nvim-reload'
-nnoremap <leader>so :Restart<CR>
+nnoremap <leader>rl :Restart<CR>
 
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
@@ -529,6 +525,18 @@ call plug#end()
 " Use vim-surround keymappings for vim-sandwich
 runtime macros/sandwich/keymap/surround.vim
 
+" {{{ lightspeed setup
+lua << EOF
+require'lightspeed'.setup {
+    labels = {"j", "k", "h", "d", "s", "l", "a", "e", "i",
+               "w", "o", "g", "v", "n", "c", "m", "z", "."},
+    jump_to_first_match = false,
+    cycle_group_fwd_key = ','
+}
+EOF
+nmap <leader>s <Plug>Lightspeed_S
+" }}}
+
 " {{{ gruvbox setup
 set termguicolors
 let g:gruvbox_italic=1
@@ -541,6 +549,9 @@ execute 'hi HopNextKey gui=underline,bold guifg=' . g:terminal_color_9
 execute 'hi HopNextKey1 gui=bold guifg=' . g:terminal_color_11
 execute 'hi HopNextKey2 gui=bold guifg=' . g:terminal_color_9
 hi! link HopUnmatched Comment
+
+execute 'hi LightspeedLabel gui=bold guifg=' . g:terminal_color_11
+execute 'hi LightspeedShortcut guibg=NONE guifg=' . g:terminal_color_9
 " }}}
 
 " {{{ Quickfix/CocList mappings
