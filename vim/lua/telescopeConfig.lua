@@ -181,6 +181,11 @@ function gitFilesProximitySort(opts)
 end
 -- }}}
 
+function findTestFile()
+    local file = vim.api.nvim_eval("expand('%:t')")
+    require('telescope.builtin').find_files({default_text = 'Test' .. file})
+end
+
 local actions = require('telescope.actions')
 require('telescope').setup {
     defaults = {

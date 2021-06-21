@@ -462,6 +462,7 @@ map <silent> <leader>zb :Telescope vim_bookmarks all<CR>
 
 nmap <silent> <leader>F :lua gitFilesProximitySort({})<CR>
 nmap <silent> <leader>f :lua gitFilesProximitySort(dropdownTheme{previewer=false, shorten_path=true})<CR>
+nmap <silent> <leader>zt :lua findTestFile()<CR>
 " }}}
 
 Plug 'famiu/nvim-reload'
