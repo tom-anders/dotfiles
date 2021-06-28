@@ -12,3 +12,5 @@ luafile ~/.config/nvim/lua/lualineConfig.lua
 luafile ~/.config/nvim/lua/treesitterConfig.lua
 
 luafile ~/.config/nvim/lua/compeConfig.lua
+
+luafile ~/.config/nvim/lua/diffviewConfig.lua

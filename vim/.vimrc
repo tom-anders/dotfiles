@@ -174,7 +174,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-fugitive-blame-ext'
 nn <silent> <leader>gs :Gstatus<cr>))
 nn <silent> <leader>gb :Gblame<cr> 
-nn <silent> <leader>gd :Gdiff<cr> 
+" nn <silent> <leader>gd :Gdiff<cr> 
 nn <silent> <leader>gw :Gwrite<cr> 
 nn <silent> <leader>gD :Git! diff<cr> 
 nn <silent> <leader><leader>g :Git 
@@ -210,6 +210,10 @@ nmap {h <Plug>(signify-prev-hunk)
 nmap }h <Plug>(signify-next-hunk)
 nmap <silent> <leader>ghd :SignifyHunkDiff<cr>
 nmap <silent> <leader>ghu :SignifyHunkUndo<cr>
+
+" See diffviewConfig.lua
+Plug 'sindrets/diffview.nvim'
+nn <silent> <leader>gd :DiffviewOpen<CR>
 
 Plug 'codeindulgence/vim-tig'
 
