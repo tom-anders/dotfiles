@@ -142,6 +142,7 @@ call plug#begin('~/.vim/plugged')
 " {{{ colorschemes
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
+Plug 'folke/tokyonight.nvim'
 Plug 'dylanaraps/wal'
 " }}}
 
@@ -542,17 +543,20 @@ nmap <leader>s <Plug>Lightspeed_S
 set termguicolors
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark='hard'
-color gruvbox
+" color gruvbox
+let g:tokyonight_style='night'
+let g:tokyonight_italic_keywords=v:false
+color tokyonight
 highlight Search gui=underline,bold
 
-execute 'hi HopNextKey gui=underline,bold guifg=' . g:terminal_color_9
+" execute 'hi HopNextKey gui=underline,bold guifg=' . g:terminal_color_9
 
-execute 'hi HopNextKey1 gui=bold guifg=' . g:terminal_color_11
-execute 'hi HopNextKey2 gui=bold guifg=' . g:terminal_color_9
-hi! link HopUnmatched Comment
+" execute 'hi HopNextKey1 gui=bold guifg=' . g:terminal_color_11
+" execute 'hi HopNextKey2 gui=bold guifg=' . g:terminal_color_9
+" hi! link HopUnmatched Comment
 
-execute 'hi LightspeedLabel gui=bold guifg=' . g:terminal_color_11
-execute 'hi LightspeedShortcut guibg=NONE guifg=' . g:terminal_color_9
+" execute 'hi LightspeedLabel gui=bold guifg=' . g:terminal_color_11
+" execute 'hi LightspeedShortcut guibg=NONE guifg=' . g:terminal_color_9
 " }}}
 
 " {{{ Quickfix/CocList mappings

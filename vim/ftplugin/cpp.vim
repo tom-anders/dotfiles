@@ -15,39 +15,39 @@ function! s:highlightColor(key, color, ...)
     exe 'highlight '.a:key.' guifg='.a:color.gui
 endfunction
 
-call s:highlightColor('ClangdTemplateParameter', g:terminal_color_3, 'bold,italic')
-call s:highlightColor('ClangdClass', g:terminal_color_3, 'bold')
-call s:highlightColor('TSType', g:terminal_color_3, 'bold')
-call s:highlightColor('ClangdNamespace', g:terminal_color_8)
+" call s:highlightColor('ClangdTemplateParameter', g:terminal_color_3, 'bold,italic')
+" call s:highlightColor('ClangdClass', g:terminal_color_3, 'bold')
+" call s:highlightColor('TSType', g:terminal_color_3, 'bold')
+" call s:highlightColor('ClangdNamespace', g:terminal_color_8)
 
-call s:highlightColor('ClangdFunction', g:terminal_color_15, 'italic')
+" call s:highlightColor('ClangdFunction', g:terminal_color_15, 'italic')
 
-call s:highlightColor('ClangdParameter', g:terminal_color_14)
-call s:highlightColor('TSParameter', g:terminal_color_14)
+" call s:highlightColor('ClangdParameter', g:terminal_color_14)
+" call s:highlightColor('TSParameter', g:terminal_color_14)
 
-call s:highlightColor('ClangdField', g:terminal_color_4)
-call s:highlightColor('TSField', g:terminal_color_4)
-call s:highlightColor('TSProperty', g:terminal_color_4)
+" call s:highlightColor('ClangdField', g:terminal_color_4)
+" call s:highlightColor('TSField', g:terminal_color_4)
+" call s:highlightColor('TSProperty', g:terminal_color_4)
 
-call s:highlightColor('ClangdMemberFunction', g:terminal_color_12)
-call s:highlightColor('TSMethod', g:terminal_color_12)
-call s:highlightColor('TSFunction', g:terminal_color_12)
+" call s:highlightColor('ClangdMemberFunction', g:terminal_color_12)
+" call s:highlightColor('TSMethod', g:terminal_color_12)
+" call s:highlightColor('TSFunction', g:terminal_color_12)
 
-" Static -> orange
-call s:highlightColor('ClangdStaticMemberFunction', '#fe8019', 'bold') 
-call s:highlightColor('ClangdStaticField', '#fe8019')
+" " Static -> orange
+" call s:highlightColor('ClangdStaticMemberFunction', '#fe8019', 'bold') 
+" call s:highlightColor('ClangdStaticField', '#fe8019')
 
-call s:highlightColor('ClangdPreprocessor', g:terminal_color_5, 'bold')
+" call s:highlightColor('ClangdPreprocessor', g:terminal_color_5, 'bold')
 
-call s:highlightColor('cStorageClass', g:terminal_color_9, 'italic')
-call s:highlightColor('cppStorageClass', g:terminal_color_9, 'italic')
-call s:highlightColor('cppModifier', g:terminal_color_9, 'bold')
+" call s:highlightColor('cStorageClass', g:terminal_color_9, 'italic')
+" call s:highlightColor('cppStorageClass', g:terminal_color_9, 'italic')
+" call s:highlightColor('cppModifier', g:terminal_color_9, 'bold')
 
-call s:highlightColor('cString', g:terminal_color_2)
+" call s:highlightColor('cString', g:terminal_color_2)
 
-call s:highlightColor('cFloat', g:terminal_color_13, 'italic')
+" call s:highlightColor('cFloat', g:terminal_color_13, 'italic')
 
-call s:highlightColor('cppStatement', g:terminal_color_1, 'italic')
+" call s:highlightColor('cppStatement', g:terminal_color_1, 'italic')
 
 let g:lsp_cxx_hl_use_text_props=1
 
