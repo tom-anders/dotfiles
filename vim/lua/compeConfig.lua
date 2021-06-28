@@ -18,9 +18,6 @@ require'compe'.setup {
     calc = true;
     nvim_lsp = true;
     nvim_lua = true;
-    tabnine = {
-        ignore_pattern = '\\{'
-    };
   };
 }
 
