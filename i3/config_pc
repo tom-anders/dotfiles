@@ -138,9 +138,9 @@ bindsym $mod+Shift+p move scratchpad
 # Show the first scratchpad window
 bindsym $mod+p scratchpad show
 
-# Start urxvt with ranger on scratchpad at startup
-for_window [instance="__scratchpad"] move scratchpad 
-exec --no-startup-id alacritty -t __scratchpad -e ranger
+# Start alacritty with ranger on scratchpad at startup -> does not work for some reason with alacritty
+# for_window [instance="__scratchpad"] move scratchpad 
+# exec --no-startup-id alacritty -t __scratchpad -e ranger
 
 bindsym $mod+shift+w exec "/home/tom/.dotfiles/i3/changeWallpaper.py"
 
@@ -179,7 +179,7 @@ exec --no-startup-id fluxgui
 exec_always --no-startup-id xset r rate 200 40
 exec --no-startup-id xset s off -dpms #Don't turn off screen
 exec --no-startup-id spotify
-exec --no-startup-id chromium
+# exec --no-startup-id chromium
 # exec --no-startup-id "wal -i $HOME/Pictures/Wallpapers -o $HOME/.config/polybar/launch.sh &"
 # exec --no-startup-id "wal -i $HOME/Pictures/Wallpapers/XDNHDAS.jpg -o $HOME/.config/polybar/launch.sh &"
 exec --no-startup-id "/home/tom/.dotfiles/i3/changeWallpaper.py"
