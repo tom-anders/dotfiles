@@ -24,3 +24,5 @@ set main-view-author-display = email-user
 set main-view-id-display = yes
 set main-view-date-display = custom
 set main-view-date-format = "%d-%m-%y"
+
+color cursor green default bold underline
