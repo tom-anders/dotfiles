@@ -124,6 +124,7 @@ unalias gcp
 unalias gl
 
 alias glr="git pull --rebase"
+alias glri="git pull --rebase=interactive"
 alias glra="git pull --rebase --autostash"
 alias gc-="git checkout -" #Checkout previous branch
 alias gcp="git cherry-pick"
