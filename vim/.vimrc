@@ -221,6 +221,15 @@ nnoremap }h :GitGutterNextHunk<CR>
 Plug 'sindrets/diffview.nvim'
 nn <silent> <leader>gd :DiffviewOpen<CR>
 
+" Needed since below we need to map J NON-recursively, but recursively to ]c and [c
+nnoremap <Plug>(default-J) J
+nnoremap <Plug>(default-K) K
+nmap gK <Plug>(default-K)
+
+" Use J and K to navigate hunks in diff
+nmap <silent> <expr> J &diff ? ']c' : '<Plug>(default-J)'
+nmap <silent> <expr> K &diff ? '[c' : ':lua vim.lsp.buf.hover()<CR>'
+
 Plug 'codeindulgence/vim-tig'
 
 let g:tig_default_command = ''
