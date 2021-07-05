@@ -188,6 +188,10 @@ set diffopt+=iwhite
 autocmd FileType fugitive nmap J ]c
 autocmd FileType fugitive nmap K [c
 
+" https://github.com/tpope/vim-fugitive/issues/1221#issuecomment-846407604
+autocmd FileType fugitive nmap <buffer> q gq
+autocmd FileType fugitiveblame nmap <buffer> q gq
+
 lua << EOF
 function telescope_git_branches()
     require('telescope.builtin').git_branches {

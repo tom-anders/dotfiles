@@ -5,7 +5,7 @@ require'diffview'.setup {
         file_panel = {
             ["j"]             = cb("select_next_entry"),
             ["k"]             = cb("select_prev_entry"),
-            ["gq"]             = ":DiffviewClose<CR>",
+            ["q"]             = ":DiffviewClose<CR>",
         }
     }
 }
