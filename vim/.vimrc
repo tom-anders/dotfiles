@@ -231,8 +231,8 @@ nnoremap <Plug>(default-K) K
 nmap gK <Plug>(default-K)
 
 " Use J and K to navigate hunks in diff
-nmap <silent> <expr> J &diff ? ']c' : '<Plug>(default-J)'
-nmap <silent> <expr> K &diff ? '[c' : ':lua vim.lsp.buf.hover()<CR>'
+autocmd BufEnter,BufNew * nmap <buffer> <silent> <expr> J &diff ? ']c' : '<Plug>(default-J)'
+autocmd BufEnter,BufNew * nmap <buffer> <silent> <expr> K &diff ? '[c' : ':lua vim.lsp.buf.hover()<CR>'
 
 Plug 'codeindulgence/vim-tig'
 
