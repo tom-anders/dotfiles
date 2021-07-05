@@ -184,6 +184,10 @@ nn <leader>gl :Git pull<CR>
 "Ignore whitespace changes in diff
 set diffopt+=iwhite 
 
+" Quickly navigate hunks in status
+autocmd FileType fugitive nmap J ]c
+autocmd FileType fugitive nmap K [c
+
 lua << EOF
 function telescope_git_branches()
     require('telescope.builtin').git_branches {
