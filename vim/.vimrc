@@ -205,11 +205,13 @@ nnoremap <silent> <leader>dl :diffget //3 <CR> :diffup<CR>
 nnoremap <silent> {g [c
 nnoremap <silent> }g ]c
 
-Plug 'mhinz/vim-signify'
-nmap {h <Plug>(signify-prev-hunk)
-nmap }h <Plug>(signify-next-hunk)
-nmap <silent> <leader>ghd :SignifyHunkDiff<cr>
-nmap <silent> <leader>ghu :SignifyHunkUndo<cr>
+Plug 'airblade/vim-gitgutter'
+nmap <silent> <leader>hs :GitGutterStageHunk<CR>
+nmap <silent> <leader>hu :GitGutterUndoHunk<CR>
+nmap <silent> <leader>hp :GitGutterPreviewHunk<CR>
+
+nnoremap {h :GitGutterPrevHunk<CR>
+nnoremap }h :GitGutterNextHunk<CR>
 
 " See diffviewConfig.lua
 Plug 'sindrets/diffview.nvim'
