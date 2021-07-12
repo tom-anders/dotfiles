@@ -245,6 +245,7 @@ nnoremap }h :GitGutterNextHunk<CR>
 " See diffviewConfig.lua
 Plug 'sindrets/diffview.nvim'
 nn <silent> <leader>gd :DiffviewOpen<CR>
+autocmd FileType fugitive nmap <buffer> D <leader>gd
 
 " Needed since below we need to map J NON-recursively, but recursively to ]c and [c
 nnoremap <Plug>(default-J) J
