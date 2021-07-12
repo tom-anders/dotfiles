@@ -142,9 +142,9 @@ fgco() {
 alias gitc="git -C" 
 
 unalias grbi
-grbi () { git rebase -i HEAD~$1 }
+grbi () { git rebase -i --autosquash HEAD~$1 }
 alias grbo='git rebase -i origin/develop'
-alias grbt='git rebase -i $(tig-pick)'
+alias grbt='git rebase -i --autosquash $(tig-pick)'
 
 alias grt='git revert $(tig-pick)'
 

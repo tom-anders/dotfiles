@@ -1,7 +1,7 @@
 bind generic 9 !sh -c "echo -n %(commit) | xclip && echo Copied %(commit) to clipboard" 
 
 bind main R !git rebase %(commit) 
-bind main B <git rebase -i %(commit) # Interactive rebase
+bind main B <git rebase -i --autosquash %(commit) # Interactive rebase
 bind main b @git checkout -b %(prompt"Enter name for new branch: ") %(commit)
 bind main c @zsh -c "~/checkoutBranchOrCommit.sh %(commit)"
 bind main O @zsh -c "~/rebaseAgainstBranchOrCommitXours.sh %(commit)" # git rebase -Xours 
