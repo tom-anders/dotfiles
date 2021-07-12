@@ -196,9 +196,9 @@ function! GetCommitAtCurrentFlogLine()
 endfunction
 
 function! FixupCommitViaFugitive()
-    execute ':Git commit --fixup=' . GetCommitAtCurrentFlogLine()
+    return ':Git commit --fixup=' . GetCommitAtCurrentFlogLine() . ' '
 endfunction
-autocmd FileType floggraph nmap <buffer> cf :call FixupCommitViaFugitive()<CR>
+autocmd FileType floggraph nmap <buffer> <expr> cf FixupCommitViaFugitive()
 
 autocmd FileType git nmap <buffer> q :q<CR>
 
