@@ -184,6 +184,24 @@ nn <leader>gl :Git pull<CR>
 "Ignore whitespace changes in diff
 set diffopt+=iwhite 
 
+Plug 'rbong/vim-flog'
+nn <leader>gF :Flog -max-count=2000 -format=%as\ {%an}\ [%h]\ %d\ %s <CR>
+autocmd FileType floggraph nmap <buffer> q gq
+
+autocmd FileType floggraph nmap <buffer> {r [r
+autocmd FileType floggraph nmap <buffer> }r ]r
+
+function! GetCommitAtCurrentFlogLine()
+    return flog#get_commit_at_line(line('.'))['short_commit_hash']
+endfunction
+
+function! FixupCommitViaFugitive()
+    execute ':Git commit --fixup=' . GetCommitAtCurrentFlogLine()
+endfunction
+autocmd FileType floggraph nmap <buffer> cf :call FixupCommitViaFugitive()<CR>
+
+autocmd FileType git nmap <buffer> q :q<CR>
+
 " Quickly navigate hunks in status
 autocmd FileType fugitive nmap J ]c
 autocmd FileType fugitive nmap K [c
