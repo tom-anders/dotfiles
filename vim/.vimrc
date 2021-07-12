@@ -205,10 +205,6 @@ autocmd FileType floggraph nmap <buffer> <expr> cf FixupCommitViaFugitive()
 
 autocmd FileType git nmap <buffer> q :q<CR>
 
-" Quickly navigate hunks in status
-autocmd FileType fugitive nmap J ]c
-autocmd FileType fugitive nmap K [c
-
 " https://github.com/tpope/vim-fugitive/issues/1221#issuecomment-846407604
 autocmd FileType fugitive nmap <buffer> q gq
 autocmd FileType fugitiveblame nmap <buffer> q gq
@@ -255,6 +251,10 @@ nmap gK <Plug>(default-K)
 " Use J and K to navigate hunks in diff
 autocmd BufEnter,BufNew * nmap <buffer> <silent> <expr> J &diff ? ']c' : '<Plug>(default-J)'
 autocmd BufEnter,BufNew * nmap <buffer> <silent> <expr> K &diff ? '[c' : ':lua vim.lsp.buf.hover()<CR>'
+
+" Same but in Fugitive
+autocmd FileType fugitive nmap <buffer> <Plug>(default-J) ]c
+autocmd FileType fugitive nmap <buffer> <Plug>(default-K) [c
 
 Plug 'codeindulgence/vim-tig'
 
