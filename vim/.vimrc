@@ -186,6 +186,9 @@ set diffopt+=iwhite
 
 Plug 'rbong/vim-flog'
 nn <leader>gF :Flog -max-count=2000 -format=%as\ {%an}\ [%h]\ %d\ %s <CR>
+" Quickly open Flog from fugitive status
+autocmd FileType fugitive nmap <buffer> f <leader>gF
+
 autocmd FileType floggraph nmap <buffer> q gq
 
 autocmd FileType floggraph nmap <buffer> {r [r
