@@ -59,7 +59,11 @@ map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 
 let g:doxygen_javadoc_autobrief=0
 let g:load_doxygen_syntax=1
-set syntax=cpp.doxygen
+
+" Additional doxygen syntax for headers, for cpp we use just treesitter
+autocmd BufEnter,BufNew *.h set syntax=cpp.doxygen
+autocmd BufEnter,BufNew *.h hi TSComment gui=NONE
+autocmd BufEnter,BufNew *.cpp set syntax=off
 
 set foldmethod=marker
 set foldmarker=/*,*/

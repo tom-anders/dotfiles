@@ -3,6 +3,9 @@ require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,              
         -- disable = { "c", "cpp" }, -- Using clangd semantic highlighting for those
+
+        -- For doxygen highlighting (Set syntax cpp.doxygen. Only enabled in headers (see cpp.vim) for performance reasons)
+        additional_vim_regex_highlighting = { "cpp" }
     },
   textobjects = {
     move = {
