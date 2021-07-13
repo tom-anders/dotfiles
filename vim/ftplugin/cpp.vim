@@ -60,15 +60,29 @@ map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 let g:doxygen_javadoc_autobrief=0
 let g:load_doxygen_syntax=1
 
-" Additional doxygen syntax for headers, for cpp we use just treesitter
-autocmd BufEnter,BufNew *.h set syntax=cpp.doxygen
-autocmd BufEnter,BufNew *.h hi TSComment gui=NONE
-autocmd BufEnter,BufNew *.cpp set syntax=off
+" TODO can we somehow define a separate file type for header and cpp?!
+if expand('%:e') ==? 'h'
+    " Additional doxygen syntax for headers, for cpp we use just treesitter
+    " TODO Doxygen highlighting is a bit ugly at the moment, clean that up!
+    " autocmd BufEnter,BufNew *.h set syntax=cpp.doxygen
+    autocmd BufEnter,BufNew *.h hi TSComment gui=NONE
+    autocmd BufLeave *.h silent! hi link TSComment Comment
+    autocmd BufEnter,BufNew *.h set syntax=cpp.doxygen
 
-set foldmethod=marker
-set foldmarker=/*,*/
-set foldtext=HeaderFoldText()
-set foldlevel=0 " Fold everything by default
+    set foldmethod=marker
+    set foldmarker=/*,*/
+    setlocal foldtext=HeaderFoldText()
+    set foldlevel=0 " Fold everything by default
+else
+    set syntax=off
+
+    " hi link TSComment Comment
+
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
+    set foldlevel=1 
+endif
+
 
 function CppFunctionFoldText()
     if getline(v:foldstart) == '{'
