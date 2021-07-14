@@ -191,6 +191,11 @@ autocmd FileType fugitive nmap <buffer> f <leader>gF
 
 autocmd FileType fugitive nmap <buffer> SS :Git submodule update<CR>
 
+autocmd FileType fugitive nmap <buffer> cc :tab Git commit<CR>
+autocmd FileType fugitive nmap <buffer> ca :tab Git commit --amend<CR>
+autocmd FileType fugitive nmap <buffer> C :tab Git commit -a<CR>
+autocmd FileType fugitive nmap <buffer> cn :Git commit -a --amend --no-edit<CR>
+
 autocmd FileType floggraph nmap <buffer> q gq
 
 autocmd FileType floggraph nmap <buffer> {r [r
