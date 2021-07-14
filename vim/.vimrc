@@ -207,6 +207,8 @@ autocmd FileType floggraph nmap <buffer> <expr> cf FixupCommitViaFugitive()
 
 autocmd FileType git nmap <buffer> q :q<CR>
 
+autocmd FileType gitcommit set foldmethod=syntax
+
 " https://github.com/tpope/vim-fugitive/issues/1221#issuecomment-846407604
 autocmd FileType fugitive nmap <buffer> q gq
 autocmd FileType fugitiveblame nmap <buffer> q gq
