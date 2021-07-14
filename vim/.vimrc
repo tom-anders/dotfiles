@@ -552,15 +552,6 @@ Plug 'hrsh7th/nvim-compe'
 
 Plug 'ray-x/lsp_signature.nvim'
 
-" set completeopt=noinsert,menuone
-set completeopt=menuone,noselect
-" set completeopt=menuone
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-
 " :XtermColorTable
 Plug 'guns/xterm-color-table.vim'
 

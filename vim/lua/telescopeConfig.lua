@@ -181,6 +181,20 @@ function gitFilesProximitySort(opts)
 end
 -- }}}
 
+-- {{{ git branches
+function telescope_git_branches()
+    require('telescope.builtin').git_branches {
+        attach_mappings = function(_, map)
+            map('i', '<CR>', require('telescope.actions').git_switch_branch)
+            map('n', '<CR>', require('telescope.actions').git_switch_branch)
+
+            return true
+        end,
+        previewer = false,
+    }
+end
+-- }}}
+
 function findTestFile()
     local file = vim.api.nvim_eval("expand('%:t')")
     require('telescope.builtin').find_files({default_text = 'Test' .. file})
