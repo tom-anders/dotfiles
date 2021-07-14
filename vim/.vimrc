@@ -213,6 +213,8 @@ autocmd FileType floggraph nmap <buffer> <expr> cf FixupCommitViaFugitive()
 autocmd FileType git nmap <buffer> q :q<CR>
 
 autocmd FileType gitcommit set foldmethod=syntax
+" Open folds at start
+autocmd FileType gitcommit normal zR
 
 " https://github.com/tpope/vim-fugitive/issues/1221#issuecomment-846407604
 autocmd FileType fugitive nmap <buffer> q gq
