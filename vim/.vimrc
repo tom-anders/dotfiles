@@ -313,7 +313,7 @@ nn <leader>j :HopLine<CR>
 nn <leader>f :HopChar1<CR>
 "}}}
 
-"{{{ vim-sneak
+"{{{ vim-lightspeed
 Plug 'ggandor/lightspeed.nvim'
 "}}}
 
