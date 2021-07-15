@@ -285,19 +285,7 @@ require('packer').startup(function()
         vim.cmd [[ nn <silent> <leader>gd :DiffviewOpen<CR> ]]
     end}
     use 'airblade/vim-gitgutter'
-    use {'rbong/vim-flog', config = function()
-        -- TODO Putting these into ftplugin/floggraph.vim doesn't work for some reason
-        vim.cmd [[ autocmd FileType floggraph nmap <buffer> q gq ]]
-
-        vim.cmd [[ autocmd FileType floggraph nmap <buffer> {r [r ]]
-        vim.cmd [[ autocmd FileType floggraph nmap <buffer> }r ]r ]]
-
-        vim.cmd [[ 
-        function! FixupCommitViaFugitive()
-            return ':Git commit --fixup=' . flog#get_commit_at_line(line('.'))['short_commit_hash'] . ' '
-        endfunction ]]
-        vim.cmd [[ autocmd FileType floggraph nmap <buffer> <expr> cf FixupCommitViaFugitive() ]]
-    end}
+    use 'rbong/vim-flog'
     --- }}}
 
     -- {{{ LSP
