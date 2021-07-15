@@ -153,7 +153,7 @@ lspconfig.rust_analyzer.setup{
 }
 -- }}}
 
-lspconfig.pyls.setup{
+lspconfig.pylsp.setup{
     capabilities = {
         textDocument = {
             completion = {
