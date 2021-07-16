@@ -5,7 +5,8 @@ setlocal syntax=off
 
 setlocal foldmethod=indent
 setlocal foldnestmax=1
-setlocal foldtext=
+" setlocal foldtext=
+setlocal foldlevel=1
 
 " Shortcut for QFETCH from the QTest framework {{{
 

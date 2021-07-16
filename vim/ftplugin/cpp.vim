@@ -15,3 +15,8 @@ map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 
 let g:doxygen_javadoc_autobrief=0
 let g:load_doxygen_syntax=1
+
+autocmd BufEnter,BufNew *.h,*.hpp source ~/.config/nvim/ftplugin/cppHeader.vim
+autocmd BufEnter,BufNew *.cpp source ~/.config/nvim/ftplugin/cppSource.vim
+
+" vim: foldmarker={{{,}}} foldmethod=marker
