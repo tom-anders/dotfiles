@@ -41,7 +41,6 @@ require('packer').startup(function()
     use 'bps/vim-textobj-python'
     use 'glts/vim-textobj-comment' -- ic and ac, this has to be loaded AFTER textobj-python, since that one also defines ic ac for python classes!
     use 'kana/vim-textobj-indent'
-    use 'vim-scripts/argtextobj.vim'
     -- }}}
 
     use 'Konfekt/FastFold'
@@ -166,16 +165,13 @@ require('packer').startup(function()
                     enable = true,
                     set_jumps = true,
                     goto_next_start = {
-                        ["}f"] = "@function.inner",
+                        ["}f"] = "@function.outer",
                     },
                     goto_next_end = {
                         ["}F"] = "@function.outer",
                     },
                     goto_previous_start = {
-                        ["{f"] = "@function.inner",
-                    },
-                    goto_previous_end = {
-                        ["{F"] = "@function.outer",
+                        ["{f"] = "@function.outer",
                     },
                 },
 
@@ -192,13 +188,8 @@ require('packer').startup(function()
                         ["ac"] = "@class.outer",
                         ["ic"] = "@class.inner",
 
-                        -- Or you can define your own textobjects like this
-                        ["iF"] = {
-                            python = "(function_definition) @function",
-                            cpp = "(function_definition) @function",
-                            c = "(function_definition) @function",
-                            java = "(method_declaration) @function",
-                        },
+                        ["ia"] = "@parameter.inner",
+                        ["aa"] = "@parameter.outer",
                     },
                 },
                 
