@@ -6,6 +6,7 @@ nmap <buffer> C :tab Git commit -a<CR>
 nmap <buffer> cn :Git commit -a --amend --no-edit<CR>
 
 nmap <buffer> gp :Git push<CR>
+nmap <buffer> gP :Git push -f<CR>
 nmap <buffer> gf :Git fetch<CR>
 nmap <buffer> gl :Git pull<CR>
 
