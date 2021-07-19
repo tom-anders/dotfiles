@@ -9,6 +9,10 @@ nmap <buffer> gp :Git push<CR>
 nmap <buffer> gf :Git fetch<CR>
 nmap <buffer> gl :Git pull<CR>
 
+" Fetch and rebase onto origin branches
+nmap <buffer> rod :Git pull --rebase=interactive origin develop<CR>
+nmap <buffer> rom :Git pull --rebase=interactive origin master<CR>
+
 nmap <buffer> q gq
 
 nmap <buffer> D :DiffviewOpen<CR>
