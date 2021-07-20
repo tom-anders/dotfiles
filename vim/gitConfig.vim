@@ -38,3 +38,10 @@ nnoremap <silent> <leader>ta :Tig --all <CR>
 
 " Tig for current file
 nnoremap <silent> <leader>tf :Tig!<CR>
+
+nmap <silent> <leader>hs :GitGutterStageHunk<CR>
+nmap <silent> <leader>hu :GitGutterUndoHunk<CR>
+nmap <silent> <leader>hp :GitGutterPreviewHunk<CR>
+
+nnoremap {h :GitGutterPrevHunk<CR>
+nnoremap }h :GitGutterNextHunk<CR>
