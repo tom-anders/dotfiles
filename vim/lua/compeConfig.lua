@@ -87,7 +87,6 @@ vim.cmd[[set completeopt=menuone,noselect]]
 -- Don't pass messages to |ins-completion-menu|.
 vim.cmd[[set shortmess+=c]]
 
-vim.cmd[[inoremap <silent><expr> <CR>      compe#confirm('<CR>')]]
 vim.cmd[[inoremap <silent><expr> <C-e>     compe#close('<C-e>')]]
 
 
