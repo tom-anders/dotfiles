@@ -53,7 +53,6 @@ require('packer').startup(function()
     -- Put snippets into .vim/Ultisnips
     use {'SirVer/ultisnips', config = function() 
         vim.g.UltiSnipsExpandTrigger="<C-space>"
-        vim.g.UltiSnipsJumpForwardTrigger="<C-j>"
         vim.g.UltiSnipsJumpBackwardTrigger="<C-M-J>"
 
         vim.cmd[[autocmd BufEnter,BufNew *.snippets setlocal foldmethod=marker]]
