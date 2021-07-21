@@ -3,11 +3,16 @@ source ~/.config/nvim/generalOptionsAndMappings.vim
 lua require 'plugins'
 
 " {{{ vim-grepper config, need to put this head so that it can be extended in work.vim if neccessary
-let g:grepper = {}
+let g:grepper = { 'open': 0 }
 let g:grepper.tools = ['rg']
 let g:grepper.rg = {
         \ 'grepprg': 'rg -H --no-heading --vimgrep --smart-case',
         \ }
+
+aug Grepper
+    au!
+    au User Grepper :Trouble quickfix
+aug END
 
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
