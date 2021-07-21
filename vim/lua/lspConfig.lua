@@ -88,10 +88,7 @@ function setupLspMappings(client, bufnr)
     buf_set_keymap('n', 'gu','<cmd>LspTrouble lsp_references<CR>', opts)
     buf_set_keymap('n', 'gU','<cmd>lua telescopeLocationsOrQuickfix("textDocument/references", "LSP References", {})<CR>', opts)
 
-    buf_set_keymap('n', '<leader>.', string.format('<cmd>call luaeval("telescopeDocumentSymbols(_A)", "%s")<CR>', client.name), opts)
-    buf_set_keymap('n', '<C-k>', string.format('<cmd>call luaeval("telescopeWorkspaceSymbols(_A)", "%s")<CR>', client.name), opts)
-
-    buf_set_keymap('n', '<leader>.', '<cmd>lua require"telescope.builtin".lsp_document_symbols{symbol_width=40}<CR>', opts)
+    buf_set_keymap('n', '<leader>.', '<cmd>lua require"telescope.builtin".lsp_document_symbols(dropdownTheme{symbol_width=80, symbol_type_width=10, layout_config={height=30}})<CR>', opts)
     buf_set_keymap('n', '<C-k>', '<cmd>lua require"telescope.builtin".lsp_dynamic_workspace_symbols{symbol_width=40}<CR>', opts)
 
     buf_set_keymap('n', '{d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
