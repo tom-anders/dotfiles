@@ -1,8 +1,3 @@
-" Use Treesitter Syntax Highlighting
-setlocal syntax=off
-
-" hi link TSComment Comment
-
 setlocal foldmethod=indent
 setlocal foldnestmax=1
 " setlocal foldtext=

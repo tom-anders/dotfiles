@@ -156,8 +156,6 @@ require('packer').startup(function()
             ensure_installed = "maintained", 
             highlight = {
                 enable = true,              
-                -- For doxygen highlighting (Set syntax cpp.doxygen. Only enabled in headers (see cpp.vim) for performance reasons)
-                additional_vim_regex_highlighting = { "cpp, lua" }
             },
             textobjects = {
                 move = {

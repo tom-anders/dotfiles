@@ -1,12 +1,3 @@
-" Additional doxygen syntax for headers, for cpp we use just treesitter
-" TODO Doxygen highlighting is a bit ugly at the moment, clean that up!
-" autocmd BufEnter,BufNew *.h set syntax=cpp.doxygen
-autocmd BufEnter,BufNew *.h,*.hpp hi TSComment gui=NONE
-autocmd BufLeave *.h,*.hpp silent! hi link TSComment Comment
-
-" autocmd BufEnter,BufNew *.h,*.hpp set syntax=cpp.doxygen
-setlocal syntax=cpp.doxygen
-
 setlocal foldmethod=marker
 setlocal foldmarker=/*,*/
 setlocal foldtext=HeaderFoldText()
