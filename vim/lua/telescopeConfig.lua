@@ -195,12 +195,22 @@ function findTestFile()
     require('telescope.builtin').find_files({default_text = 'Test' .. file})
 end
 
+if pcall(require, "plenary") then
+    R = function(name)
+        require("plenary.reload").reload_module(name)
+        return require(name)
+    end
+end
+
 local actions = require('telescope.actions')
 require('telescope').setup {
     defaults = {
         mappings = {
             i = {
                 ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+                ['<Esc>'] = function(prompt_bufnr)
+                    require'telescope'.extensions.hop._hop(prompt_bufnr, {callback = actions.select_default})
+                end
             },
             n = {
                 ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
@@ -212,6 +222,9 @@ require('telescope').setup {
             override_generic_sorter = false, 
             override_file_sorter = true,    
             case_mode = "smart_case",      
+        },
+        hop = {
+            keys = {"h", "j", "k", "l", "b", "u", "f", "H", "J", "K", "L"}
         }
     }
 }
@@ -219,5 +232,7 @@ require('telescope').load_extension('fzf')
 require('telescope').load_extension('ultisnips')
 
 require('telescope').load_extension('vim_bookmarks')
+
+require('telescope').load_extension('hop')
 
 -- vim: foldmarker={{{,}}} foldmethod=marker

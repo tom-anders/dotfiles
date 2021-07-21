@@ -129,6 +129,7 @@ require('packer').startup(function()
     use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
     use 'fhill2/telescope-ultisnips.nvim'
+    use 'nvim-telescope/telescope-hop.nvim'
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use { 'tom-anders/telescope-vim-bookmarks.nvim', config = function()
         require 'telescopeConfig'
