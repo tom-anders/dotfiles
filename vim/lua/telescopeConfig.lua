@@ -185,7 +185,11 @@ function telescope_git_branches()
 
             return true
         end,
-        previewer = false,
+        layout_strategy = "vertical",
+        layout_config = {
+            height = 50,
+            preview_cutoff = 1,
+        }
     }
 end
 -- }}}
