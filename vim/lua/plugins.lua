@@ -34,7 +34,7 @@ require('packer').startup(function()
     end}
     -- }}}
     
-    use 'mbill/undotree'
+    use 'mbbill/undotree'
 
     -- {{{ Text ojects
     use 'kana/vim-textobj-user'
@@ -127,7 +127,7 @@ require('packer').startup(function()
     -- {{{ telescope
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
-    use 'tom-anders/telescope.nvim'
+    use 'nvim-telescope/telescope.nvim'
     use 'fhill2/telescope-ultisnips.nvim'
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use { 'tom-anders/telescope-vim-bookmarks.nvim', config = function()
@@ -143,7 +143,7 @@ require('packer').startup(function()
         vim.api.nvim_set_keymap('n', '<leader>zb', ':Telescope vim_bookmarks all<CR>', {silent=true})
 
         vim.api.nvim_set_keymap('n', '<leader>F', ':lua gitFilesProximitySort({})<CR>', {silent=true})
-        vim.api.nvim_set_keymap('n', '<leader>f', ':lua gitFilesProximitySort(dropdownTheme{previewer=false, shorten_path=true})<CR>', {silent=true})
+        vim.api.nvim_set_keymap('n', '<leader>f', ':lua gitFilesProximitySort(dropdownTheme{previewer=false, path_display={"shorten"}})<CR>', {silent=true})
         vim.api.nvim_set_keymap('n', '<leader>zt', ':lua findTestFile()<CR>', {silent=true})
 
         vim.api.nvim_set_keymap('n', '<leader>gc', ':lua telescope_git_branches()<CR>', {silent=true})
