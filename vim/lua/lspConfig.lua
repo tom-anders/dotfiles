@@ -1,9 +1,3 @@
-local lsp_status = require('lsp-status')
-lsp_status.config {
-    current_function = false
-}
-lsp_status.register_progress()
-
 local lspconfig = require('lspconfig')
 
 require'lsp_signature'.on_attach()
@@ -19,8 +13,6 @@ end
 
 --- {{{ mappings
 function attachCommon(client, bufnr)
-    lsp_status.on_attach(client, bufnr)
-
     -- require'completion'.on_attach(client)
     setupLspMappings(client, bufnr)
 
@@ -104,10 +96,6 @@ end
 
 lspconfig.clangd.setup{
     on_attach=attachClangd,
-    handlers = lsp_status.extensions.clangd.setup(),
-    init_options = {
-        clangdFileStatus = true
-    },
     cmd = {                 
         "clangd-12", "--clang-tidy", 
         "--background-index", "-j=8", "--all-scopes-completion",                 
@@ -122,9 +110,6 @@ lspconfig.clangd.setup{
                 }
             },
         },
-        window = {
-            workDoneProgress = true
-        }
     }
 }
 -- }}}

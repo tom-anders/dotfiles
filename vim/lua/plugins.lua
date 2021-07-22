@@ -275,7 +275,6 @@ require('packer').startup(function()
 
     -- {{{ LSP
     use {'neovim/nvim-lspconfig', config = function() require 'lspConfig' end }
-    use 'nvim-lua/lsp-status.nvim'
 
     use {'folke/lsp-trouble.nvim', 
         requires = "kyazdani42/nvim-web-devicons",
