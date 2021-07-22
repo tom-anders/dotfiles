@@ -228,7 +228,8 @@ require('telescope').setup {
             case_mode = "smart_case",      
         },
         hop = {
-            keys = {"h", "j", "k", "l", "b", "u", "f", "H", "J", "K", "L"}
+            keys = {"h", "j", "k", "l", "b", "u", "w", "e", "f", "y", "c", "r", "a", "s", "d", 
+                    "H", "J", "K", "L", "B", "U", "W", "E", "F", "Y", "C", "R", "A", "S", "D"}
         }
     }
 }
