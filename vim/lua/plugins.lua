@@ -281,9 +281,29 @@ require('packer').startup(function()
     use {'neovim/nvim-lspconfig', config = function() require 'lspConfig' end }
     use 'nvim-lua/lsp-status.nvim'
 
-    use {'folke/lsp-trouble.nvim', config = function()
-        vim.cmd[[nn <silent> <leader>q :LspTroubleClose<CR> :cclose<CR>]]
-        vim.cmd[[nn <silent> <leader>di :LspTroubleToggle lsp_document_diagnostics<CR>]]
+    use {'folke/lsp-trouble.nvim', 
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function()
+            function quickfixOpen() return vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix')) == 0 end
+            function nextInTroubleOrQuickfix()
+                if quickfixOpen() then
+                    vim.api.nvim_command("cnext")
+                else
+                    require("trouble").next({skip_groups = true, jump = true});
+                end
+            end
+            function prevInTroubleOrQuickfix()
+                if quickfixOpen() then
+                    vim.api.nvim_command("cprev")
+                else
+                    require("trouble").previous({skip_groups = true, jump = true});
+                end
+            end
+            vim.cmd[[nn <silent> <leader>q :LspTroubleClose<CR> :cclose<CR>]]
+            vim.cmd[[nn <silent> <leader>di :LspTroubleToggle lsp_document_diagnostics<CR>]]
+
+            vim.cmd[[nn <silent> }q :lua nextInTroubleOrQuickfix()<CR>]]
+            vim.cmd[[nn <silent> {q :lua prevInTroubleOrQuickfix()<CR>]]
     end}
     use 'ray-x/lsp_signature.nvim'
     use {'hrsh7th/vim-vsnip', config = function() -- For LSP Snippets
