@@ -64,19 +64,15 @@ require('packer').startup(function()
 
     -- {{{ lualine
     use {'hoob3rt/lualine.nvim', config = function() 
-        function LspStatus() 
-            if #vim.lsp.buf_get_clients() > 0 then
-                return require('lsp-status').status()
-            end
-
-            return ''
+        function CurrentFunction() 
+            return vim.fn['nvim_treesitter#statusline']()
         end
 
         require('lualine').setup{
             options = {
                 theme = 'tokyonight',
             },
-            sections = {lualine_c = {'filename', LspStatus}}
+            sections = {lualine_c = {'filename', CurrentFunction}}
         }
     end}
     -- }}}
